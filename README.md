@@ -7,7 +7,7 @@ Op. Dr. Alper Burak Uslu (Plastik, Rekonstrüktif ve Estetik Cerrahi) için sıf
 > - **`/preview`** → tasarımın statik önizlemesi (GitHub Pages'te yayınlanır, onay için).
 
 ## 🔗 Canlı önizleme
-GitHub Pages: **[önizleme linki README'nin en altında]** · Kök `/` → Türkçe ana sayfaya yönlenir. Diller: `/tr/`, `/en/`, `/de/`.
+GitHub Pages: **https://novavitamedia-lgtm.github.io/dralperuslu-tema/** · Kök `/` → Türkçe ana sayfaya yönlenir. Diller: `/tr/`, `/en/`, `/de/`.
 
 ---
 
@@ -123,3 +123,10 @@ wp eval-file scripts/wp-import.php tr     # sonra en / de
 ---
 
 **Statik önizleme, tasarımın onaya sunulan sürümüdür. Canlı sürüm `/theme` klasöründeki WordPress temasıdır.**
+
+---
+
+## 🔗 Teslim linkleri
+- **Repo:** https://github.com/novavitamedia-lgtm/dralperuslu-tema
+- **Canlı önizleme:** https://novavitamedia-lgtm.github.io/dralperuslu-tema/ (TR/EN/DE)
+- **QA raporu:** [docs/qa-raporu.md](docs/qa-raporu.md) — Lighthouse: Perf 100 / A11y 100 / BP 96 / SEO 50 (önizleme noindex)
