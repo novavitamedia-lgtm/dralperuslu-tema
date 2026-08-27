@@ -153,6 +153,24 @@ COUNTERS = [
     ("4000", "+", "c_surgery"), ("35", "+", "c_citation"),
 ]
 
+# Yaklaşım/değerler (doktorun bio'daki felsefesinden — uydurma yorum yerine dürüst içerik)
+VALUES = {
+    "tr": [("Bilimsel Yaklaşım", "Güncel literatür ve kanıta dayalı yöntemlerle, sürekli güncellenen bir cerrahi anlayış."),
+           ("Doğal Sonuçlar", "Abartıdan uzak, yüz ve vücut bütünlüğüne saygılı, doğal görünen sonuçlar."),
+           ("Kişiye Özel Plan", "Her hastanın anatomisi ve beklentisine göre gerçekçi, bireysel planlama."),
+           ("Etik ve Güven", "Şeffaf bilgilendirme, gerçekçi beklenti yönetimi ve hasta güvenliği önceliği.")],
+    "en": [("Scientific Approach", "An evidence-based surgical philosophy, continuously updated with current literature."),
+           ("Natural Results", "Natural-looking outcomes that respect facial and body harmony, free of exaggeration."),
+           ("Personalized Plan", "Realistic, individual planning based on each patient's anatomy and expectations."),
+           ("Ethics and Trust", "Transparent information, realistic expectation management and patient safety first.")],
+    "de": [("Wissenschaftlicher Ansatz", "Eine evidenzbasierte chirurgische Philosophie, stets auf dem neuesten Stand der Literatur."),
+           ("Natürliche Ergebnisse", "Natürlich wirkende Ergebnisse, die Gesichts- und Körperharmonie respektieren."),
+           ("Individueller Plan", "Realistische, individuelle Planung nach Anatomie und Erwartungen jedes Patienten."),
+           ("Ethik und Vertrauen", "Transparente Information, realistisches Erwartungsmanagement und Patientensicherheit.")],
+}
+VALUE_KICKER = {"tr": "Yaklaşımımız", "en": "Our Approach", "de": "Unser Ansatz"}
+VALUE_TITLE = {"tr": "Sizi Neyin Beklediğini Bilerek", "en": "Knowing What to Expect", "de": "Wissen, was Sie erwartet"}
+
 # ---------------------------------------------------------------- yardımcılar
 def norm(s):
     s = unicodedata.normalize("NFKD", s.lower())
@@ -664,6 +682,26 @@ def sec_reviews(ctx, reviews):
       '<div class="swiper reveal" data-swiper="testimonials"><div class="swiper-wrapper">' + slides + '</div><div class="swiper-pagination mt-6"></div></div>'
       '</div></section>')
 
+def sec_values(ctx):
+    icons = [IC["badge"], IC["star"], IC["map"], IC["phone"]]
+    cards = ""
+    for i, (title, desc) in enumerate(VALUES[ctx.lang]):
+        cards += ('<div class="reveal card p-6 card-hover">'
+                  '<div class="w-12 h-12 rounded-xl2 bg-brand-50 text-brand-600 grid place-content-center mb-4">'
+                  + ['<svg viewBox="0 0 24 24" fill="none" class="w-6 h-6"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 21l-4.9 2.6.9-5.5-4-3.9 5.5-.8L12 3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+                     '<svg viewBox="0 0 24 24" fill="none" class="w-6 h-6"><path d="M4 12a8 8 0 018-8m8 8a8 8 0 01-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/></svg>',
+                     '<svg viewBox="0 0 24 24" fill="none" class="w-6 h-6"><path d="M12 3v18M5 8l7-5 7 5M5 8v10l7 3 7-3V8" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+                     '<svg viewBox="0 0 24 24" fill="none" class="w-6 h-6"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'][i]
+                  + '</div>'
+                  '<h3 class="font-display text-h3 font-semibold text-ink-900">' + esc(title) + '</h3>'
+                  '<p class="text-ink-500 mt-2 text-[0.95rem]">' + esc(desc) + '</p></div>')
+    return ('<section class="section bg-white"><div class="container">'
+            '<div class="text-center max-w-2xl mx-auto mb-12 reveal">'
+            '<span class="kicker justify-center mb-3">' + esc(VALUE_KICKER[ctx.lang]) + '</span>'
+            '<h2 class="section-title mt-3">' + esc(VALUE_TITLE[ctx.lang]) + '</h2></div>'
+            '<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">' + cards + '</div>'
+            '</div></section>')
+
 def sec_cta(ctx):
     t = ctx.t
     return (
@@ -772,6 +810,7 @@ def build_home(ctx, data, langswitch):
             + sec_steps(ctx)
             + sec_doctor(ctx)
             + sec_apart(ctx)
+            + sec_values(ctx)
             + sec_reviews(ctx, data.get("reviews", []))
             + sec_gallery(ctx, gal[:9])
             + sec_cta(ctx))
