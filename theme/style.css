@@ -1,0 +1,17 @@
+/*
+Theme Name: Op. Dr. Alper Burak Uslu
+Theme URI: https://dralperuslu.com
+Author: Nova Vita Media
+Author URI: https://dralperuslu.com
+Description: Op. Dr. Alper Burak Uslu için özel (custom) klasik WordPress teması. Tailwind CLI ile derlenmiş tek CSS, Alpine.js + Swiper.js, ACF Pro (Flexible Content + Options), uzmanlik CPT + uzmanlik-kategori taksonomisi. Blok tema değil, child tema değil, sayfa oluşturucu bağımsız.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.6
+Requires PHP: 8.1
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: dr-alper-uslu
+Tags: custom-theme, medical, right-sidebar, translation-ready, custom-menu, featured-images
+*/
+
+/* Görünür stiller assets/dist/main.css içinde (Tailwind CLI ile derlenir). Bu dosya WP tema başlığı içindir. */

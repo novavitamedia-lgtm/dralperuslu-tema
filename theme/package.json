@@ -1,0 +1,13 @@
+{
+  "name": "dr-alper-uslu-theme",
+  "version": "1.0.0",
+  "description": "Op. Dr. Alper Burak Uslu — klasik WordPress teması (Tailwind CLI derlemeli)",
+  "private": true,
+  "scripts": {
+    "dev": "tailwindcss -i ./assets/src/tailwind.css -o ./assets/dist/main.css --watch",
+    "build": "tailwindcss -i ./assets/src/tailwind.css -o ./assets/dist/main.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.13"
+  }
+}

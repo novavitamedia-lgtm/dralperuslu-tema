@@ -1,0 +1,40 @@
+{
+  "YÜZ ESTETİĞİ": [
+    "burun-estetigi-istanbul",
+    "yuz-germe-istanbul",
+    "boyun-germe-istanbul",
+    "goz-cevresi-estetigi-istanbul",
+    "goz-kapagi-estetigi-istanbul",
+    "kepce-kulak-ameliyati-istanbul",
+    "badem-goz-estetigi-istanbul",
+    "sakak-germe-istanbul",
+    "lip-lift-istanbul",
+    "koruyucu-rinoplasti-istanbul",
+    "endoskopik-yuz-germe-istanbul",
+    "piezo-rinoplasti-istanbul"
+  ],
+  "VÜCUT ESTETİĞİ": [
+    "liposuction-istanbul",
+    "kalca-estetigi-istanbul",
+    "karin-germe-istanbul",
+    "bbl-istanbul",
+    "gidi-estetigi-istanbul",
+    "genital-estetik-istanbul",
+    "kol-germe-ameliyati-istanbul",
+    "vaser-liposuction-istanbul",
+    "popo-estetigi-istanbul"
+  ],
+  "GÖĞÜS ESTETİĞİ": [
+    "meme-buyutme-istanbul",
+    "meme-kucultme-istanbul",
+    "meme-diklestirme-istanbul"
+  ],
+  "AMELİYATSIZ ESTETİK": [
+    "botoks-istanbul",
+    "dolgu-uygulamalari-istanbul",
+    "dudak-estetigi-istanbul",
+    "yag-dolgusu-istanbul",
+    "genclik-asisi-istanbul",
+    "prp-tedavisi-istanbul"
+  ]
+}

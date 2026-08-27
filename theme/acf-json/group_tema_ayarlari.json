@@ -1,0 +1,24 @@
+{
+  "key": "group_dau_options",
+  "title": "Tema Ayarları",
+  "fields": [
+    { "key": "field_dau_logo", "label": "Logo (yedek)", "name": "logo", "type": "image", "return_format": "id", "preview_size": "medium" },
+    { "key": "field_dau_telefon", "label": "Telefon (görünen)", "name": "telefon", "type": "text", "default_value": "+90 532 569 31 99" },
+    { "key": "field_dau_telefon_raw", "label": "Telefon (tel: için)", "name": "telefon_raw", "type": "text", "default_value": "+905325693199" },
+    { "key": "field_dau_whatsapp", "label": "WhatsApp numarası (sadece rakam)", "name": "whatsapp", "type": "text", "default_value": "905325693199" },
+    { "key": "field_dau_adres", "label": "Adres", "name": "adres", "type": "text", "default_value": "Fenerbahçe Mah. Bağdat Cad. 134/11 Kadıköy / İstanbul" },
+    { "key": "field_dau_maps", "label": "Google Maps bağlantısı", "name": "maps", "type": "url" },
+    { "key": "field_dau_calisma", "label": "Çalışma saatleri", "name": "calisma_saati", "type": "text", "default_value": "Pazartesi – Cumartesi: 09:00 – 19:00" },
+    { "key": "field_dau_facebook", "label": "Facebook", "name": "facebook", "type": "url" },
+    { "key": "field_dau_instagram", "label": "Instagram", "name": "instagram", "type": "url" },
+    { "key": "field_dau_youtube", "label": "YouTube", "name": "youtube", "type": "url" },
+    { "key": "field_dau_uyari", "label": "Yasal uyarı (footer)", "name": "uyari_metni", "type": "textarea", "rows": 3 },
+    { "key": "field_dau_footer_form", "label": "Footer form kısa kodu (CF7)", "name": "footer_form_shortcode", "type": "text", "instructions": "Örn: [contact-form-7 id=\"123\"]" }
+  ],
+  "location": [
+    [ { "param": "options_page", "operator": "==", "value": "tema-ayarlari" } ]
+  ],
+  "menu_order": 0,
+  "active": true,
+  "description": "Site geneli iletişim, sosyal medya ve footer ayarları."
+}

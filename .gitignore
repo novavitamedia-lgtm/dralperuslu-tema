@@ -1,0 +1,15 @@
+# Bağımlılıklar
+node_modules/
+theme/node_modules/
+# Ortam
+.env
+*.log
+# wp-env / yerel WP
+.wp-env.override.json
+wp-env/
+# OS
+.DS_Store
+Thumbs.db
+# Geçici
+scratchpad/
+*.tmp

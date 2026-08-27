@@ -1,0 +1,24 @@
+{
+  "key": "group_dau_uzmanlik",
+  "title": "Uzmanlık — Sık Sorulan Sorular",
+  "fields": [
+    {
+      "key": "field_dau_sss",
+      "label": "Sık Sorulan Sorular",
+      "name": "sss",
+      "type": "repeater",
+      "layout": "block",
+      "button_label": "Soru Ekle",
+      "sub_fields": [
+        { "key": "field_dau_sss_soru", "label": "Soru", "name": "soru", "type": "text" },
+        { "key": "field_dau_sss_cevap", "label": "Cevap", "name": "cevap", "type": "wysiwyg", "media_upload": 0, "toolbar": "basic" }
+      ]
+    }
+  ],
+  "location": [
+    [ { "param": "post_type", "operator": "==", "value": "uzmanlik" } ]
+  ],
+  "menu_order": 0,
+  "active": true,
+  "description": "Uzmanlık sayfalarında FAQ akordeonu ve FAQPage schema'sını besler."
+}

@@ -1,0 +1,101 @@
+# SEO URL Devamlılık Haritası
+
+Toplam 92 URL. Tüm slug'lar birebir korunuyor (301 gerekmez).
+CPT tabanı `/uzmanliklar/`, taksonomi `/uzmanlik-kategori/` mevcut yapıyla uyumlu.
+
+| Dil | İçerik | Eski = Yeni URL | Durum |
+|---|---|---|---|
+| tr | sayfa | `https://dralperuslu.com/basarilar/` | Birebir (slug korunur) |
+| tr | sayfa | `https://dralperuslu.com/yasal-uyari/` | Birebir (slug korunur) |
+| tr | sayfa | `https://dralperuslu.com/iletisim/` | Birebir (slug korunur) |
+| tr | sayfa | `https://dralperuslu.com/hakkimda/` | Birebir (slug korunur) |
+| tr | sayfa | `https://dralperuslu.com/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/boyun-germe-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/burun-estetigi-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/yuz-germe-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/prp-tedavisi-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/genclik-asisi-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/yag-dolgusu-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/dudak-estetigi-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/liposuction-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/dolgu-uygulamalari-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/meme-diklestirme-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/meme-kucultme-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/meme-buyutme-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/popo-estetigi-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/vaser-liposuction-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/kol-germe-ameliyati-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/genital-estetik-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/gidi-estetigi-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/bbl-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/karin-germe-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/kalca-estetigi-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/piezo-rinoplasti-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/endoskopik-yuz-germe-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/koruyucu-rinoplasti-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/lip-lift-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/sakak-germe-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/badem-goz-estetigi-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/kepce-kulak-ameliyati-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/goz-kapagi-estetigi-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/goz-cevresi-estetigi-istanbul/` | Birebir (slug korunur) |
+| tr | uzmanlik | `https://dralperuslu.com/uzmanliklar/botoks-istanbul/` | Birebir (slug korunur) |
+| en | sayfa | `https://dralperuslu.com/eng/archievements/` | Birebir (slug korunur) |
+| en | sayfa | `https://dralperuslu.com/eng/legal-warning/` | Birebir (slug korunur) |
+| en | sayfa | `https://dralperuslu.com/eng/testimonials/` | Birebir (slug korunur) |
+| en | sayfa | `https://dralperuslu.com/eng/contact/` | Birebir (slug korunur) |
+| en | sayfa | `https://dralperuslu.com/eng/about-me/` | Birebir (slug korunur) |
+| en | sayfa | `https://dralperuslu.com/eng/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/breast-reduction-surgery-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/piezo-rhinoplasty-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/buttock-enhancement-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/temporal-lift-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/vaser-liposuction-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/face-lift-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/preservation-rhinoplasty-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/arm-lift-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/prominent-ear-surgery-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/tummy-tuck-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/genital-aesthetics-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/fox-eyes-surgery-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/neck-lift-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/rhinoplasty-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/endoscopic-face-lift-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/liposuction-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/breast-lift-surgery-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/breast-augmentation-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/bbl-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/eyelid-aesthetics-turkey/` | Birebir (slug korunur) |
+| en | uzmanlik | `https://dralperuslu.com/eng/procedures/botox-turkey/` | Birebir (slug korunur) |
+| de | sayfa | `https://dralperuslu.com/de/erfolge/` | Birebir (slug korunur) |
+| de | sayfa | `https://dralperuslu.com/de/rechtlicher-hinweis/` | Birebir (slug korunur) |
+| de | sayfa | `https://dralperuslu.com/de/bemerkungen/` | Birebir (slug korunur) |
+| de | sayfa | `https://dralperuslu.com/de/kontakt/` | Birebir (slug korunur) |
+| de | sayfa | `https://dralperuslu.com/de/uber-mich/` | Birebir (slug korunur) |
+| de | sayfa | `https://dralperuslu.com/de/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/fettauffullung-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/vaser-liposuktion-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/piezo-rhinoplastik-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/brustverkleinerung-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/liplift-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/preservation-rhinoplastik-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/armlift-chirurgie-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/ohrenkorrektur-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/bauchdeckenstraffung-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/blepharoplastik-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/augenkontur-asthetik-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/jowl-asthetik-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/genitalasthetik-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/endoskopisches-facelift-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/rhinoplastik-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/brasilianische-po-asthetik-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/mandelaugen-asthetik-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/gesichtsstraffung-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/fettabsaugung-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/bruststraffung-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/brustvergroserung-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/po-asthetik-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/schlafenlift-turkei/` | Birebir (slug korunur) |
+| de | uzmanlik | `https://dralperuslu.com/de/spezialisierungen/halsstraffung-turkei/` | Birebir (slug korunur) |
+
+**Kayıp sayfa: 0** — envanterdeki 92 URL'nin tamamı temada mevcut.

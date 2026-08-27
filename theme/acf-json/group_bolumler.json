@@ -1,0 +1,104 @@
+{
+  "key": "group_dau_bolumler",
+  "title": "Sayfa Bölümleri (Esnek İçerik)",
+  "fields": [
+    {
+      "key": "field_dau_bolumler",
+      "label": "Bölümler",
+      "name": "bolumler",
+      "type": "flexible_content",
+      "button_label": "Bölüm Ekle",
+      "instructions": "Bölümleri sürükleyip sıralayabilirsiniz. Boş bırakılırsa tema varsayılan ana sayfa sırasını gösterir.",
+      "layouts": {
+        "layout_hero": {
+          "key": "layout_hero", "name": "hero", "label": "Hero (tam ekran)", "display": "block",
+          "sub_fields": [
+            { "key": "field_hero_baslik", "label": "Başlık", "name": "baslik", "type": "text" },
+            { "key": "field_hero_alt", "label": "Alt başlık", "name": "alt_baslik", "type": "textarea", "rows": 2 },
+            { "key": "field_hero_portre", "label": "Portre görsel", "name": "portre", "type": "image", "return_format": "id", "preview_size": "medium" }
+          ]
+        },
+        "layout_counters": {
+          "key": "layout_counters", "name": "counters", "label": "Sayaçlar", "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_counters_rep", "label": "Sayaçlar", "name": "sayaclar", "type": "repeater", "layout": "table", "button_label": "Sayaç Ekle", "max": 4,
+              "sub_fields": [
+                { "key": "field_counters_sayi", "label": "Sayı", "name": "sayi", "type": "number" },
+                { "key": "field_counters_ek", "label": "Son ek", "name": "son_ek", "type": "text" },
+                { "key": "field_counters_etiket", "label": "Etiket", "name": "etiket", "type": "text" }
+              ]
+            }
+          ]
+        },
+        "layout_textimage": {
+          "key": "layout_textimage", "name": "textimage", "label": "Metin / Görsel", "display": "block",
+          "sub_fields": [
+            { "key": "field_ti_baslik", "label": "Başlık", "name": "baslik", "type": "text" },
+            { "key": "field_ti_metin", "label": "Metin", "name": "metin", "type": "wysiwyg", "media_upload": 0 },
+            { "key": "field_ti_gorsel", "label": "Görsel", "name": "gorsel", "type": "image", "return_format": "id" }
+          ]
+        },
+        "layout_services": {
+          "key": "layout_services", "name": "services", "label": "Hizmet Kartları", "display": "block",
+          "sub_fields": [
+            { "key": "field_srv_baslik", "label": "Başlık (opsiyonel)", "name": "baslik", "type": "text" }
+          ]
+        },
+        "layout_steps": {
+          "key": "layout_steps", "name": "steps", "label": "Süreç Adımları (01/02/03)", "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_steps_rep", "label": "Adımlar", "name": "adimlar", "type": "repeater", "layout": "row", "button_label": "Adım Ekle",
+              "sub_fields": [
+                { "key": "field_steps_no", "label": "Numara", "name": "numara", "type": "text" },
+                { "key": "field_steps_baslik", "label": "Başlık", "name": "baslik", "type": "text" },
+                { "key": "field_steps_aciklama", "label": "Açıklama", "name": "aciklama", "type": "textarea", "rows": 2 }
+              ]
+            }
+          ]
+        },
+        "layout_doctor": {
+          "key": "layout_doctor", "name": "doctor", "label": "Doktor Kartı (koyu)", "display": "block",
+          "sub_fields": [
+            { "key": "field_doc_gorsel", "label": "Görsel", "name": "gorsel", "type": "image", "return_format": "id" },
+            { "key": "field_doc_ad", "label": "Ad", "name": "ad", "type": "text" },
+            { "key": "field_doc_unvan", "label": "Ünvan", "name": "unvan", "type": "text" }
+          ]
+        },
+        "layout_certs": {
+          "key": "layout_certs", "name": "certs", "label": "Sertifika / Üyelik Rozetleri", "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_certs_rep", "label": "Rozetler", "name": "rozetler", "type": "repeater", "layout": "row", "button_label": "Rozet Ekle",
+              "sub_fields": [
+                { "key": "field_certs_logo", "label": "Logo (opsiyonel)", "name": "logo", "type": "image", "return_format": "id" },
+                { "key": "field_certs_isim", "label": "Kısa ad", "name": "isim", "type": "text" },
+                { "key": "field_certs_aciklama", "label": "Açıklama", "name": "aciklama", "type": "text" }
+              ]
+            }
+          ]
+        },
+        "layout_gallery": {
+          "key": "layout_gallery", "name": "gallery", "label": "Galeri (Swiper)", "display": "block",
+          "sub_fields": [
+            { "key": "field_gal_gorseller", "label": "Görseller", "name": "galeri_gorseller", "type": "gallery", "return_format": "id" }
+          ]
+        },
+        "layout_cta": {
+          "key": "layout_cta", "name": "cta", "label": "CTA Şeridi", "display": "block",
+          "sub_fields": [
+            { "key": "field_cta_baslik", "label": "Başlık", "name": "baslik", "type": "text" },
+            { "key": "field_cta_metin", "label": "Metin", "name": "metin", "type": "textarea", "rows": 2 }
+          ]
+        }
+      }
+    }
+  ],
+  "location": [
+    [ { "param": "post_type", "operator": "==", "value": "page" } ]
+  ],
+  "menu_order": 0,
+  "active": true,
+  "description": "embraceyoursmile desenlerini doktorun içeriğiyle dolduran esnek bölümler. Her sayfada kullanılabilir."
+}

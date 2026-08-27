@@ -1,0 +1,8 @@
+{
+  "core": "WordPress/WordPress#6.6",
+  "themes": ["."],
+  "config": { "WP_DEBUG": true, "WP_DEBUG_LOG": true },
+  "mappings": {
+    "wp-content/uploads/dau-import": "../content/media"
+  }
+}
