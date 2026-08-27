@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /
+
+# Önizleme sürümü — canlı site indexlenir.

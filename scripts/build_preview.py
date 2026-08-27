@@ -17,6 +17,7 @@ MEDIA_FILES = set(os.listdir(os.path.join(CONTENT, "media")))
 
 LANGS = ["tr", "en", "de"]
 LANG_LABEL = {"tr": "TR", "en": "EN", "de": "DE"}
+BASE_URL = "https://novavitamedia-lgtm.github.io/dralperuslu-tema"  # önizleme mutlak taban (OG için)
 
 # ---- Site geneli (A kaynağından) ----
 SITE = {
@@ -287,6 +288,12 @@ def render_head(ctx, title, desc, canonical, alternates, jsonld_list, preload_im
     lines.append('<meta property="og:type" content="website">')
     lines.append('<meta property="og:title" content="' + esc(title) + '">')
     if desc: lines.append('<meta property="og:description" content="' + esc(desc) + '">')
+    lines.append('<meta property="og:site_name" content="Op. Dr. Alper Burak Uslu">')
+    lines.append('<meta property="og:locale" content="' + {"tr": "tr_TR", "en": "en_US", "de": "de_DE"}[ctx.lang] + '">')
+    _og = preload_img or DOCTOR_IMG
+    if _og:
+        lines.append('<meta property="og:image" content="' + BASE_URL + '/assets/media/' + _og + '">')
+    lines.append('<meta name="twitter:card" content="summary_large_image">')
     lines.append('<meta name="theme-color" content="#12857D">')
     # fontlar preload (kritik)
     lines.append('<link rel="preload" as="font" type="font/woff2" crossorigin href="' + ctx.asset("fonts/jakarta-500-latin-ext.woff2") + '">')
@@ -507,7 +514,7 @@ def _card(ctx, slug, title, cat, excerpt=""):
         if not excerpt:
             excerpt = meta_desc(proc)
     if img:
-        imgtag = ('<div class="aspect-[4/3] overflow-hidden"><img src="' + ctx.media(img) + '" alt="' + esc(title) + '" loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-105"></div>')
+        imgtag = ('<div class="aspect-[4/3] overflow-hidden"><img src="' + ctx.media(img) + '" alt="' + esc(title) + '" width="640" height="480" loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-105"></div>')
     else:
         # benzersiz foto yoksa: tasarlanmış gradient kapak (tekrarlı stok yerine)
         deco = ('<svg viewBox="0 0 200 150" class="absolute inset-0 w-full h-full opacity-[0.16]" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'
@@ -604,7 +611,7 @@ def sec_gallery(ctx, images, title=None):
     t = ctx.t
     slides = "".join(
       '<div class="swiper-slide"><div class="aspect-[3/4] rounded-xl2 overflow-hidden ring-1 ring-line shadow-soft bg-white p-2">'
-      '<img src="' + ctx.media(im["local"]) + '" alt="' + esc(im.get("alt") or t["gallery_title"]) + '" loading="lazy" class="w-full h-full object-contain"></div></div>'
+      '<img src="' + ctx.media(im["local"]) + '" alt="' + esc(im.get("alt") or t["gallery_title"]) + '" width="480" height="600" loading="lazy" class="w-full h-full object-contain"></div></div>'
       for im in images if im.get("local"))
     return (
       '<section class="section bg-cream-50 overflow-hidden"><div class="container">'
@@ -927,7 +934,7 @@ def build_achievements(ctx, item, langswitch):
     nav = NAV[ctx.lang]
     t = ctx.t
     imgs = item.get("images", []) if item else []
-    grid = "".join('<a href="' + ctx.media(im["local"]) + '" target="_blank" rel="noopener" class="block aspect-[4/5] rounded-xl2 overflow-hidden ring-1 ring-line shadow-soft bg-white p-3 reveal"><img src="' + ctx.media(im["local"]) + '" alt="' + esc(im.get("alt") or t["gallery_title"]) + '" loading="lazy" class="w-full h-full object-contain"></a>' for im in imgs if im.get("local"))
+    grid = "".join('<a href="' + ctx.media(im["local"]) + '" target="_blank" rel="noopener" class="block aspect-[4/5] rounded-xl2 overflow-hidden ring-1 ring-line shadow-soft bg-white p-3 reveal"><img src="' + ctx.media(im["local"]) + '" alt="' + esc(im.get("alt") or t["gallery_title"]) + '" width="480" height="600" loading="lazy" class="w-full h-full object-contain"></a>' for im in imgs if im.get("local"))
     trail = [(t["nav_home"], ctx.link("index.html")), (t["nav_achievements"], None)]
     body = ('<section class="mesh-teal"><div class="container py-12 md:py-16">' + breadcrumb(ctx, trail)
             + '<h1 class="text-hero !text-[clamp(2rem,4vw,3.2rem)] font-bold text-ink-900 mt-5">' + esc(item["title"] if item else t["nav_achievements"]) + '</h1>'
@@ -1036,6 +1043,40 @@ def main():
           '<link rel="canonical" href="./tr/index.html"><title>Op. Dr. Alper Burak Uslu</title></head>'
           '<body><a href="./tr/index.html">Op. Dr. Alper Burak Uslu →</a></body></html>')
     write(os.path.join(PREVIEW, ".nojekyll"), "")
+
+    # 3b) llms.txt (AEO/GEO — AI motorları için site kılavuzu, TR bazlı)
+    trd = all_data["tr"]
+    about_sum = ""
+    if trd["about"]:
+        ps = [p for p in trd["about"]["text"].split("\n") if len(p.strip()) > 60]
+        about_sum = ps[0].strip()[:400] if ps else ""
+    lines_llms = [
+        "# Op. Dr. Alper Burak Uslu",
+        "",
+        "> Plastik, Rekonstrüktif ve Estetik Cerrahi Uzmanı (M.D, FEBOPRAS). "
+        "İstanbul Kadıköy'de estetik cerrahi; yüz, vücut, göğüs ve ameliyatsız uygulamalar.",
+        "",
+        "## Hakkında",
+        about_sum or "Op. Dr. Alper Burak Uslu, uluslararası üyeliklere sahip plastik cerrahi uzmanıdır.",
+        "",
+        "## İletişim",
+        "- Telefon: " + SITE["phone_display"],
+        "- Adres: " + SITE["address"],
+        "- Instagram: " + SITE["social"]["instagram"],
+        "",
+        "## Uzmanlık Alanları",
+    ]
+    for cat in CATS:
+        lines_llms.append("### " + CAT_LABEL["tr"][cat])
+        for slug, title in NAV["tr"].get(cat, []):
+            lines_llms.append("- [" + title + "](/tr/uzmanliklar/" + slug + ".html)")
+        lines_llms.append("")
+    lines_llms += ["## Sertifika ve Üyelikler",
+                   ", ".join(c for c, _ in SITE["certs"]), ""]
+    write(os.path.join(PREVIEW, "llms.txt"), "\n".join(lines_llms))
+    # robots.txt (önizleme: indexlenmesin)
+    write(os.path.join(PREVIEW, "robots.txt"),
+          "User-agent: *\nDisallow: /\n\n# Önizleme sürümü — canlı site indexlenir.\n")
 
     # 4) assetler
     dst_assets = os.path.join(PREVIEW, "assets")
