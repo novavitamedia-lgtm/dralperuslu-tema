@@ -443,15 +443,24 @@ def page_shell(ctx, title, desc, canonical, alternates, jsonld, body, nav, langs
             + '<main class="flex-1" style="padding-top:var(--nav-h)">' + body + '</main>'
             + render_footer(ctx, nav)
             + render_mobilebar(ctx)
+            + render_whatsapp_float(ctx)
             + render_scrolltop(ctx)
             + '\n</body></html>')
+
+def render_whatsapp_float(ctx):
+    # masaüstü sabit WhatsApp (mobilde alt çubuk zaten var → sm ve üstü göster)
+    return ('<a href="' + wa_link() + '" target="_blank" rel="noopener" '
+            'aria-label="WhatsApp" '
+            'class="hidden sm:flex fixed z-40 right-5 bottom-5 items-center gap-2 rounded-full bg-[#25D366] text-white pl-4 pr-5 py-3 shadow-cardHover '
+            'hover:pr-6 transition-all duration-300 group">' + IC["wa"] +
+            '<span class="font-semibold text-sm">WhatsApp</span></a>')
 
 def render_scrolltop(ctx):
     # uzun sayfalarda "yukarı çık" — kaydırınca belirir (mobil sabit çubuğun üstünde)
     return ('<button x-data="{ show:false }" x-init="window.addEventListener(\'scroll\',()=>show=window.scrollY>600)" '
             'x-show="show" x-transition @click="window.scrollTo({top:0,behavior:\'smooth\'})" x-cloak '
             'aria-label="' + esc(ctx.t.get("to_top", "Yukarı çık")) + '" '
-            'class="fixed z-40 right-4 bottom-20 sm:bottom-6 w-11 h-11 rounded-full bg-white text-brand-700 ring-1 ring-line shadow-cardHover grid place-content-center hover:bg-brand-50 transition">'
+            'class="fixed z-40 right-4 sm:right-5 bottom-20 sm:bottom-[5.5rem] w-11 h-11 rounded-full bg-white text-brand-700 ring-1 ring-line shadow-cardHover grid place-content-center hover:bg-brand-50 transition">'
             '<svg viewBox="0 0 24 24" class="w-5 h-5" fill="none"><path d="M12 19V5m0 0-6 6m6-6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>')
 
 # ---------------------------------------------------------------- bölümler
