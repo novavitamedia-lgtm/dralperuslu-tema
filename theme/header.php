@@ -26,7 +26,7 @@
 			the_custom_logo();
 		} else {
 			printf(
-				'<a href="%s" class="flex flex-col justify-center" aria-label="%s"><span class="font-display text-[1.02rem] sm:text-[1.12rem] font-bold leading-tight whitespace-nowrap text-ink-900">%s</span><span class="block text-[0.6rem] sm:text-[0.66rem] uppercase tracking-[0.16em] text-ink-500 mt-1 whitespace-nowrap">%s</span></a>',
+				'<a href="%s" class="flex flex-col justify-center"><span class="font-display text-[1.02rem] sm:text-[1.12rem] font-bold leading-tight whitespace-nowrap text-ink-900">%s</span><span class="block text-[0.6rem] sm:text-[0.66rem] uppercase tracking-[0.16em] text-ink-500 mt-1 whitespace-nowrap">%s</span></a>',
 				esc_url( home_url( '/' ) ),
 				esc_attr( get_bloginfo( 'name' ) ),
 				esc_html( get_bloginfo( 'name' ) ),

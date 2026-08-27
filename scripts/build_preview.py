@@ -309,7 +309,7 @@ def logo_markup(ctx, on_dark=False):
     sub = "text-white/70" if on_dark else "text-ink-500"
     inner = ('<span class="font-display text-[1.02rem] sm:text-[1.12rem] font-bold leading-tight whitespace-nowrap ' + color + '">Op. Dr. Alper Burak Uslu</span>'
              '<span class="block text-[0.6rem] sm:text-[0.66rem] uppercase tracking-[0.16em] ' + sub + ' mt-1 whitespace-nowrap">' + esc(ctx.t["hero_role"]) + '</span>')
-    return '<a href="' + ctx.link("index.html") + '" class="flex flex-col justify-center" aria-label="Op. Dr. Alper Burak Uslu">' + inner + '</a>'
+    return '<a href="' + ctx.link("index.html") + '" class="flex flex-col justify-center">' + inner + '</a>'
 
 def render_header(ctx, nav, langswitch):
     t = ctx.t
@@ -410,13 +410,13 @@ def render_footer(ctx, nav):
       '<div class="lg:col-span-1">' + logo_markup(ctx, on_dark=True) +
         '<p class="text-white/60 text-sm mt-4 max-w-xs">' + esc(t["legal_note"]) + '</p>'
         '<div class="flex gap-2 mt-5">' + socials + '</div></div>'
-      '<div><h4 class="font-display text-lg mb-4 text-white">' + esc(t["nav_procedures"]) + '</h4><ul class="space-y-2 text-sm">' + cats +
+      '<div><h2 class="font-display text-lg mb-4 text-white">' + esc(t["nav_procedures"]) + '</h2><ul class="space-y-2 text-sm">' + cats +
         '<li><a href="' + ctx.link("uzmanliklar/index.html") + '" class="text-brand-300 hover:text-white font-medium">' + esc(t["all_procedures"]) + ' →</a></li></ul></div>'
-      '<div><h4 class="font-display text-lg mb-4 text-white">' + esc(t["footer_addr"]) + '</h4>'
+      '<div><h2 class="font-display text-lg mb-4 text-white">' + esc(t["footer_addr"]) + '</h2>'
         '<a href="' + SITE["maps"] + '" target="_blank" rel="noopener" class="flex gap-2 text-white/70 text-sm hover:text-white">' + IC["map"] + '<span>' + esc(SITE["address"]) + '</span></a>'
         '<a href="tel:' + SITE["phone_tel"] + '" class="flex gap-2 text-white/70 text-sm hover:text-white mt-3">' + IC["phone"] + esc(SITE["phone_display"]) + '</a>'
         '<div class="flex gap-2 text-white/70 text-sm mt-3">' + IC["clock"] + '<div><div class="text-white/90">' + esc(t["hours_title"]) + '</div>' + esc(t["hours"]) + '</div></div></div>'
-      '<div><h4 class="font-display text-lg mb-4 text-white">' + esc(t["footer_quick"]) + '</h4>' + form + '</div>'
+      '<div><h2 class="font-display text-lg mb-4 text-white">' + esc(t["footer_quick"]) + '</h2>' + form + '</div>'
       '</div>'
       '<div class="container mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-white/50 text-xs">'
       '<span>© 2026 Op. Dr. Alper Burak Uslu. Tüm hakları saklıdır.</span>'
@@ -598,8 +598,8 @@ def sec_gallery(ctx, images, title=None):
       '<section class="section bg-cream-50 overflow-hidden"><div class="container">'
       '<div class="flex items-end justify-between gap-4 mb-10 reveal"><div>'
       '<span class="kicker mb-3">' + esc(t["gallery_kicker"]) + '</span><h2 class="section-title mt-3">' + esc(title or t["gallery_title"]) + '</h2></div>'
-      '<div class="hidden sm:flex gap-2"><button class="gal-prev w-11 h-11 rounded-full ring-1 ring-line grid place-content-center hover:bg-white"><svg viewBox="0 0 24 24" class="w-5 h-5 rotate-180" fill="none"><path d="M5 12h14m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
-      '<button class="gal-next w-11 h-11 rounded-full ring-1 ring-line grid place-content-center hover:bg-white">' + IC["arrow"] + '</button></div></div>'
+      '<div class="hidden sm:flex gap-2"><button aria-label="Önceki" class="gal-prev w-11 h-11 rounded-full ring-1 ring-line grid place-content-center hover:bg-white"><svg viewBox="0 0 24 24" class="w-5 h-5 rotate-180" fill="none"><path d="M5 12h14m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
+      '<button aria-label="Sonraki" class="gal-next w-11 h-11 rounded-full ring-1 ring-line grid place-content-center hover:bg-white">' + IC["arrow"] + '</button></div></div>'
       '<div class="swiper reveal" data-swiper="gallery"><div class="swiper-wrapper">' + slides + '</div></div>'
       '</div></section>')
 

@@ -49,7 +49,7 @@
 @layer components {
   /* Butonlar */
   .btn { @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold text-[0.95rem] px-6 py-3 transition duration-300 ease-out; }
-  .btn-primary { @apply btn bg-brand-600 text-white shadow-soft hover:bg-brand-700 hover:-translate-y-0.5; }
+  .btn-primary { @apply btn bg-brand-700 text-white shadow-soft hover:bg-brand-800 hover:-translate-y-0.5; }
   .btn-ghost { @apply btn bg-white text-brand-700 ring-1 ring-brand-600/25 hover:ring-brand-600/60 hover:bg-brand-50; }
   .btn-light { @apply btn bg-white/10 text-white ring-1 ring-white/40 backdrop-blur hover:bg-white/20; }
   .btn-gold  { @apply btn bg-gold-500 text-ink-900 hover:bg-gold-400; }

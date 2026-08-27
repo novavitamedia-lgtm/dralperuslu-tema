@@ -26,7 +26,7 @@
 			</div>
 		</div>
 		<div>
-			<h4 class="font-display text-lg mb-4 text-white"><?php esc_html_e( 'Uzmanlıklar', 'dr-alper-uslu' ); ?></h4>
+			<h2 class="font-display text-lg mb-4 text-white"><?php esc_html_e( 'Uzmanlıklar', 'dr-alper-uslu' ); ?></h2>
 			<ul class="space-y-2 text-sm">
 				<?php
 				$terms = get_terms( array( 'taxonomy' => 'uzmanlik-kategori', 'hide_empty' => false ) );
@@ -40,13 +40,13 @@
 			</ul>
 		</div>
 		<div>
-			<h4 class="font-display text-lg mb-4 text-white"><?php esc_html_e( 'Adres', 'dr-alper-uslu' ); ?></h4>
+			<h2 class="font-display text-lg mb-4 text-white"><?php esc_html_e( 'Adres', 'dr-alper-uslu' ); ?></h2>
 			<a href="<?php echo esc_url( dau_opt( 'maps' ) ); ?>" target="_blank" rel="noopener" class="flex gap-2 text-white/70 text-sm hover:text-white"><?php echo dau_icon( 'map' ); // phpcs:ignore ?><span><?php echo esc_html( dau_opt( 'adres' ) ); ?></span></a>
 			<a href="<?php echo esc_url( dau_tel() ); ?>" class="flex gap-2 text-white/70 text-sm hover:text-white mt-3"><?php echo dau_icon( 'phone' ); // phpcs:ignore ?><?php echo esc_html( dau_opt( 'telefon' ) ); ?></a>
 			<div class="flex gap-2 text-white/70 text-sm mt-3"><?php echo dau_icon( 'clock' ); // phpcs:ignore ?><span><?php echo esc_html( dau_opt( 'calisma_saati' ) ); ?></span></div>
 		</div>
 		<div>
-			<h4 class="font-display text-lg mb-4 text-white"><?php esc_html_e( 'Hızlı İletişim', 'dr-alper-uslu' ); ?></h4>
+			<h2 class="font-display text-lg mb-4 text-white"><?php esc_html_e( 'Hızlı İletişim', 'dr-alper-uslu' ); ?></h2>
 			<?php
 			// Contact Form 7 kısa kodu ACF Options'ta tanımlıysa göster; yoksa WhatsApp CTA.
 			$cf7 = dau_opt( 'footer_form_shortcode', '' );
