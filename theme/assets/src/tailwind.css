@@ -36,7 +36,8 @@
 
 @layer base {
   :root { --nav-h: 76px; }
-  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; }
+  body { overflow-x: clip; }
   body { @apply font-sans text-ink-700 bg-white antialiased; font-size: 1rem; line-height: 1.75; }
   h1, h2, h3, h4 { @apply font-display text-ink-900; text-wrap: balance; }
   p { text-wrap: pretty; }
