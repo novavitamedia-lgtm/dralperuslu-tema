@@ -921,7 +921,17 @@ def build_simple(ctx, item, ptype, langswitch, extra_after=""):
     t = ctx.t
     title_map = {"about": t["nav_about"], "legal": (item["title"] or "Yasal Uyarı")}
     heading = item["title"] or title_map.get(ptype, "")
-    prose = content_to_html(item["text"]) if item.get("text") else '<p class="text-ink-500">İçerik yakında.</p>'
+    body_text = item.get("text", "")
+    if ptype == "about" and body_text:
+        # Makale başındaki isim/ünvan tekrarını at (hero zaten gösteriyor)
+        blocks = [b.strip() for b in body_text.split("\n") if b.strip()]
+        # yalnızca ilk KISA başlık/ünvan satırlarını at (uzun bio paragrafları korunur)
+        while blocks and len(blocks[0]) < 60 and (
+                "alper burak uslu" in norm(blocks[0]) or
+                any(k in norm(blocks[0]) for k in ["cerrahi uzman", "febopras"])):
+            blocks.pop(0)
+        body_text = "\n".join(blocks)
+    prose = content_to_html(body_text) if body_text else '<p class="text-ink-500">İçerik yakında.</p>'
     img = item["images"][0]["local"] if (ptype == "about" and item.get("images")) else None
     hero_img = ('<img src="' + ctx.media(img) + '" alt="' + esc(heading) + '" width="560" height="680" class="rounded-xl2 object-cover w-full shadow-card ring-1 ring-line" loading="lazy">') if img else ''
     trail = [(t["nav_home"], ctx.link("index.html")), (heading, None)]
