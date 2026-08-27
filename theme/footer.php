@@ -72,7 +72,7 @@
 <!-- Mobil sabit çubuk -->
 <div class="fixed bottom-0 inset-x-0 z-40 grid grid-cols-2 gap-px bg-line sm:hidden">
 	<a href="<?php echo esc_url( dau_tel() ); ?>" class="flex items-center justify-center gap-2 bg-brand-600 text-white py-3.5 font-semibold text-sm"><?php echo dau_icon( 'phone' ); // phpcs:ignore ?><?php esc_html_e( 'Hemen Ara', 'dr-alper-uslu' ); ?></a>
-	<a href="<?php echo esc_url( dau_wa_link() ); ?>" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 bg-[#25D366] text-white py-3.5 font-semibold text-sm"><?php echo dau_icon( 'wa' ); // phpcs:ignore ?>WhatsApp</a>
+	<a href="<?php echo esc_url( dau_wa_link() ); ?>" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 bg-[#0E7A3A] text-white py-3.5 font-semibold text-sm"><?php echo dau_icon( 'wa' ); // phpcs:ignore ?>WhatsApp</a>
 </div>
 
 <?php wp_footer(); ?>

@@ -423,7 +423,7 @@ def render_mobilebar(ctx):
     return (
       '<div class="fixed bottom-0 inset-x-0 z-40 grid grid-cols-2 gap-px bg-line sm:hidden">'
       '<a href="tel:' + SITE["phone_tel"] + '" class="flex items-center justify-center gap-2 bg-brand-600 text-white py-3.5 font-semibold text-sm">' + IC["phone"] + esc(t["cta_call"]) + '</a>'
-      '<a href="' + wa_link() + '" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 bg-[#25D366] text-white py-3.5 font-semibold text-sm">' + IC["wa"] + esc(t["cta_wa"]) + '</a>'
+      '<a href="' + wa_link() + '" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 bg-[#0E7A3A] text-white py-3.5 font-semibold text-sm">' + IC["wa"] + esc(t["cta_wa"]) + '</a>'
       '</div>')
 
 def render_footer(ctx, nav):
@@ -479,7 +479,7 @@ def render_whatsapp_float(ctx):
     # masaüstü sabit WhatsApp (mobilde alt çubuk zaten var → sm ve üstü göster)
     return ('<a href="' + wa_link() + '" target="_blank" rel="noopener" '
             'aria-label="WhatsApp" '
-            'class="hidden sm:flex fixed z-40 right-5 bottom-5 items-center gap-2 rounded-full bg-[#25D366] text-white pl-4 pr-5 py-3 shadow-cardHover '
+            'class="hidden sm:flex fixed z-40 right-5 bottom-5 items-center gap-2 rounded-full bg-[#0E7A3A] text-white pl-4 pr-5 py-3 shadow-cardHover '
             'hover:pr-6 transition-all duration-300 group">' + IC["wa"] +
             '<span class="font-semibold text-sm">WhatsApp</span></a>')
 
@@ -712,7 +712,7 @@ def sec_cta(ctx):
       '<p class="text-white/80 mt-3 max-w-xl">' + esc(t["cta_desc"]) + '</p></div>'
       '<div class="flex flex-wrap gap-3 justify-center reveal">'
       '<a href="tel:' + SITE["phone_tel"] + '" class="btn bg-white text-brand-700 hover:bg-cream-50">' + IC["phone"] + esc(t["cta_call"]) + '</a>'
-      '<a href="' + wa_link() + '" target="_blank" rel="noopener" class="btn bg-[#25D366] text-white hover:opacity-90">' + IC["wa"] + esc(t["cta_wa"]) + '</a>'
+      '<a href="' + wa_link() + '" target="_blank" rel="noopener" class="btn bg-[#0E7A3A] text-white hover:opacity-90">' + IC["wa"] + esc(t["cta_wa"]) + '</a>'
       '</div></div></section>')
 
 # ---------------------------------------------------------------- global indeksler
