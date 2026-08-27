@@ -24,22 +24,37 @@ function dau_print_jsonld( $data ) {
 }
 
 function dau_physician_node() {
-	return array(
+	$node = array(
 		'@context'         => 'https://schema.org',
-		'@type'            => 'Physician',
+		'@type'            => array( 'Physician', 'MedicalClinic' ),
 		'name'             => 'Op. Dr. Alper Burak Uslu',
 		'medicalSpecialty' => 'PlasticSurgery',
 		'telephone'        => dau_opt( 'telefon' ),
 		'url'              => home_url( '/' ),
+		'priceRange'       => '$$$',
+		'areaServed'       => array( '@type' => 'City', 'name' => 'İstanbul' ),
 		'address'          => array(
 			'@type'           => 'PostalAddress',
 			'streetAddress'   => 'Fenerbahçe Mah. Bağdat Cad. 134/11',
 			'addressLocality' => 'Kadıköy',
 			'addressRegion'   => 'İstanbul',
+			'postalCode'      => '34726',
 			'addressCountry'  => 'TR',
 		),
+		'geo'              => array( '@type' => 'GeoCoordinates', 'latitude' => 40.9785, 'longitude' => 29.0455 ),
+		'openingHoursSpecification' => array( array(
+			'@type'     => 'OpeningHoursSpecification',
+			'dayOfWeek' => array( 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ),
+			'opens'     => '09:00',
+			'closes'    => '19:00',
+		) ),
 		'sameAs'           => array_values( array_filter( array( dau_opt( 'facebook' ), dau_opt( 'instagram' ), dau_opt( 'youtube' ) ) ) ),
 	);
+	$logo = get_theme_mod( 'custom_logo' );
+	if ( $logo ) {
+		$node['image'] = wp_get_attachment_image_url( $logo, 'full' );
+	}
+	return $node;
 }
 
 function dau_output_schema() {

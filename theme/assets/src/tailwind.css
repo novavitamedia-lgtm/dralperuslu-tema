@@ -96,6 +96,16 @@
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }
 
+/* Yazdırma: gereksiz UI gizle, içeriği temiz göster */
+@media print {
+  header[data-header], footer, .fixed, [data-swiper], .btn, [x-cloak] { display: none !important; }
+  .mesh-teal, .bg-cream-50, .bg-brand-700, .bg-brand-600 { background: #fff !important; color: #000 !important; }
+  main { padding-top: 0 !important; }
+  .prose-clinic { max-width: none !important; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #555; }
+  * { box-shadow: none !important; }
+}
+
 /* Erişilebilirlik: hareket azaltma */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }

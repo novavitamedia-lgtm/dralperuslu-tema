@@ -777,11 +777,27 @@ def content_to_html(text, drop_questions=False):
     return html_str
 
 def jsonld_physician(ctx):
-    return {"@context": "https://schema.org", "@type": "Physician", "name": "Op. Dr. Alper Burak Uslu",
-            "medicalSpecialty": "PlasticSurgery", "telephone": SITE["phone_display"],
-            "address": {"@type": "PostalAddress", "streetAddress": "Fenerbahçe Mah. Bağdat Cad. 134/11",
-                        "addressLocality": "Kadıköy", "addressRegion": "İstanbul", "addressCountry": "TR"},
-            "sameAs": list(SITE["social"].values())}
+    node = {
+        "@context": "https://schema.org",
+        "@type": ["Physician", "MedicalClinic"],
+        "name": "Op. Dr. Alper Burak Uslu",
+        "medicalSpecialty": "PlasticSurgery",
+        "telephone": SITE["phone_display"],
+        "url": BASE_URL + "/" + ctx.lang + "/",
+        "priceRange": "$$$",
+        "areaServed": {"@type": "City", "name": "İstanbul"},
+        "address": {"@type": "PostalAddress", "streetAddress": "Fenerbahçe Mah. Bağdat Cad. 134/11",
+                    "addressLocality": "Kadıköy", "addressRegion": "İstanbul", "postalCode": "34726", "addressCountry": "TR"},
+        "geo": {"@type": "GeoCoordinates", "latitude": 40.9785, "longitude": 29.0455},
+        "openingHoursSpecification": [{
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "09:00", "closes": "19:00"}],
+        "sameAs": list(SITE["social"].values()),
+    }
+    if DOCTOR_IMG:
+        node["image"] = BASE_URL + "/assets/media/" + DOCTOR_IMG
+    return node
 
 def jsonld_procedure(title, desc):
     return {"@context": "https://schema.org", "@type": "MedicalProcedure", "name": title,
