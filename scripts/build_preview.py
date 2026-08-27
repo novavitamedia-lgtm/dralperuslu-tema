@@ -307,8 +307,8 @@ def render_head(ctx, title, desc, canonical, alternates, jsonld_list, preload_im
 def logo_markup(ctx, on_dark=False):
     color = "text-white" if on_dark else "text-ink-900"
     sub = "text-white/70" if on_dark else "text-ink-500"
-    inner = ('<span class="font-display text-[1.15rem] font-bold leading-none ' + color + '">Op. Dr. Alper Burak Uslu</span>'
-             '<span class="block text-[0.66rem] uppercase tracking-[0.18em] ' + sub + ' mt-1">' + esc(ctx.t["hero_role"]) + '</span>')
+    inner = ('<span class="font-display text-[1.02rem] sm:text-[1.12rem] font-bold leading-tight whitespace-nowrap ' + color + '">Op. Dr. Alper Burak Uslu</span>'
+             '<span class="block text-[0.6rem] sm:text-[0.66rem] uppercase tracking-[0.16em] ' + sub + ' mt-1 whitespace-nowrap">' + esc(ctx.t["hero_role"]) + '</span>')
     return '<a href="' + ctx.link("index.html") + '" class="flex flex-col justify-center" aria-label="Op. Dr. Alper Burak Uslu">' + inner + '</a>'
 
 def render_header(ctx, nav, langswitch):
