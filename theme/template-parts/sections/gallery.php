@@ -36,7 +36,7 @@ if ( empty( $images ) ) {
 		<?php
 		foreach ( $images as $im ) {
 			$id = is_array( $im ) ? $im['ID'] : $im;
-			echo '<div class="swiper-slide"><div class="aspect-[3/4] rounded-xl2 overflow-hidden ring-1 ring-line shadow-soft">' . dau_image( $id, 'dau-card', 'w-full h-full object-cover' ) . '</div></div>'; // phpcs:ignore
+			echo '<div class="swiper-slide"><div class="aspect-[3/4] rounded-xl2 overflow-hidden ring-1 ring-line shadow-soft bg-white p-2">' . dau_image( $id, 'dau-card', 'w-full h-full object-contain' ) . '</div></div>'; // phpcs:ignore
 		}
 		?>
 	</div></div>

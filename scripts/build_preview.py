@@ -80,7 +80,7 @@ T = {
     "legal_note": "Bu web sitesindeki bilgiler yalnızca bilgilendirme amaçlıdır ve tıbbi tavsiye yerine geçmez. Sonuçlar kişiden kişiye değişebilir.",
     "all_procedures": "Tüm Uzmanlıklar", "back_home": "Ana Sayfaya Dön",
     "preview_banner": "Bu, tasarımın statik önizlemesidir. Canlı sürüm WordPress temasıdır.",
-    "menu": "Menü", "close": "Kapat", "directions": "Yol Tarifi",
+    "menu": "Menü", "close": "Kapat", "directions": "Yol Tarifi", "to_top": "Yukarı çık", "notfound": "Sayfa bulunamadı", "notfound_desc": "Aradığınız sayfa taşınmış veya kaldırılmış olabilir.",
   },
   "en": {
     "nav_home": "Home", "nav_about": "About", "nav_procedures": "Procedures",
@@ -112,7 +112,7 @@ T = {
     "legal_note": "The information on this website is for informational purposes only and is not a substitute for medical advice. Results may vary from person to person.",
     "all_procedures": "All Procedures", "back_home": "Back to Home",
     "preview_banner": "This is a static preview of the design. The live version is the WordPress theme.",
-    "menu": "Menu", "close": "Close", "directions": "Directions",
+    "menu": "Menu", "close": "Close", "directions": "Directions", "to_top": "Back to top", "notfound": "Page not found", "notfound_desc": "The page you are looking for may have been moved or removed.",
   },
   "de": {
     "nav_home": "Startseite", "nav_about": "Über mich", "nav_procedures": "Spezialisierungen",
@@ -144,7 +144,7 @@ T = {
     "legal_note": "Die Informationen auf dieser Website dienen nur zu Informationszwecken und ersetzen keine medizinische Beratung. Die Ergebnisse können von Person zu Person variieren.",
     "all_procedures": "Alle Spezialisierungen", "back_home": "Zur Startseite",
     "preview_banner": "Dies ist eine statische Vorschau des Designs. Die Live-Version ist das WordPress-Theme.",
-    "menu": "Menü", "close": "Schließen", "directions": "Route",
+    "menu": "Menü", "close": "Schließen", "directions": "Route", "to_top": "Nach oben", "notfound": "Seite nicht gefunden", "notfound_desc": "Die gesuchte Seite wurde möglicherweise verschoben oder entfernt.",
   },
 }
 
@@ -443,7 +443,16 @@ def page_shell(ctx, title, desc, canonical, alternates, jsonld, body, nav, langs
             + '<main class="flex-1" style="padding-top:var(--nav-h)">' + body + '</main>'
             + render_footer(ctx, nav)
             + render_mobilebar(ctx)
+            + render_scrolltop(ctx)
             + '\n</body></html>')
+
+def render_scrolltop(ctx):
+    # uzun sayfalarda "yukarı çık" — kaydırınca belirir (mobil sabit çubuğun üstünde)
+    return ('<button x-data="{ show:false }" x-init="window.addEventListener(\'scroll\',()=>show=window.scrollY>600)" '
+            'x-show="show" x-transition @click="window.scrollTo({top:0,behavior:\'smooth\'})" x-cloak '
+            'aria-label="' + esc(ctx.t.get("to_top", "Yukarı çık")) + '" '
+            'class="fixed z-40 right-4 bottom-20 sm:bottom-6 w-11 h-11 rounded-full bg-white text-brand-700 ring-1 ring-line shadow-cardHover grid place-content-center hover:bg-brand-50 transition">'
+            '<svg viewBox="0 0 24 24" class="w-5 h-5" fill="none"><path d="M12 19V5m0 0-6 6m6-6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>')
 
 # ---------------------------------------------------------------- bölümler
 def sec_hero(ctx, about_intro):
@@ -1077,6 +1086,21 @@ def main():
     # robots.txt (önizleme: indexlenmesin)
     write(os.path.join(PREVIEW, "robots.txt"),
           "User-agent: *\nDisallow: /\n\n# Önizleme sürümü — canlı site indexlenir.\n")
+    # kök 404 (GitHub Pages otomatik sunar) — TR tasarımıyla, kök-göreli assetler
+    t404 = T["tr"]
+    _404 = ('<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8">'
+            '<meta name="viewport" content="width=device-width, initial-scale=1">'
+            '<meta name="robots" content="noindex"><title>404 · Op. Dr. Alper Burak Uslu</title>'
+            '<link rel="stylesheet" href="/dralperuslu-tema/assets/main.css">'
+            '<script>document.documentElement.classList.add("js")</script></head>'
+            '<body class="min-h-screen mesh-teal grid place-content-center text-center px-6">'
+            '<div class="max-w-md mx-auto py-20">'
+            '<div class="font-display text-[6rem] font-bold text-brand-300 leading-none">404</div>'
+            '<h1 class="font-display text-h2 font-bold text-ink-900 mt-2">' + esc(t404["notfound"]) + '</h1>'
+            '<p class="text-ink-500 mt-3">' + esc(t404["notfound_desc"]) + '</p>'
+            '<a href="/dralperuslu-tema/tr/" class="btn-primary mt-8">' + esc(t404["back_home"]) + '</a>'
+            '</div></body></html>')
+    write(os.path.join(PREVIEW, "404.html"), _404)
 
     # 4) assetler
     dst_assets = os.path.join(PREVIEW, "assets")

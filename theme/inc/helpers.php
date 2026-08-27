@@ -142,7 +142,10 @@ function dau_uzmanlik_card( $post_id ) {
 		<?php if ( $thumb ) : ?>
 			<div class="aspect-[4/3] overflow-hidden"><?php echo dau_image( $thumb, 'dau-card', 'w-full h-full object-cover transition duration-500 group-hover:scale-105' ); // phpcs:ignore ?></div>
 		<?php else : ?>
-			<div class="aspect-[4/3] bg-gradient-to-br from-brand-500 to-brand-700 grid place-content-center text-white/90 font-display text-xl px-4 text-center"><?php echo esc_html( $title ); ?></div>
+			<div class="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-brand-500 to-brand-700 grid place-content-center">
+				<svg viewBox="0 0 200 150" class="absolute inset-0 w-full h-full opacity-[0.16]" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><circle cx="28" cy="122" r="72" fill="none" stroke="white" stroke-width="1"/><circle cx="28" cy="122" r="52" fill="none" stroke="white" stroke-width="1"/><circle cx="178" cy="22" r="56" fill="none" stroke="white" stroke-width="1"/></svg>
+				<span class="relative w-14 h-14 rounded-full ring-1 ring-white/40 grid place-content-center text-white/90 transition duration-500 group-hover:scale-110"><?php echo dau_icon( 'badge' ); // phpcs:ignore ?></span>
+			</div>
 		<?php endif; ?>
 		<div class="p-5">
 			<?php if ( $cat ) : ?><span class="text-[0.7rem] uppercase tracking-wider text-brand-600 font-semibold"><?php echo esc_html( $cat ); ?></span><?php endif; ?>
