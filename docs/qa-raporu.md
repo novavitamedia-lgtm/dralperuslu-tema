@@ -32,3 +32,24 @@ Tarih: 2026-08-27 · Sürüm 1.0.0
 - İşlem sayfalarının çoğunun kaynakta kendine ait fotoğrafı yok → kategori temsili görsel (uydurma stok yok).
 - EN 21 / DE 24 uzmanlık: kaynakta o kadarı çevrili (eksikler zorlanmadı, uydurulmadı).
 - Theme Check eklentisi ayrıca çalıştırılmadı (php -l + WP aktivasyon testi yapıldı); staging'de Theme Check önerilir.
+
+---
+
+## İyileştirme Döngüsü (bug-fix / UX / UI turları)
+
+Tüm turlar canlıya deploy edildi ve doğrulandı.
+
+| Tur | İçerik |
+|---|---|
+| 1 | İşlem sayfası FAQ tekrarı giderildi (temiz makale + SSS akordeonu); kategori grid'inde tekrarlayan stok foto → tasarımlı gradient amblem kart; kart özeti başlık kekemeliği fix; Başarılar sertifikaları `object-cover`→`object-contain` (kırpılma yok) |
+| 2 | İletişim haritası: WebGL-riskli iframe → her yerde çalışan tasarım harita bloğu (stilize zemin + pin + Yol Tarifi); `overflow-x` guard; mobil overflow'un olmadığı doğrulandı |
+| 3 | EN/DE i18n denetimi (0 TR sızıntısı); `og:image`+twitter card+locale; kart/galeri `width`/`height` (CLS); `llms.txt` (AEO) + `robots.txt` |
+| 4 | "Yukarı çık" butonu; tasarımlı 404 sayfası; WP tema paritesi (gradient kart amblemi, galeri object-contain) |
+| 5 | Masaüstü sabit WhatsApp butonu (dönüşüm) |
+| 6 | **SEO fix:** canonical/hreflang mutlak URL (derinlik hatası → 90 yanlış canonical düzeltildi) + x-default; 105 sayfada 0 kırık link doğrulandı; tablet (768/1024) denetimi |
+| 7 | Ana sayfaya dürüst "Yaklaşımımız" değerler bölümü (uydurma yorum yerine bio felsefesinden 4 kart, 3 dil) |
+| 8 | Teal "A" monogram favicon (SVG); **a11y fix:** WhatsApp yeşili kontrastı AA'ya çekildi |
+
+### Güncel Lighthouse (canlı önizleme, desktop)
+- **Performance 100 · Accessibility 100 · Best Practices 96 · SEO 66** (SEO yalnızca önizleme `noindex`'inden sınırlı; canlı WP'de ~95+)
+- 105 sayfa: 0 kırık link, 0 kırık medya, 0 lorem/placeholder metin.
