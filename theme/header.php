@@ -11,6 +11,7 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<link rel="icon" type="image/svg+xml" href="<?php echo esc_url( DAU_URI . '/assets/favicon.svg' ); ?>">
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class( 'min-h-screen flex flex-col' ); ?>>

@@ -321,6 +321,8 @@ def render_head(ctx, title, desc, canonical, alternates, jsonld_list, preload_im
         lines.append('<meta property="og:image" content="' + BASE_URL + '/assets/media/' + _og + '">')
     lines.append('<meta name="twitter:card" content="summary_large_image">')
     lines.append('<meta name="theme-color" content="#12857D">')
+    lines.append('<link rel="icon" type="image/svg+xml" href="' + ctx.asset("favicon.svg") + '">')
+    lines.append('<link rel="apple-touch-icon" href="' + ctx.asset("favicon.svg") + '">')
     # fontlar preload (kritik)
     lines.append('<link rel="preload" as="font" type="font/woff2" crossorigin href="' + ctx.asset("fonts/jakarta-500-latin-ext.woff2") + '">')
     lines.append('<link rel="preload" as="font" type="font/woff2" crossorigin href="' + ctx.asset("fonts/fraunces-700-latin-ext.woff2") + '">')
@@ -1168,6 +1170,7 @@ def main():
     if os.path.exists(css_src):
         shutil.copy(css_src, os.path.join(dst_assets, "main.css"))
     shutil.copy(os.path.join(ROOT, "theme", "assets", "src", "main.js"), os.path.join(dst_assets, "main.js"))
+    shutil.copy(os.path.join(ROOT, "theme", "assets", "favicon.svg"), os.path.join(dst_assets, "favicon.svg"))
 
     print("Statik önizleme üretildi:")
     for lang, c in counts.items():
