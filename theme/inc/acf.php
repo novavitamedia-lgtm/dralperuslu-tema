@@ -55,6 +55,7 @@ function dau_render_flexible( $field = 'bolumler' ) {
 		get_template_part( 'template-parts/sections/steps' );
 		get_template_part( 'template-parts/sections/doctor' );
 		get_template_part( 'template-parts/sections/certs' );
+		get_template_part( 'template-parts/sections/values' );
 		get_template_part( 'template-parts/sections/gallery' );
 		get_template_part( 'template-parts/sections/cta' );
 		return;

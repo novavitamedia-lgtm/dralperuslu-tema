@@ -85,6 +85,22 @@
             { "key": "field_gal_gorseller", "label": "Görseller", "name": "galeri_gorseller", "type": "gallery", "return_format": "id" }
           ]
         },
+        "layout_values": {
+          "key": "layout_values", "name": "values", "label": "Yaklaşım / Değerler", "display": "block",
+          "sub_fields": [
+            {
+              "key": "field_values_rep", "label": "Değerler", "name": "degerler", "type": "repeater", "layout": "row", "button_label": "Değer Ekle", "max": 4,
+              "sub_fields": [
+                { "key": "field_values_baslik", "label": "Başlık", "name": "baslik", "type": "text" },
+                { "key": "field_values_aciklama", "label": "Açıklama", "name": "aciklama", "type": "textarea", "rows": 2 }
+              ]
+            }
+          ]
+        },
+        "layout_map": {
+          "key": "layout_map", "name": "map", "label": "Harita (adres)", "display": "block",
+          "sub_fields": []
+        },
         "layout_cta": {
           "key": "layout_cta", "name": "cta", "label": "CTA Şeridi", "display": "block",
           "sub_fields": [
