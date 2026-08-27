@@ -79,7 +79,7 @@ T = {
     "legal_note": "Bu web sitesindeki bilgiler yalnızca bilgilendirme amaçlıdır ve tıbbi tavsiye yerine geçmez. Sonuçlar kişiden kişiye değişebilir.",
     "all_procedures": "Tüm Uzmanlıklar", "back_home": "Ana Sayfaya Dön",
     "preview_banner": "Bu, tasarımın statik önizlemesidir. Canlı sürüm WordPress temasıdır.",
-    "menu": "Menü", "close": "Kapat",
+    "menu": "Menü", "close": "Kapat", "directions": "Yol Tarifi",
   },
   "en": {
     "nav_home": "Home", "nav_about": "About", "nav_procedures": "Procedures",
@@ -111,7 +111,7 @@ T = {
     "legal_note": "The information on this website is for informational purposes only and is not a substitute for medical advice. Results may vary from person to person.",
     "all_procedures": "All Procedures", "back_home": "Back to Home",
     "preview_banner": "This is a static preview of the design. The live version is the WordPress theme.",
-    "menu": "Menu", "close": "Close",
+    "menu": "Menu", "close": "Close", "directions": "Directions",
   },
   "de": {
     "nav_home": "Startseite", "nav_about": "Über mich", "nav_procedures": "Spezialisierungen",
@@ -143,7 +143,7 @@ T = {
     "legal_note": "Die Informationen auf dieser Website dienen nur zu Informationszwecken und ersetzen keine medizinische Beratung. Die Ergebnisse können von Person zu Person variieren.",
     "all_procedures": "Alle Spezialisierungen", "back_home": "Zur Startseite",
     "preview_banner": "Dies ist eine statische Vorschau des Designs. Die Live-Version ist das WordPress-Theme.",
-    "menu": "Menü", "close": "Schließen",
+    "menu": "Menü", "close": "Schließen", "directions": "Route",
   },
 }
 
@@ -900,10 +900,12 @@ def build_contact(ctx, item, langswitch):
             '<div class="reveal"><div class="card p-6 sm:p-8">' + form + '</div></div>'
             '</div></section>'
             '<section class="pb-16 md:pb-24 bg-white"><div class="container">'
-            '<div class="reveal rounded-xl2 overflow-hidden ring-1 ring-line shadow-card">'
-            '<iframe title="' + esc(SITE["address"]) + '" src="https://maps.google.com/maps?q=' +
-            'Fenerbah%C3%A7e%20Mah.%20Ba%C4%9Fdat%20Cad.%20134%2F11%20Kad%C4%B1k%C3%B6y%20%C4%B0stanbul&output=embed" '
-            'width="100%" height="420" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
+            '<div class="reveal rounded-xl2 overflow-hidden ring-1 ring-line shadow-card relative">'
+            '<iframe title="' + esc(SITE["address"]) + '" '
+            'src="https://www.openstreetmap.org/export/embed.html?bbox=29.0355%2C40.9725%2C29.0555%2C40.9845&layer=mapnik&marker=40.9785%2C29.0455" '
+            'width="100%" height="420" style="border:0;display:block" loading="lazy"></iframe>'
+            '<a href="' + SITE["maps"] + '" target="_blank" rel="noopener" '
+            'class="absolute bottom-4 right-4 btn-primary !py-2.5 shadow-cardHover">' + IC["map"] + esc(t.get("directions", "Yol Tarifi")) + '</a>'
             '</div></div></section>')
     ls = {lg: langswitch["contact"].get(lg) for lg in LANGS}
     jl = [jsonld_physician(ctx)]
