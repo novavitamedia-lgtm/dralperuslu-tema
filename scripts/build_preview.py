@@ -282,9 +282,17 @@ def render_head(ctx, title, desc, canonical, alternates, jsonld_list, preload_im
     if desc:
         lines.append('<meta name="description" content="' + esc(desc) + '">')
     lines.append('<meta name="robots" content="noindex,nofollow">')  # önizleme: indexlenmesin
-    lines.append('<link rel="canonical" href="' + esc(canonical) + '">')
-    for lg, url in alternates.items():
-        lines.append('<link rel="alternate" hreflang="' + lg + '" href="' + esc(url) + '">')
+    # Canonical + hreflang MUTLAK (göreli path derinlik hatasına yol açıyordu)
+    import urllib.parse as _up
+    page_abs = BASE_URL + "/" + ctx.lang + "/" + canonical.lstrip("./")
+    lines.append('<link rel="canonical" href="' + esc(page_abs) + '">')
+    for lg, url in (alternates or {}).items():
+        if not url:
+            continue
+        alt_abs = _up.urljoin(page_abs, url)
+        lines.append('<link rel="alternate" hreflang="' + lg + '" href="' + esc(alt_abs) + '">')
+    if alternates and alternates.get("tr"):
+        lines.append('<link rel="alternate" hreflang="x-default" href="' + esc(_up.urljoin(page_abs, alternates["tr"])) + '">')
     lines.append('<meta property="og:type" content="website">')
     lines.append('<meta property="og:title" content="' + esc(title) + '">')
     if desc: lines.append('<meta property="og:description" content="' + esc(desc) + '">')
