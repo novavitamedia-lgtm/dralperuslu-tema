@@ -197,8 +197,7 @@ def proc_image(proc, cat):
             base = norm(f.replace("-400x300", "").rsplit(".", 1)[0]).replace("-", " ")
             if base and (base in nt or nt in base):
                 return f
-    ci = CAT_IMG.get(cat)
-    return ci if ci and img_exists(ci) else None
+    return None  # benzersiz görsel yoksa tekrarlı stok koyma → şık gradient kart kullanılır
 
 DOCTOR_IMG = next((f for f in ["alper-burak-uslu.jpg", "alper-burak-uslu_.jpg", "alper-burak-uslu-1.webp"] if img_exists(f)), None)
 LOGO_IMG = "logo-alper-burak-uslu.jpg" if img_exists("logo-alper-burak-uslu.jpg") else None
@@ -498,13 +497,27 @@ def sec_about_split(ctx, about):
       '<a href="' + ctx.link(page_url(ctx.lang,"about")) + '" class="btn-ghost mt-6">' + esc(t["about_more"]) + IC["arrow"] + '</a>'
       '</div></div></section>')
 
+CAT_MONO = {"yuz": "Yüz", "vucut": "Vücut", "gogus": "Göğüs", "ameliyatsiz": "Estetik"}
+
 def _card(ctx, slug, title, cat, excerpt=""):
     img = None
-    # bul: envanterden proc görseli
     proc = PROC_BY_SLUG.get((ctx.lang, slug))
-    if proc: img = proc_image(proc, cat)
-    imgtag = ('<div class="aspect-[4/3] overflow-hidden"><img src="' + ctx.media(img) + '" alt="' + esc(title) + '" loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-105"></div>') if img else \
-             ('<div class="aspect-[4/3] bg-gradient-to-br from-brand-500 to-brand-700 grid place-content-center text-white/90 font-display text-xl px-4 text-center">' + esc(title) + '</div>')
+    if proc:
+        img = proc_image(proc, cat)
+        if not excerpt:
+            excerpt = meta_desc(proc)
+    if img:
+        imgtag = ('<div class="aspect-[4/3] overflow-hidden"><img src="' + ctx.media(img) + '" alt="' + esc(title) + '" loading="lazy" class="w-full h-full object-cover transition duration-500 group-hover:scale-105"></div>')
+    else:
+        # benzersiz foto yoksa: tasarlanmış gradient kapak (tekrarlı stok yerine)
+        deco = ('<svg viewBox="0 0 200 150" class="absolute inset-0 w-full h-full opacity-[0.16]" preserveAspectRatio="xMidYMid slice" aria-hidden="true">'
+                '<circle cx="28" cy="122" r="72" fill="none" stroke="white" stroke-width="1"/>'
+                '<circle cx="28" cy="122" r="52" fill="none" stroke="white" stroke-width="1"/>'
+                '<circle cx="178" cy="22" r="56" fill="none" stroke="white" stroke-width="1"/></svg>')
+        emblem = ('<span class="relative w-14 h-14 rounded-full ring-1 ring-white/40 grid place-content-center text-white/90 '
+                  'transition duration-500 group-hover:scale-110">' + IC["badge"] + '</span>')
+        imgtag = ('<div class="aspect-[4/3] relative overflow-hidden bg-gradient-to-br from-brand-500 to-brand-700 grid place-content-center">'
+                  + deco + emblem + '</div>')
     return (
       '<a href="' + ctx.link("uzmanliklar/" + slug + ".html") + '" class="group card card-hover overflow-hidden block">'
       + imgtag +
@@ -523,8 +536,7 @@ def sec_services(ctx, nav):
     for cat in CATS:
         for slug, title in nav.get(cat, [])[:2]:
             proc = PROC_BY_SLUG.get((ctx.lang, slug))
-            exc = (proc.get("excerpt") or proc.get("text","")[:120]) if proc else ""
-            cards.append(_card(ctx, slug, title, cat, exc))
+            cards.append(_card(ctx, slug, title, cat))
             picked += 1
             if picked >= 8: break
         if picked >= 8: break
@@ -591,8 +603,8 @@ def sec_gallery(ctx, images, title=None):
     if not images: return ''
     t = ctx.t
     slides = "".join(
-      '<div class="swiper-slide"><div class="aspect-[3/4] rounded-xl2 overflow-hidden ring-1 ring-line shadow-soft">'
-      '<img src="' + ctx.media(im["local"]) + '" alt="' + esc(im.get("alt") or t["gallery_title"]) + '" loading="lazy" class="w-full h-full object-cover"></div></div>'
+      '<div class="swiper-slide"><div class="aspect-[3/4] rounded-xl2 overflow-hidden ring-1 ring-line shadow-soft bg-white p-2">'
+      '<img src="' + ctx.media(im["local"]) + '" alt="' + esc(im.get("alt") or t["gallery_title"]) + '" loading="lazy" class="w-full h-full object-contain"></div></div>'
       for im in images if im.get("local"))
     return (
       '<section class="section bg-cream-50 overflow-hidden"><div class="container">'
@@ -634,11 +646,17 @@ def sec_cta(ctx):
 PROC_BY_SLUG = {}   # (lang, slug) -> proc
 NAV = {}            # lang -> {cat: [(slug,title)]}
 
+def _is_heading(b):
+    return len(b) < 70 and " " in b and (b.endswith("?") or b.isupper() or b.istitle())
+
 def meta_desc(item):
     d = (item.get("seo") or {}).get("meta_description", "")
     if d: return d[:300]
-    txt = re.sub(r"\s+", " ", item.get("text", "")).strip()
-    return (txt[:155] + "…") if len(txt) > 156 else txt
+    # ilk kısa başlık satırını atla (kart özetinde "Başlık Başlık..." kekemeliğini önle)
+    blocks = [b.strip() for b in item.get("text", "").split("\n") if b.strip()]
+    body = [b for b in blocks if not _is_heading(b)]
+    txt = re.sub(r"\s+", " ", " ".join(body) if body else " ".join(blocks)).strip()
+    return (txt[:155].rsplit(" ", 1)[0] + "…") if len(txt) > 156 else txt
 
 def breadcrumb(ctx, trail):
     parts = []
@@ -650,14 +668,25 @@ def breadcrumb(ctx, trail):
     sep = '<span class="mx-2 text-ink-500/50">/</span>'
     return '<nav class="text-sm text-ink-500 flex flex-wrap items-center" aria-label="breadcrumb">' + sep.join(parts) + '</nav>'
 
-def content_to_html(text):
-    """Envanterdeki düz metni (\\n\\n paragraf, 'Soru?' başlık) prose HTML'e çevir."""
+def content_to_html(text, drop_questions=False):
+    """Envanterdeki düz metni prose HTML'e çevir.
+    drop_questions=True ise 'Soru?' başlıklı bölümler (başlık + cevabı) atlanır
+    (SSS akordeonuyla tekrarı önlemek için)."""
     out = []
     blocks = [b.strip() for b in text.split("\n") if b.strip()]
+    skipping = False
     for b in blocks:
-        if len(b) < 70 and (b.endswith("?") or b.isupper() or b.istitle()) and " " in b:
+        is_h = _is_heading(b)
+        if is_h:
+            if drop_questions and b.endswith("?"):
+                skipping = True
+                continue
+            skipping = False
             out.append("<h2>" + esc(b) + "</h2>")
-        elif b.startswith("•"):
+            continue
+        if skipping:
+            continue  # soru cevabını atla
+        if b.startswith("•"):
             out.append("<li>" + esc(b.lstrip("• ").strip()) + "</li>")
         else:
             out.append("<p>" + esc(b) + "</p>")
@@ -727,19 +756,22 @@ def build_procedure(ctx, proc, cat, data, langswitch):
     trail = [(t["nav_home"], home_u), (CAT_LABEL[ctx.lang][cat], cat_u), (proc["title"], None)]
     img = proc_image(proc, cat)
     hero_img = ('<img src="' + ctx.media(img) + '" alt="' + esc(proc["title"]) + '" width="640" height="480" class="rounded-xl2 object-cover w-full shadow-card ring-1 ring-line" loading="eager">') if img else ''
-    prose = content_to_html(proc["text"])
-    # FAQ akordeon
-    faq_html = ""
+    # Makale: SSS "?" bölümlerini akordeona taşı, geri kalanı prose olarak göster (tekrar yok).
     faqs = proc.get("faq", [])
+    faq_qs = {f["q"] for f in faqs}
+    # İlk 3 "?" bölümü (Nedir/Neden/Kimlere) makalede kalsın; gerisi akordeona.
+    keep_in_prose = set(list(faq_qs)[:0])  # tüm ? bölümleri akordeona
+    prose = content_to_html(proc["text"], drop_questions=True)
+    faq_html = ""
     if faqs:
         items = ""
         for i, f in enumerate(faqs):
-            items += ('<div class="border-b border-line" x-data="{ o:' + ('true' if i == 0 else 'false') + ' }">'
-              '<button @click="o=!o" class="w-full flex items-center justify-between gap-4 py-4 text-left font-medium text-ink-900" :aria-expanded="o">'
-              '<span>' + esc(f["q"]) + '</span><span class="text-brand-600 transition-transform" :class="o && \'rotate-180\'">' + IC["chevron"] + '</span></button>'
-              '<div x-show="o" x-collapse><div class="pb-4 text-ink-700 prose-clinic max-w-none">' + content_to_html(f["a"]) + '</div></div></div>')
+            items += ('<div class="border-b border-line last:border-0" x-data="{ o:' + ('true' if i == 0 else 'false') + ' }">'
+              '<button @click="o=!o" class="w-full flex items-center justify-between gap-4 py-4 text-left font-medium text-ink-900 hover:text-brand-700" :aria-expanded="o">'
+              '<span>' + esc(f["q"]) + '</span><span class="text-brand-600 transition-transform shrink-0" :class="o && \'rotate-180\'">' + IC["chevron"] + '</span></button>'
+              '<div x-show="o" x-collapse><div class="pb-5 text-ink-700 prose-clinic max-w-none">' + content_to_html(f["a"]) + '</div></div></div>')
         faq_html = ('<div class="mt-12"><h2 class="font-display text-h2 font-bold text-ink-900 mb-4">' + esc(t["faq_title"]) + '</h2>'
-                    '<div class="card p-2 sm:p-6">' + items + '</div></div>')
+                    '<div class="card p-4 sm:p-6">' + items + '</div></div>')
     # ilgili işlemler (aynı kategori)
     rel = [(s, ti) for s, ti in nav.get(cat, []) if s != proc["slug"]][:3]
     rel_cards = "".join(_card(ctx, s, ti, cat) for s, ti in rel)
@@ -778,7 +810,7 @@ def build_category(ctx, cat, data, langswitch):
     nav = NAV[ctx.lang]
     t = ctx.t
     procs = nav.get(cat, [])
-    cards = "".join(_card(ctx, s, ti, cat, (PROC_BY_SLUG.get((ctx.lang, s), {}) or {}).get("excerpt", "")) for s, ti in procs)
+    cards = "".join(_card(ctx, s, ti, cat) for s, ti in procs)
     trail = [(t["nav_home"], ctx.link("index.html")), (t["nav_procedures"], ctx.link("uzmanliklar/index.html")), (CAT_LABEL[ctx.lang][cat], None)]
     body = (
       '<section class="mesh-teal"><div class="container py-12 md:py-16">'
@@ -797,7 +829,7 @@ def build_procedures_index(ctx, data, langswitch):
     for cat in CATS:
         procs = nav.get(cat, [])
         if not procs: continue
-        cards = "".join(_card(ctx, s, ti, cat, (PROC_BY_SLUG.get((ctx.lang, s), {}) or {}).get("excerpt", "")) for s, ti in procs)
+        cards = "".join(_card(ctx, s, ti, cat) for s, ti in procs)
         blocks += ('<div class="mb-14"><div class="flex items-center gap-4 mb-6 reveal">'
           '<h2 class="section-title">' + esc(CAT_LABEL[ctx.lang][cat]) + '</h2>'
           '<span class="text-ink-500">' + str(len(procs)) + ' ' + esc(t["in_category"]) + '</span></div>'
@@ -866,7 +898,13 @@ def build_contact(ctx, item, langswitch):
             '<section class="section bg-white"><div class="container grid lg:grid-cols-2 gap-12">'
             '<div class="reveal">' + info + '</div>'
             '<div class="reveal"><div class="card p-6 sm:p-8">' + form + '</div></div>'
-            '</div></section>')
+            '</div></section>'
+            '<section class="pb-16 md:pb-24 bg-white"><div class="container">'
+            '<div class="reveal rounded-xl2 overflow-hidden ring-1 ring-line shadow-card">'
+            '<iframe title="' + esc(SITE["address"]) + '" src="https://maps.google.com/maps?q=' +
+            'Fenerbah%C3%A7e%20Mah.%20Ba%C4%9Fdat%20Cad.%20134%2F11%20Kad%C4%B1k%C3%B6y%20%C4%B0stanbul&output=embed" '
+            'width="100%" height="420" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
+            '</div></div></section>')
     ls = {lg: langswitch["contact"].get(lg) for lg in LANGS}
     jl = [jsonld_physician(ctx)]
     return page_shell(ctx, t["nav_contact"] + " · Op. Dr. Alper Burak Uslu", SITE["address"], page_url(ctx.lang, "contact"), langswitch["contact"], jl, body, nav, ls)
@@ -875,7 +913,7 @@ def build_achievements(ctx, item, langswitch):
     nav = NAV[ctx.lang]
     t = ctx.t
     imgs = item.get("images", []) if item else []
-    grid = "".join('<a href="' + ctx.media(im["local"]) + '" class="block aspect-square rounded-xl2 overflow-hidden ring-1 ring-line shadow-soft reveal"><img src="' + ctx.media(im["local"]) + '" alt="' + esc(im.get("alt") or t["gallery_title"]) + '" loading="lazy" class="w-full h-full object-cover hover:scale-105 transition duration-500"></a>' for im in imgs if im.get("local"))
+    grid = "".join('<a href="' + ctx.media(im["local"]) + '" target="_blank" rel="noopener" class="block aspect-[4/5] rounded-xl2 overflow-hidden ring-1 ring-line shadow-soft bg-white p-3 reveal"><img src="' + ctx.media(im["local"]) + '" alt="' + esc(im.get("alt") or t["gallery_title"]) + '" loading="lazy" class="w-full h-full object-contain"></a>' for im in imgs if im.get("local"))
     trail = [(t["nav_home"], ctx.link("index.html")), (t["nav_achievements"], None)]
     body = ('<section class="mesh-teal"><div class="container py-12 md:py-16">' + breadcrumb(ctx, trail)
             + '<h1 class="text-hero !text-[clamp(2rem,4vw,3.2rem)] font-bold text-ink-900 mt-5">' + esc(item["title"] if item else t["nav_achievements"]) + '</h1>'
