@@ -75,3 +75,4 @@ require_once DAU_DIR . '/inc/cpt.php';
 require_once DAU_DIR . '/inc/enqueue.php';
 require_once DAU_DIR . '/inc/acf.php';
 require_once DAU_DIR . '/inc/schema.php';
+require_once DAU_DIR . '/inc/landing-data.php';
