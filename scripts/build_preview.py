@@ -1134,13 +1134,27 @@ def build_achievements(ctx, item, langswitch):
     nav = NAV[ctx.lang]
     t = ctx.t
     imgs = item.get("images", []) if item else []
-    grid = "".join('<a href="' + ctx.media(im["local"]) + '" target="_blank" rel="noopener" class="block aspect-[4/5] rounded-xl2 overflow-hidden ring-1 ring-line shadow-soft bg-white p-3 reveal"><img src="' + ctx.media(im["local"]) + '" alt="' + esc(im.get("alt") or t["gallery_title"]) + '" width="480" height="600" loading="lazy" class="w-full h-full object-contain"></a>' for im in imgs if im.get("local"))
+    lab = {"tr": ("Uluslararası Üyelikler", "Sertifika ve Belgeler", "Büyüt"),
+           "en": ("International Memberships", "Certificates & Documents", "Enlarge"),
+           "de": ("Internationale Mitgliedschaften", "Zertifikate & Dokumente", "Vergrößern")}[ctx.lang]
+    badges = "".join('<div class="reveal card p-5 text-center"><div class="w-12 h-12 mx-auto grid place-content-center rounded-full bg-brand-50 text-brand-600 mb-3">' + IC["badge"] + '</div><div class="font-display font-bold text-ink-900">' + esc(c) + '</div><div class="text-[0.7rem] text-ink-500 mt-1.5 leading-snug">' + esc(n) + '</div></div>' for c, n in SITE["certs"])
+    cards = "".join('<button type="button" @click="open=true; src=&quot;' + ctx.media(im["local"]) + '&quot;" class="group card card-hover overflow-hidden p-3 bg-white reveal"><div class="aspect-[4/5] overflow-hidden rounded-lg bg-cream-50 grid place-content-center"><img src="' + ctx.media(im["local"]) + '" alt="' + esc(im.get("alt") or t["gallery_title"]) + '" loading="lazy" class="w-full h-full object-contain transition duration-500 group-hover:scale-[1.03]"></div><div class="flex items-center justify-center gap-1.5 text-sm text-brand-600 font-medium mt-3">' + esc(lab[2]) + IC["arrow"] + '</div></button>' for im in imgs if im.get("local"))
     trail = [(t["nav_home"], ctx.link("index.html")), (t["nav_achievements"], None)]
+    gallery = ''
+    if cards:
+        gallery = ('<section class="section bg-white" x-data="{ open:false, src:\'\' }"><div class="container">'
+                   '<span class="kicker mb-4">' + esc(lab[1]) + '</span>'
+                   '<h2 class="section-title mt-3 mb-8">' + esc(t["gallery_title"]) + '</h2>'
+                   '<div class="grid grid-cols-2 md:grid-cols-3 gap-5">' + cards + '</div></div>'
+                   '<div x-show="open" x-cloak x-transition.opacity @click="open=false" @keydown.escape.window="open=false" class="fixed inset-0 z-[60] bg-ink-900/85 backdrop-blur grid place-content-center p-4 sm:p-10">'
+                   '<img :src="src" alt="" class="max-w-[92vw] max-h-[86vh] object-contain rounded-xl shadow-2xl ring-1 ring-white/10">'
+                   '<button @click="open=false" class="absolute top-4 right-4 sm:top-6 sm:right-6 w-11 h-11 grid place-content-center rounded-full bg-white/10 text-white hover:bg-white/20 transition" aria-label="' + esc(t["close"]) + '">' + IC["close"] + '</button></div></section>')
     body = ('<section class="mesh-teal"><div class="container py-12 md:py-16">' + breadcrumb(ctx, trail)
             + '<h1 class="text-hero !text-[clamp(2rem,4vw,3.2rem)] font-bold text-ink-900 mt-5">' + esc(item["title"] if item else t["nav_achievements"]) + '</h1>'
-            '<p class="text-ink-500 mt-3 max-w-2xl">' + esc(t["gallery_title"]) + '</p></div></section>'
-            + ('<section class="section bg-white"><div class="container grid grid-cols-2 md:grid-cols-3 gap-5">' + grid + '</div></section>' if grid else
-               '<section class="section bg-white"><div class="container text-center text-ink-500">İçerik yakında.</div></section>'))
+            '<p class="text-lead text-ink-700 mt-3 max-w-2xl">' + esc(t["gallery_title"]) + '</p></div></section>'
+            '<section class="section bg-cream-50"><div class="container"><span class="kicker mb-4">' + esc(lab[0]) + '</span>'
+            '<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mt-4">' + badges + '</div></div></section>'
+            + gallery)
     ls = {lg: langswitch["achievements"].get(lg) for lg in LANGS}
     return page_shell(ctx, (item["title"] if item else t["nav_achievements"]) + " · Op. Dr. Alper Burak Uslu", t["gallery_title"], page_url(ctx.lang, "achievements"), langswitch["achievements"], [], body, nav, ls)
 
