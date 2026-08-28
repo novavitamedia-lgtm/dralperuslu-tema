@@ -38,15 +38,28 @@ function dau_setup() {
 add_action( 'after_setup_theme', 'dau_setup' );
 
 /**
- * Polylang: dil (locale) belirlendikten sonra tema çevirilerini doğru locale ile yeniden yükle.
- * Aksi halde textdomain erken (TR locale'iyle) yüklenip EN/DE'de çevrilmiyor.
+ * Polylang + tema çevirileri: gettext filtresiyle aktif dile göre çeviri döndür.
+ * WP 6.7 textdomain reload timing'ine bağlı kalmadan (pll_current_language güvenilir),
+ * .l10n.php mesaj tablolarını kullanır. TR = kaynak dil (dokunma).
  */
-function dau_reload_textdomain() {
-	unload_textdomain( 'dr-alper-uslu' );
-	load_theme_textdomain( 'dr-alper-uslu', DAU_DIR . '/languages' );
+function dau_gettext_filter( $translation, $text, $domain ) {
+	if ( 'dr-alper-uslu' !== $domain || ! function_exists( 'pll_current_language' ) ) {
+		return $translation;
+	}
+	$lang = pll_current_language();
+	if ( ! $lang || 'tr' === $lang ) {
+		return $translation;
+	}
+	static $cache = array();
+	if ( ! isset( $cache[ $lang ] ) ) {
+		$loc  = array( 'en' => 'en_US', 'de' => 'de_DE' );
+		$file = DAU_DIR . '/languages/dr-alper-uslu-' . ( isset( $loc[ $lang ] ) ? $loc[ $lang ] : $lang ) . '.l10n.php';
+		$data = is_file( $file ) ? include $file : array();
+		$cache[ $lang ] = ( is_array( $data ) && isset( $data['messages'] ) ) ? $data['messages'] : array();
+	}
+	return isset( $cache[ $lang ][ $text ] ) ? $cache[ $lang ][ $text ] : $translation;
 }
-add_action( 'pll_language_defined', 'dau_reload_textdomain' );
-add_action( 'wp', 'dau_reload_textdomain', 1 );
+add_filter( 'gettext', 'dau_gettext_filter', 20, 3 );
 
 /**
  * İçerik genişliği.
