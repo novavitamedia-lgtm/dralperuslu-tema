@@ -6,13 +6,19 @@
  * @package dr-alper-uslu
  */
 
-$q = new WP_Query( array(
-	'post_type'      => 'uzmanlik',
+// Vitrin: öne çıkan görseli OLAN işlemleri öncele (tekrarlı teal placeholder yerine gerçek fotoğraf).
+$common   = array( 'post_type' => 'uzmanlik', 'orderby' => 'menu_order title', 'order' => 'ASC', 'fields' => 'ids', 'no_found_rows' => true );
+$featured = get_posts( array_merge( $common, array(
 	'posts_per_page' => 8,
-	'orderby'        => 'menu_order title',
-	'order'          => 'ASC',
-	'no_found_rows'  => true,
-) );
+	'meta_query'     => array( array( 'key' => '_thumbnail_id', 'compare' => 'EXISTS' ) ),
+) ) );
+if ( count( $featured ) < 8 ) {
+	$fill = get_posts( array_merge( $common, array(
+		'posts_per_page' => 8 - count( $featured ),
+		'post__not_in'   => ! empty( $featured ) ? $featured : array( 0 ),
+	) ) );
+	$featured = array_merge( $featured, $fill );
+}
 
 $terms = get_terms( array( 'taxonomy' => 'uzmanlik-kategori', 'hide_empty' => true ) );
 ?>
@@ -34,12 +40,8 @@ $terms = get_terms( array( 'taxonomy' => 'uzmanlik-kategori', 'hide_empty' => tr
 	</div>
 	<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
 		<?php
-		if ( $q->have_posts() ) {
-			while ( $q->have_posts() ) {
-				$q->the_post();
-				echo dau_uzmanlik_card( get_the_ID() ); // phpcs:ignore
-			}
-			wp_reset_postdata();
+		foreach ( $featured as $pid ) {
+			echo dau_uzmanlik_card( $pid ); // phpcs:ignore
 		}
 		?>
 	</div>

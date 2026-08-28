@@ -60,7 +60,7 @@ T = {
     "c_years": "Yıl Deneyim", "c_aesthetic": "Estetik İşlem", "c_surgery": "Ameliyat", "c_citation": "Bilimsel Atıf",
     "about_kicker": "Tanışalım", "about_more": "Hakkımda Daha Fazlası",
     "services_kicker": "Uzmanlık Alanları", "services_title": "Estetik Cerrahi Uygulamaları",
-    "services_all": "Tüm Uzmanlıkları Gör", "in_category": "işlem",
+    "services_all": "Tüm Uzmanlıkları Gör", "in_category": "işlem", "card_cta": "İncele",
     "steps_kicker": "Süreç", "steps_title": "Nasıl İlerliyoruz?",
     "step1_t": "Konsültasyon", "step1_d": "Beklentileriniz dinlenir, yüz/vücut analizi yapılır ve seçenekler açıkça anlatılır.",
     "step2_t": "Kişisel Planlama", "step2_d": "Anatominize ve hedeflerinize uygun, gerçekçi ve kişiye özel bir plan hazırlanır.",
@@ -92,7 +92,7 @@ T = {
     "c_years": "Years Experience", "c_aesthetic": "Aesthetic Procedures", "c_surgery": "Surgeries", "c_citation": "Scientific Citations",
     "about_kicker": "Get to know", "about_more": "More About Me",
     "services_kicker": "Areas of Expertise", "services_title": "Aesthetic Surgery Procedures",
-    "services_all": "View All Procedures", "in_category": "procedures",
+    "services_all": "View All Procedures", "in_category": "procedures", "card_cta": "Explore",
     "steps_kicker": "Process", "steps_title": "How We Proceed",
     "step1_t": "Consultation", "step1_d": "We listen to your expectations, perform a face/body analysis and explain the options clearly.",
     "step2_t": "Personalized Plan", "step2_d": "A realistic, personalized plan is prepared according to your anatomy and goals.",
@@ -124,7 +124,7 @@ T = {
     "c_years": "Jahre Erfahrung", "c_aesthetic": "Ästhetische Eingriffe", "c_surgery": "Operationen", "c_citation": "Wissenschaftliche Zitate",
     "about_kicker": "Kennenlernen", "about_more": "Mehr über mich",
     "services_kicker": "Fachgebiete", "services_title": "Ästhetische chirurgische Eingriffe",
-    "services_all": "Alle Spezialisierungen", "in_category": "Eingriffe",
+    "services_all": "Alle Spezialisierungen", "in_category": "Eingriffe", "card_cta": "Ansehen",
     "steps_kicker": "Ablauf", "steps_title": "Wie wir vorgehen",
     "step1_t": "Beratung", "step1_d": "Wir hören Ihren Erwartungen zu, führen eine Gesichts-/Körperanalyse durch und erklären die Optionen klar.",
     "step2_t": "Individuelle Planung", "step2_d": "Ein realistischer, individueller Plan wird entsprechend Ihrer Anatomie und Ziele erstellt.",
@@ -627,21 +627,35 @@ def _card(ctx, slug, title, cat, excerpt=""):
       '<span class="text-[0.7rem] uppercase tracking-wider text-brand-600 font-semibold">' + esc(CAT_LABEL[ctx.lang][cat]) + '</span>'
       '<h3 class="font-display text-h3 font-semibold text-ink-900 mt-1 group-hover:text-brand-700 transition">' + esc(title) + '</h3>'
       + ('<p class="text-sm text-ink-500 mt-2 line-clamp-2">' + esc(excerpt) + '</p>' if excerpt else '') +
-      '<span class="inline-flex items-center gap-1 text-sm text-brand-600 font-medium mt-3">' + esc(ctx.t["nav_procedures"]) + IC["arrow"] + '</span>'
+      '<span class="inline-flex items-center gap-1 text-sm text-brand-600 font-medium mt-3">' + esc(ctx.t["card_cta"]) + IC["arrow"] + '</span>'
       '</div></a>')
 
 def sec_services(ctx, nav):
     t = ctx.t
-    # her kategoriden birkaç öne çıkan
-    cards = []
-    picked = 0
+    # Vitrin: GÖRSELLİ işlemleri öncele (tekrarlı teal placeholder yerine gerçek fotoğraf),
+    # kategori-çeşitli round-robin ile 8 kart seç.
+    pools = {}
     for cat in CATS:
-        for slug, title in nav.get(cat, [])[:2]:
-            proc = PROC_BY_SLUG.get((ctx.lang, slug))
-            cards.append(_card(ctx, slug, title, cat))
-            picked += 1
-            if picked >= 8: break
-        if picked >= 8: break
+        pools[cat] = [ (slug, title) for slug, title in nav.get(cat, [])
+                       if PROC_BY_SLUG.get((ctx.lang, slug)) and proc_image(PROC_BY_SLUG[(ctx.lang, slug)], cat) ]
+    cards = []
+    idx = { c: 0 for c in CATS }
+    while len(cards) < 8 and any( idx[c] < len(pools[c]) for c in CATS ):
+        for cat in CATS:
+            if idx[cat] < len(pools[cat]):
+                slug, title = pools[cat][idx[cat]]; idx[cat] += 1
+                cards.append(_card(ctx, slug, title, cat))
+                if len(cards) >= 8: break
+    # Nadir: 8'e ulaşılmadıysa görselsizlerle tamamla (grid boş kalmasın)
+    if len(cards) < 8:
+        for cat in CATS:
+            for slug, title in nav.get(cat, []):
+                proc = PROC_BY_SLUG.get((ctx.lang, slug))
+                if proc and proc_image(proc, cat): continue
+                cards.append(_card(ctx, slug, title, cat))
+                if len(cards) >= 8: break
+            if len(cards) >= 8: break
+    cards = cards[:8]
     cat_pills = "".join('<a href="' + ctx.link("kategori/" + c + ".html") + '" class="px-4 py-2 rounded-full text-sm font-medium ring-1 ring-line hover:ring-brand-600 hover:text-brand-700 transition bg-white">' + esc(CAT_LABEL[ctx.lang][c]) + '</a>' for c in CATS if nav.get(c))
     return (
       '<section class="section bg-white"><div class="container">'
