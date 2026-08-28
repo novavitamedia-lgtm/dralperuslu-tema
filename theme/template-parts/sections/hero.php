@@ -24,9 +24,21 @@ $name_html = '<h1 class="text-hero font-display font-black text-ink-900 mt-5 tra
 				<?php echo $name_html; // phpcs:ignore ?>
 			</div>
 			<div class="lg:col-span-5 lg:-ml-8 relative z-0 reveal">
-				<div class="aspect-[4/5] max-w-md ml-auto rounded-[2rem] overflow-hidden ring-1 ring-line shadow-cardHover">
-					<?php echo $portre ? dau_image( $portre, 'dau-hero', 'w-full h-full object-cover', true ) : ''; // phpcs:ignore ?>
-				</div>
+				<?php
+				$hero_video = dau_sub( 'hero_video' );
+				if ( is_array( $hero_video ) ) { $hero_video = $hero_video['url'] ?? ''; }
+				if ( ! $hero_video && file_exists( DAU_DIR . '/assets/video/hero.mp4' ) ) { $hero_video = DAU_URI . '/assets/video/hero.mp4'; }
+				$poster = file_exists( DAU_DIR . '/assets/video/hero-poster.jpg' ) ? DAU_URI . '/assets/video/hero-poster.jpg' : '';
+				?>
+				<?php if ( $hero_video ) : ?>
+					<div class="aspect-[16/10] max-w-xl ml-auto rounded-[2rem] overflow-hidden ring-1 ring-line shadow-cardHover">
+						<video autoplay muted loop playsinline preload="metadata"<?php echo $poster ? ' poster="' . esc_url( $poster ) . '"' : ''; ?> class="w-full h-full object-cover"><source src="<?php echo esc_url( $hero_video ); ?>" type="video/mp4"></video>
+					</div>
+				<?php else : ?>
+					<div class="aspect-[4/5] max-w-md ml-auto rounded-[2rem] overflow-hidden ring-1 ring-line shadow-cardHover">
+						<?php echo $portre ? dau_image( $portre, 'dau-hero', 'w-full h-full object-cover', true ) : ''; // phpcs:ignore ?>
+					</div>
+				<?php endif; ?>
 			</div>
 		</div>
 		<div class="lg:pl-[54%] mt-8 lg:mt-6 relative z-10 reveal">
