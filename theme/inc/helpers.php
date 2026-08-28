@@ -216,9 +216,26 @@ function dau_specialties_tree() {
 	);
 	$out = array();
 	foreach ( $order as $slug ) {
-		$term = get_term_by( 'slug', $slug, 'uzmanlik-kategori' );
-		if ( ! $term || is_wp_error( $term ) ) {
+		// TR terimini dile bakmadan bul (Polylang get_term_by'ı /en/'de filtreleyebilir).
+		$found = get_terms( array(
+			'taxonomy'   => 'uzmanlik-kategori',
+			'slug'       => $slug,
+			'hide_empty' => false,
+			'lang'       => '',
+		) );
+		$term = ( ! is_wp_error( $found ) && ! empty( $found ) ) ? $found[0] : null;
+		if ( ! $term ) {
 			continue;
+		}
+		// Polylang: mevcut dilin terimine çevir (EN/DE mega menü için).
+		if ( function_exists( 'pll_get_term' ) ) {
+			$tid = pll_get_term( $term->term_id );
+			if ( $tid ) {
+				$t2 = get_term( $tid, 'uzmanlik-kategori' );
+				if ( $t2 && ! is_wp_error( $t2 ) ) {
+					$term = $t2;
+				}
+			}
 		}
 		$posts = get_posts( array(
 			'post_type'      => 'uzmanlik',
