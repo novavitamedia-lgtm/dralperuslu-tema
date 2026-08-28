@@ -2,7 +2,9 @@
 /**
  * Sayfa şablonu: Blog (slug: blog) — yazı listesi + şık boş durum.
  * front-page ayarlarına dokunmadan /blog/ altında native postları listeler.
+ * Polylang paylaşılan slug'ı çözemediği için EN/DE farklı slug + bu şablon atanır.
  *
+ * Template Name: Blog
  * @package dr-alper-uslu
  */
 
