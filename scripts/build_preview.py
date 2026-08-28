@@ -1011,6 +1011,7 @@ def build_simple(ctx, item, ptype, langswitch, extra_after=""):
     title_map = {"about": t["nav_about"], "legal": (item["title"] or "Yasal Uyarı")}
     heading = item["title"] or title_map.get(ptype, "")
     body_text = item.get("text", "")
+    about_intro_html, about_rest_html = "", ""
     if ptype == "about" and body_text:
         # Makale başındaki isim/ünvan tekrarını at (hero zaten gösteriyor)
         blocks = [b.strip() for b in body_text.split("\n") if b.strip()]
@@ -1020,19 +1021,43 @@ def build_simple(ctx, item, ptype, langswitch, extra_after=""):
                 any(k in norm(blocks[0]) for k in ["cerrahi uzman", "febopras"])):
             blocks.pop(0)
         body_text = "\n".join(blocks)
+        # Narratif giriş + açılır uzun CV (ilk KISA BÜYÜK-HARF başlıkta kes: DENEYİM/EĞİTİM...)
+        cut = None
+        for i, b in enumerate(blocks):
+            if i > 0 and b and len(b) < 40 and b == b.upper():
+                cut = i; break
+        if cut is None or cut > 6:
+            cut = min(6, len(blocks))
+        about_intro_html = content_to_html("\n".join(blocks[:cut]))
+        about_rest_html = content_to_html("\n".join(blocks[cut:])) if blocks[cut:] else ""
     prose = content_to_html(body_text) if body_text else '<p class="text-ink-500">İçerik yakında.</p>'
     img = item["images"][0]["local"] if (ptype == "about" and item.get("images")) else None
     hero_img = ('<img src="' + ctx.media(img) + '" alt="' + esc(heading) + '" width="560" height="680" class="rounded-xl2 object-cover w-full shadow-card ring-1 ring-line" loading="lazy">') if img else ''
     trail = [(t["nav_home"], ctx.link("index.html")), (heading, None)]
     if ptype == "about":
-        body = ('<section class="mesh-teal"><div class="container py-12 md:py-16">' + breadcrumb(ctx, trail)
-                + '<div class="grid lg:grid-cols-2 gap-10 items-center mt-6">'
+        stats = [("12", "", t["c_years"]), ("2000", "+", t["c_aesthetic"]), ("4000", "+", t["c_surgery"])]
+        stats_html = ('<div class="grid grid-cols-3 gap-4 mt-8 max-w-md">' + "".join(
+            '<div class="rounded-2xl bg-white/70 ring-1 ring-line p-4 text-center"><div class="font-display font-bold text-brand-600 text-2xl sm:text-3xl">' + esc(a + b) + '</div><div class="text-ink-500 text-xs mt-1">' + esc(c) + '</div></div>'
+            for a, b, c in stats) + '</div>')
+        cv_lbl = {"tr": ("Detaylı Özgeçmiş & Bilimsel Faaliyetler", "Özgeçmişi Gizle"),
+                  "en": ("Full CV & Scientific Activities", "Hide CV"),
+                  "de": ("Ausführlicher Lebenslauf", "Lebenslauf ausblenden")}[ctx.lang]
+        collapse = ""
+        if about_rest_html:
+            collapse = ('<div class="mt-8" x-data="{ open:false }">'
+                        '<button @click="open=!open" class="inline-flex items-center gap-2 rounded-full ring-1 ring-line px-5 py-2.5 text-sm font-semibold text-ink-900 hover:bg-cream-50 transition" :aria-expanded="open">'
+                        '<span x-show="!open">' + esc(cv_lbl[0]) + '</span><span x-show="open" x-cloak>' + esc(cv_lbl[1]) + '</span>'
+                        '<span class="transition-transform text-brand-600" :class="open && \'rotate-180\'">' + IC["chevron"] + '</span></button>'
+                        '<div x-show="open" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" class="prose-clinic max-w-none mt-6 pt-6 border-t border-line">' + about_rest_html + '</div></div>')
+        article = ('<article class="lg:col-span-2 reveal"><div class="prose-clinic max-w-none">' + (about_intro_html or prose) + '</div>' + collapse + '</article>')
+        body = ('<section class="mesh-teal overflow-hidden"><div class="container py-12 md:py-16">' + breadcrumb(ctx, trail)
+                + '<div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center mt-6">'
                 '<div class="reveal"><span class="kicker mb-3">' + esc(t["about_kicker"]) + '</span>'
-                '<h1 class="text-hero !text-[clamp(2rem,4vw,3.2rem)] font-bold text-ink-900 mt-2">Op. Dr. Alper Burak Uslu</h1>'
-                '<p class="text-lead text-ink-700 mt-4">' + esc(t["hero_role"]) + ' · M.D, FEBOPRAS</p></div>'
+                '<h1 class="font-display font-black text-ink-900 text-[clamp(2.2rem,5vw,3.8rem)] leading-[1.02] tracking-[-0.02em] mt-2">Op. Dr. Alper<br><span class="italic font-bold">Burak Uslu</span></h1>'
+                '<p class="text-lead text-ink-700 mt-4">' + esc(t["hero_role"]) + ' · M.D, FEBOPRAS</p>' + stats_html + '</div>'
                 '<div class="reveal">' + hero_img + '</div></div></div></section>'
-                '<section class="section bg-white"><div class="container grid lg:grid-cols-3 gap-12">'
-                '<article class="lg:col-span-2 prose-clinic reveal">' + prose + '</article>'
+                '<section class="section bg-white"><div class="container grid lg:grid-cols-3 gap-12 lg:gap-16">'
+                + article +
                 '<aside class="lg:col-span-1"><div class="sticky top-28 space-y-4 reveal">'
                 + sec_apart_side(ctx) + '</div></aside></div></section>'
                 + extra_after)
@@ -1053,13 +1078,20 @@ def build_contact(ctx, item, langswitch):
     t = ctx.t
     trail = [(t["nav_home"], ctx.link("index.html")), (t["nav_contact"], None)]
     form = (
-      '<form class="grid gap-4" onsubmit="event.preventDefault(); this.querySelector(\'[data-ok]\').classList.remove(\'hidden\'); this.reset();">'
+      '<form class="grid gap-4" onsubmit="return dauWaPv(event)">'
       '<div class="grid sm:grid-cols-2 gap-4">'
-      '<input required placeholder="' + esc(t["form_name"]) + '" class="rounded-xl ring-1 ring-line px-4 py-3 focus:ring-brand-500 outline-none">'
-      '<input required type="tel" placeholder="' + esc(t["form_phone"]) + '" class="rounded-xl ring-1 ring-line px-4 py-3 focus:ring-brand-500 outline-none"></div>'
-      '<textarea rows="4" placeholder="' + esc(t["form_msg"]) + '" class="rounded-xl ring-1 ring-line px-4 py-3 focus:ring-brand-500 outline-none"></textarea>'
-      '<button class="btn-primary">' + esc(t["form_send"]) + '</button>'
-      '<p data-ok class="hidden text-brand-600 text-sm">✓ ' + esc(t["form_note"]) + '</p></form>')
+      '<label class="block"><span class="text-sm font-medium text-ink-700">' + esc(t["form_name"]) + '</span>'
+      '<input name="ad" required class="mt-1 w-full rounded-xl ring-1 ring-line px-4 py-3 focus:ring-brand-500 outline-none" autocomplete="name"></label>'
+      '<label class="block"><span class="text-sm font-medium text-ink-700">' + esc(t["form_phone"]) + '</span>'
+      '<input name="tel" required type="tel" class="mt-1 w-full rounded-xl ring-1 ring-line px-4 py-3 focus:ring-brand-500 outline-none" autocomplete="tel"></label></div>'
+      '<label class="block"><span class="text-sm font-medium text-ink-700">' + esc(t["form_msg"]) + '</span>'
+      '<textarea name="mesaj" rows="4" class="mt-1 w-full rounded-xl ring-1 ring-line px-4 py-3 focus:ring-brand-500 outline-none"></textarea></label>'
+      '<button class="btn-primary justify-center">' + IC["wa"] + '<span>' + esc(t["form_send"]) + '</span></button>'
+      '</form>'
+      '<script>function dauWaPv(e){e.preventDefault();var f=e.target;'
+      'var t="Merhaba, randevu talebim var.\\n\\nAd Soyad: "+(f.ad.value||"")+"\\nTelefon: "+(f.tel.value||"");'
+      'if(f.mesaj.value)t+="\\nMesaj: "+f.mesaj.value;'
+      'window.open("https://wa.me/' + SITE["whatsapp"] + '?text="+encodeURIComponent(t),"_blank","noopener");return false;}</script>')
     info = (
       '<div class="space-y-5">'
       '<a href="tel:' + SITE["phone_tel"] + '" class="card p-5 flex items-center gap-4 card-hover"><div class="w-12 h-12 rounded-full bg-brand-50 text-brand-600 grid place-content-center">' + IC["phone"] + '</div><div><div class="text-xs text-ink-500 uppercase tracking-wide">' + esc(t["cta_call"]) + '</div><div class="font-semibold text-ink-900">' + esc(SITE["phone_display"]) + '</div></div></a>'

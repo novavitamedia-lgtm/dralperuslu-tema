@@ -19,7 +19,7 @@
 					$url = dau_opt( $s );
 					if ( $url ) {
 						printf( '<a href="%s" target="_blank" rel="noopener" aria-label="%s" class="w-10 h-10 grid place-content-center rounded-full bg-white/10 hover:bg-brand-500 transition">%s</a>',
-							esc_url( $url ), esc_attr( $s ), dau_icon( 'star' ) ); // ikon basit; gerçek sosyal ikonlar için genişletilebilir
+							esc_url( $url ), esc_attr( $s ), dau_icon( $socials[ $s ] ) ); // phpcs:ignore
 					}
 				}
 				?>
