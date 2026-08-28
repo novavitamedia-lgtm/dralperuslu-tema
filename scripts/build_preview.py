@@ -56,7 +56,7 @@ T = {
     "cta_appt": "Randevu Al", "cta_call": "Hemen Ara", "cta_wa": "WhatsApp",
     "hero_role": "Plastik, Rekonstrüktif ve Estetik Cerrahi",
     "hero_sub": "Estetik cerrahide bilimsel yaklaşım, doğal sonuçlar ve kişiye özel planlama.",
-    "mission_kicker": "Yaklaşım", "counters_kicker": "Rakamlarla",
+    "mission_kicker": "Yaklaşım", "counters_kicker": "Rakamlarla", "mission_title": "Estetik Cerrahide Öncü Yaklaşım", "mission_text": "Kapsamlı, sanatsal ve minimal invaziv çözümlerle her hastanın kendine en uygun, doğal sonuca ulaşmasını hedefliyoruz.",
     "c_years": "Yıl Deneyim", "c_aesthetic": "Estetik İşlem", "c_surgery": "Ameliyat", "c_citation": "Bilimsel Atıf",
     "about_kicker": "Tanışalım", "about_more": "Hakkımda Daha Fazlası",
     "services_kicker": "Uzmanlık Alanları", "services_title": "Estetik Cerrahi Uygulamaları",
@@ -88,7 +88,7 @@ T = {
     "cta_appt": "Book Appointment", "cta_call": "Call Now", "cta_wa": "WhatsApp",
     "hero_role": "Plastic, Reconstructive and Aesthetic Surgery",
     "hero_sub": "A scientific approach to aesthetic surgery, natural results and personalized planning.",
-    "mission_kicker": "Approach", "counters_kicker": "In Numbers",
+    "mission_kicker": "Approach", "counters_kicker": "In Numbers", "mission_title": "Leading the Way in Aesthetic Surgery", "mission_text": "We aim to help every patient reach the most suitable, natural result through comprehensive, artistic and minimally invasive solutions.",
     "c_years": "Years Experience", "c_aesthetic": "Aesthetic Procedures", "c_surgery": "Surgeries", "c_citation": "Scientific Citations",
     "about_kicker": "Get to know", "about_more": "More About Me",
     "services_kicker": "Areas of Expertise", "services_title": "Aesthetic Surgery Procedures",
@@ -120,7 +120,7 @@ T = {
     "cta_appt": "Termin buchen", "cta_call": "Jetzt anrufen", "cta_wa": "WhatsApp",
     "hero_role": "Plastische, Rekonstruktive und Ästhetische Chirurgie",
     "hero_sub": "Ein wissenschaftlicher Ansatz in der ästhetischen Chirurgie, natürliche Ergebnisse und individuelle Planung.",
-    "mission_kicker": "Ansatz", "counters_kicker": "In Zahlen",
+    "mission_kicker": "Ansatz", "counters_kicker": "In Zahlen", "mission_title": "Wegweisend in der ästhetischen Chirurgie", "mission_text": "Wir helfen jedem Patienten, durch umfassende, künstlerische und minimalinvasive Lösungen das passendste, natürliche Ergebnis zu erreichen.",
     "c_years": "Jahre Erfahrung", "c_aesthetic": "Ästhetische Eingriffe", "c_surgery": "Operationen", "c_citation": "Wissenschaftliche Zitate",
     "about_kicker": "Kennenlernen", "about_more": "Mehr über mich",
     "services_kicker": "Fachgebiete", "services_title": "Ästhetische chirurgische Eingriffe",
@@ -494,43 +494,49 @@ def render_scrolltop(ctx):
 # ---------------------------------------------------------------- bölümler
 def sec_hero(ctx, about_intro):
     t = ctx.t
-    doctor = ''
-    if DOCTOR_IMG:
-        doctor = (
-          '<div class="relative reveal">'
-          '<div class="absolute -inset-4 bg-brand-500/10 rounded-[2rem] blur-2xl"></div>'
-          '<img src="' + ctx.media(DOCTOR_IMG) + '" alt="Op. Dr. Alper Burak Uslu" width="520" height="640" fetchpriority="high" class="relative w-full max-w-md mx-auto rounded-[2rem] object-cover shadow-cardHover ring-1 ring-white/60">'
-          '<div class="absolute -bottom-5 -left-4 bg-white rounded-2xl shadow-card px-5 py-3 flex items-center gap-3">'
-          '<div class="text-brand-600">' + IC["badge"] + '</div>'
-          '<div><div class="font-display font-bold text-ink-900 leading-none">FEBOPRAS</div><div class="text-xs text-ink-500 mt-0.5">M.D · EBOPRAS</div></div></div></div>')
+    img = ('<img src="' + ctx.media(DOCTOR_IMG) + '" alt="Op. Dr. Alper Burak Uslu" width="560" height="680" fetchpriority="high" '
+           'class="w-full h-full object-cover">') if DOCTOR_IMG else ''
+    # editorial: dev Playfair başlık + üstüne binen yuvarlak fotoğraf + coral buton
+    swoosh = ('<svg class="absolute inset-0 w-full h-full opacity-[0.5] pointer-events-none" preserveAspectRatio="none" viewBox="0 0 1440 700" aria-hidden="true">'
+              '<path d="M-50 520 Q400 380 760 470 T1500 360" fill="none" stroke="#E3E8E7" stroke-width="1.5"/>'
+              '<path d="M-50 600 Q450 470 820 560 T1500 450" fill="none" stroke="#E3E8E7" stroke-width="1"/></svg>')
     return (
-      '<section class="mesh-teal relative overflow-hidden">'
-      '<div class="absolute top-24 -right-24 w-96 h-96 rounded-full bg-brand-400/10 blur-3xl animate-floaty" aria-hidden="true"></div>'
-      '<div class="container grid lg:grid-cols-2 gap-12 items-center py-14 md:py-24">'
-      '<div class="reveal">'
-      '<span class="kicker mb-5">' + esc(t["hero_role"]) + '</span>'
-      '<h1 class="text-hero font-bold text-ink-900 mt-4">Op. Dr. Alper<br>Burak Uslu</h1>'
-      '<p class="text-lead text-ink-700 mt-6 max-w-xl">' + esc(about_intro or t["hero_sub"]) + '</p>'
-      '<div class="flex flex-wrap gap-3 mt-8">'
-      '<a href="' + wa_link() + '" target="_blank" rel="noopener" class="btn-primary">' + esc(t["cta_appt"]) + IC["arrow"] + '</a>'
-      '<a href="' + ctx.link("uzmanliklar/index.html") + '" class="btn-ghost">' + esc(t["all_procedures"]) + '</a>'
+      '<section class="relative overflow-hidden bg-white">' + swoosh +
+      '<div class="container relative pt-8 pb-14 md:pt-14 md:pb-24">'
+      '<div class="grid lg:grid-cols-12 gap-6 lg:gap-4 items-center">'
+      # dev başlık
+      '<div class="lg:col-span-7 relative z-10 reveal">'
+      '<span class="kicker mb-6">' + esc(t["hero_role"]) + '</span>'
+      '<h1 class="text-hero font-display font-black text-ink-900 mt-5 tracking-[-0.03em]">Op. Dr. Alper<br><span class="italic font-bold">Burak Uslu</span></h1>'
       '</div>'
-      '<div class="flex items-center gap-6 mt-10">'
-      + "".join('<div><div class="font-display text-2xl font-bold text-brand-700">' + n + s + '</div><div class="text-xs text-ink-500 uppercase tracking-wide">' + esc(t[k]) + '</div></div>' for n, s, k in COUNTERS[:3]) +
+      # üstüne binen fotoğraf
+      '<div class="lg:col-span-5 lg:-ml-8 relative z-0 reveal">'
+      '<div class="aspect-[4/5] max-w-md ml-auto rounded-[2rem] overflow-hidden ring-1 ring-line shadow-cardHover">' + img + '</div>'
       '</div></div>'
-      + doctor +
+      # alt: subhead + buton (sağ hizalı, editorial — fotoğrafın altında, overlap yok)
+      '<div class="lg:pl-[54%] mt-8 lg:mt-6 relative z-10 reveal">'
+      '<p class="font-display italic text-[1.5rem] md:text-[1.9rem] text-ink-900 leading-[1.25] max-w-lg">' + esc(t["hero_sub"]) + '</p>'
+      '<div class="flex flex-wrap items-center gap-4 mt-7">'
+      '<a href="' + wa_link() + '" target="_blank" rel="noopener" class="btn-primary">' + esc(t["cta_appt"]) + '</a>'
+      '<a href="' + ctx.link("uzmanliklar/index.html") + '" class="text-ink-900 font-semibold underline decoration-brand-500 decoration-2 underline-offset-4 hover:text-brand-700">' + esc(t["all_procedures"]) + '</a>'
+      '</div></div>'
       '</div></section>')
 
 def sec_counters(ctx):
     t = ctx.t
+    # embrace: teal Playfair serif istatistikler + misyon bloğu (dikey ayraç)
     items = "".join(
-      '<div class="reveal text-center">'
-      '<div class="font-display text-4xl md:text-5xl font-bold text-brand-600"><span data-count="' + n + '">0</span>' + s + '</div>'
-      '<div class="text-ink-500 mt-2 text-sm uppercase tracking-wide">' + esc(t[k]) + '</div></div>'
+      '<div class="reveal">'
+      '<div class="font-display font-bold text-brand-600 text-[2.6rem] md:text-[3rem] leading-none"><span data-count="' + n + '">0</span>' + s + '</div>'
+      '<div class="text-ink-700 mt-2 text-sm font-medium">' + esc(t[k]) + '</div></div>'
       for n, s, k in COUNTERS)
+    mission = (
+      '<div class="reveal lg:border-l lg:border-line lg:pl-8">'
+      '<h2 class="font-display text-[1.5rem] font-bold text-ink-900 leading-snug">' + esc(t.get("mission_title", "Estetik Cerrahide Öncü Yaklaşım")) + '</h2>'
+      '<p class="text-ink-500 mt-3 text-[0.95rem] leading-relaxed">' + esc(t.get("mission_text", "Kapsamlı, sanatsal ve minimal invaziv çözümlerle her hastanın kendine en uygun sonuca ulaşmasını hedefliyoruz.")) + '</p></div>')
     return (
-      '<section class="section bg-white"><div class="container">'
-      '<div class="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6 py-4 border-y border-line">' + items + '</div>'
+      '<section class="py-14 md:py-20 bg-white"><div class="container">'
+      '<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-10 items-start">' + items + mission + '</div>'
       '</div></section>')
 
 def sec_about_split(ctx, about):
@@ -547,7 +553,7 @@ def sec_about_split(ctx, about):
       '<span class="kicker mb-4">' + esc(t["about_kicker"]) + '</span>'
       '<h2 class="section-title mt-3 mb-5">' + esc(t["nav_about"]) + '</h2>'
       '<div class="prose-clinic">' + body + '</div>'
-      '<a href="' + ctx.link(page_url(ctx.lang,"about")) + '" class="btn-ghost mt-6">' + esc(t["about_more"]) + IC["arrow"] + '</a>'
+      '<a href="' + ctx.link(page_url(ctx.lang,"about")) + '" class="btn-outline mt-6">' + esc(t["about_more"]) + '</a>'
       '</div></div></section>')
 
 CAT_MONO = {"yuz": "Yüz", "vucut": "Vücut", "gogus": "Göğüs", "ameliyatsiz": "Estetik"}
@@ -633,7 +639,7 @@ def sec_doctor(ctx):
       '<div class="grid sm:grid-cols-3 gap-6 mt-8">'
       + "".join('<div><div class="font-display text-3xl font-bold text-white"><span>' + n + s + '</span></div><div class="text-white/60 text-sm mt-1">' + esc(t[k]) + '</div></div>' for n, s, k in COUNTERS[:3]) +
       '</div>'
-      '<a href="' + ctx.link(page_url(ctx.lang,"about")) + '" class="btn-light mt-8">' + esc(t["doctor_cta"]) + IC["arrow"] + '</a>'
+      '<a href="' + ctx.link(page_url(ctx.lang,"about")) + '" class="btn-light mt-8">' + esc(t["doctor_cta"]) + '</a>'
       '</div></div></section>')
 
 def sec_apart(ctx):
@@ -711,8 +717,8 @@ def sec_cta(ctx):
       '<div class="reveal"><h2 class="font-display text-h2 font-bold">' + esc(t["cta_title"]) + '</h2>'
       '<p class="text-white/80 mt-3 max-w-xl">' + esc(t["cta_desc"]) + '</p></div>'
       '<div class="flex flex-wrap gap-3 justify-center reveal">'
-      '<a href="tel:' + SITE["phone_tel"] + '" class="btn bg-white text-brand-700 hover:bg-cream-50">' + IC["phone"] + esc(t["cta_call"]) + '</a>'
-      '<a href="' + wa_link() + '" target="_blank" rel="noopener" class="btn bg-[#0E7A3A] text-white hover:opacity-90">' + IC["wa"] + esc(t["cta_wa"]) + '</a>'
+      '<a href="tel:' + SITE["phone_tel"] + '" class="btn-solid bg-white text-brand-700 hover:bg-cream-50">' + IC["phone"] + esc(t["cta_call"]) + '</a>'
+      '<a href="' + wa_link() + '" target="_blank" rel="noopener" class="btn-solid bg-[#0E7A3A] text-white hover:opacity-90">' + IC["wa"] + esc(t["cta_wa"]) + '</a>'
       '</div></div></section>')
 
 # ---------------------------------------------------------------- global indeksler
@@ -876,7 +882,7 @@ def build_procedure(ctx, proc, cat, data, langswitch):
       '<h1 class="text-hero !text-[clamp(2rem,4vw,3.2rem)] font-bold text-ink-900 mt-2">' + esc(proc["title"]) + '</h1>'
       '<p class="text-lead text-ink-700 mt-4">' + esc(meta_desc(proc)) + '</p>'
       '<div class="flex flex-wrap gap-3 mt-6"><a href="' + wa_link() + '" target="_blank" rel="noopener" class="btn-primary">' + esc(t["cta_appt"]) + '</a>'
-      '<a href="tel:' + SITE["phone_tel"] + '" class="btn-ghost">' + IC["phone"] + esc(t["cta_call"]) + '</a></div></div>'
+      '<a href="tel:' + SITE["phone_tel"] + '" class="btn-outline">' + IC["phone"] + esc(t["cta_call"]) + '</a></div></div>'
       '<div class="reveal">' + hero_img + '</div></div></div></section>'
       '<section class="section bg-white"><div class="container grid lg:grid-cols-3 gap-12">'
       '<article class="lg:col-span-2 prose-clinic reveal">' + prose + faq_html + '</article>'
@@ -884,7 +890,7 @@ def build_procedure(ctx, proc, cat, data, langswitch):
       '<h3 class="font-display text-h3 font-semibold text-ink-900 mb-4">' + esc(t["cta_appt"]) + '</h3>'
       '<p class="text-sm text-ink-500 mb-4">' + esc(t["cta_desc"]) + '</p>'
       '<a href="' + wa_link() + '" target="_blank" rel="noopener" class="btn-primary w-full mb-2">' + IC["wa"] + esc(t["cta_wa"]) + '</a>'
-      '<a href="tel:' + SITE["phone_tel"] + '" class="btn-ghost w-full">' + IC["phone"] + esc(SITE["phone_display"]) + '</a>'
+      '<a href="tel:' + SITE["phone_tel"] + '" class="btn-outline w-full">' + IC["phone"] + esc(SITE["phone_display"]) + '</a>'
       '<div class="mt-5 pt-5 border-t border-line text-sm text-ink-500 flex gap-2">' + IC["map"] + esc(SITE["address"]) + '</div>'
       '</div></aside></div></section>'
       + related)

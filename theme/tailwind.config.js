@@ -16,21 +16,24 @@ module.exports = {
       colors: {
         brand: {
           50: "#ECF7F5", 100: "#E6F4F2", 300: "#7FCFC7",
-          400: "#38BDB2", 500: "#1AA79C", 600: "#12857D", 700: "#0F6B65", 800: "#0B534E",
+          400: "#38BDB2", 500: "#1AA79C", 600: "#12857D", 700: "#0E7D6E", 800: "#0B534E",
         },
-        ink: { 900: "#12201F", 700: "#324241", 500: "#5C6E6C" },
-        cream: { 50: "#F8F6F1", 100: "#F1ECE3" },
+        // embraceyoursmile imza CTA (coral daire-ok)
+        coral: { 400: "#F4685A", 500: "#F04A3C", 600: "#D93A2E" },
+        ink: { 900: "#16302A", 700: "#3B4A46", 500: "#6B7A76" },
+        cream: { 50: "#F7F5F1", 100: "#EFEBE3" },
         gold: { 500: "#C39B4A", 400: "#D4B368" },
         line: "#E3E8E7",
       },
       fontFamily: {
-        display: ['Fraunces', 'Georgia', 'serif'],
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
         sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        "hero": ["clamp(2.5rem, 5vw, 4.25rem)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
-        "h2": ["clamp(1.9rem, 3.2vw, 2.75rem)", { lineHeight: "1.12", letterSpacing: "-0.015em" }],
-        "h3": ["1.35rem", { lineHeight: "1.2" }],
+        // embraceyoursmile: çok büyük dramatik editorial serif
+        "hero": ["clamp(3.2rem, 8vw, 6.5rem)", { lineHeight: "0.98", letterSpacing: "-0.02em" }],
+        "h2": ["clamp(2.2rem, 4.5vw, 3.6rem)", { lineHeight: "1.06", letterSpacing: "-0.015em" }],
+        "h3": ["1.45rem", { lineHeight: "1.2" }],
         "lead": ["1.15rem", { lineHeight: "1.7" }],
       },
       maxWidth: { prose: "68ch" },

@@ -30,6 +30,24 @@
 @font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 700; font-display: swap;
   src: url("../fonts/jakarta-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2013-2014,U+2018-2019,U+201C-201D,U+2020-2022,U+2026,U+2039-203A,U+2122; }
 
+/* ---- Playfair Display (dramatik editorial serif — embraceyoursmile dili) ---- */
+@font-face { font-family: "Playfair Display"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("../fonts/playfair-700-latin-ext.woff2") format("woff2"); unicode-range: U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: "Playfair Display"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("../fonts/playfair-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2013-2014,U+2018-2019,U+201C-201D,U+2020-2022,U+2026,U+2039-203A,U+2122; }
+@font-face { font-family: "Playfair Display"; font-style: normal; font-weight: 800; font-display: swap;
+  src: url("../fonts/playfair-800-latin-ext.woff2") format("woff2"); unicode-range: U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: "Playfair Display"; font-style: normal; font-weight: 800; font-display: swap;
+  src: url("../fonts/playfair-800-latin.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2013-2014,U+2018-2019,U+201C-201D,U+2020-2022,U+2026,U+2039-203A,U+2122; }
+@font-face { font-family: "Playfair Display"; font-style: normal; font-weight: 900; font-display: swap;
+  src: url("../fonts/playfair-900-latin-ext.woff2") format("woff2"); unicode-range: U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: "Playfair Display"; font-style: normal; font-weight: 900; font-display: swap;
+  src: url("../fonts/playfair-900-latin.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2013-2014,U+2018-2019,U+201C-201D,U+2020-2022,U+2026,U+2039-203A,U+2122; }
+@font-face { font-family: "Playfair Display"; font-style: italic; font-weight: 500; font-display: swap;
+  src: url("../fonts/playfair-500i-latin-ext.woff2") format("woff2"); unicode-range: U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: "Playfair Display"; font-style: italic; font-weight: 500; font-display: swap;
+  src: url("../fonts/playfair-500i-latin.woff2") format("woff2"); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2013-2014,U+2018-2019,U+201C-201D,U+2020-2022,U+2026,U+2039-203A,U+2122; }
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -39,7 +57,7 @@
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; }
   body { overflow-x: clip; }
   body { @apply font-sans text-ink-700 bg-white antialiased; font-size: 1rem; line-height: 1.75; }
-  h1, h2, h3, h4 { @apply font-display text-ink-900; text-wrap: balance; }
+  h1, h2, h3, h4 { @apply font-display text-ink-900; font-weight: 700; text-wrap: balance; }
   p { text-wrap: pretty; }
   a { color: inherit; }
   ::selection { background: theme("colors.brand.500"); color: #fff; }
@@ -48,16 +66,33 @@
 }
 
 @layer components {
-  /* Butonlar */
-  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold text-[0.95rem] px-6 py-3 transition duration-300 ease-out; }
-  .btn-primary { @apply btn bg-brand-700 text-white shadow-soft hover:bg-brand-800 hover:-translate-y-0.5; }
-  .btn-ghost { @apply btn bg-white text-brand-700 ring-1 ring-brand-600/25 hover:ring-brand-600/60 hover:bg-brand-50; }
-  .btn-light { @apply btn bg-white/10 text-white ring-1 ring-white/40 backdrop-blur hover:bg-white/20; }
-  .btn-gold  { @apply btn bg-gold-500 text-ink-900 hover:bg-gold-400; }
+  /* ---- İmza buton: beyaz pill + renkli daire-ok (embraceyoursmile) ---- */
+  .btn { @apply relative inline-flex items-center gap-3 rounded-full font-semibold text-[0.95rem] transition duration-300 ease-out; }
+  /* daire-ok ::after ile — markup'a ok eklemeye gerek yok */
+  .btn-primary { @apply btn bg-white text-ink-900 ring-1 ring-line pl-6 pr-1.5 py-1.5 hover:ring-ink-900/25; }
+  .btn-primary::after { content: "\2192"; @apply grid place-content-center w-10 h-10 rounded-full bg-coral-500 text-white text-[1.15rem] leading-none transition duration-300; }
+  .btn-primary:hover::after { @apply bg-coral-600; transform: translateX(2px); }
 
-  /* Etiket / kicker */
-  .kicker { @apply inline-flex items-center gap-2 text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-brand-600; }
-  .kicker::before { content: ""; @apply inline-block w-6 h-px bg-brand-500; }
+  .btn-outline { @apply btn bg-transparent text-ink-900 ring-1 ring-line pl-6 pr-1.5 py-1.5 hover:ring-ink-900/25; }
+  .btn-outline::after { content: "\2192"; @apply grid place-content-center w-10 h-10 rounded-full bg-brand-600 text-white text-[1.15rem] leading-none transition duration-300; }
+  .btn-outline:hover::after { @apply bg-brand-700; transform: translateX(2px); }
+
+  /* Koyu zemin varyantı */
+  .btn-light { @apply btn bg-white/5 text-white ring-1 ring-white/30 pl-6 pr-1.5 py-1.5 hover:ring-white/60; }
+  .btn-light::after { content: "\2192"; @apply grid place-content-center w-10 h-10 rounded-full bg-coral-500 text-white text-[1.15rem] leading-none; }
+
+  /* Dolu buton (telefon/WhatsApp — daire yok, ikon+metin) */
+  .btn-solid { @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold text-[0.95rem] px-6 py-3 transition duration-300; }
+  .btn-primary-solid { @apply btn-solid bg-brand-700 text-white hover:bg-brand-800; }
+  .btn-gold  { @apply btn-solid bg-gold-500 text-ink-900 hover:bg-gold-400; }
+
+  /* teal inline daire-ok (servis/adım satırları) */
+  .circle-arrow { @apply grid place-content-center w-9 h-9 rounded-full bg-brand-600 text-white shrink-0 transition; }
+  .circle-arrow-coral { @apply grid place-content-center w-11 h-11 rounded-full bg-coral-500 text-white shrink-0 transition; }
+
+  /* Etiket / kicker — teal, editorial */
+  .kicker { @apply inline-flex items-center gap-2 text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-brand-600; }
+  .kicker::before { content: ""; @apply inline-block w-8 h-px bg-brand-500; }
 
   /* Kartlar */
   .card { @apply bg-white rounded-xl2 shadow-card ring-1 ring-line/70 transition duration-300 ease-out; }
