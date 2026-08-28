@@ -38,6 +38,17 @@ function dau_setup() {
 add_action( 'after_setup_theme', 'dau_setup' );
 
 /**
+ * Polylang: dil (locale) belirlendikten sonra tema çevirilerini doğru locale ile yeniden yükle.
+ * Aksi halde textdomain erken (TR locale'iyle) yüklenip EN/DE'de çevrilmiyor.
+ */
+function dau_reload_textdomain() {
+	unload_textdomain( 'dr-alper-uslu' );
+	load_theme_textdomain( 'dr-alper-uslu', DAU_DIR . '/languages' );
+}
+add_action( 'pll_language_defined', 'dau_reload_textdomain' );
+add_action( 'wp', 'dau_reload_textdomain', 1 );
+
+/**
  * İçerik genişliği.
  */
 function dau_content_width() {
