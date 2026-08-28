@@ -3,6 +3,7 @@
  * Sayfa şablonu: Başarılar — üyelik rozetleri + çerçeveli sertifika galerisi + lightbox.
  * Sertifika görselleri sayfa içeriğinden (the_content) çıkarılır; generic düz döküm yerine tasarımlı.
  *
+ * Template Name: Başarılar
  * @package dr-alper-uslu
  */
 

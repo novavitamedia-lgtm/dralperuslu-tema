@@ -134,17 +134,32 @@ $wanum  = preg_replace( '/\D/', '', dau_opt( 'whatsapp' ) );
 		</div>
 	</div></section>
 
-	<!-- Gerçek yorumlar (Trustpilot) -->
+	<!-- Değerlendirmeler (bağımsız platformlar, gerçek puanlar) -->
 	<section class="section bg-cream-50"><div class="container">
 		<span class="kicker mb-3"><?php esc_html_e( 'Değerlendirmeler', 'dr-alper-uslu' ); ?></span>
-		<h2 class="section-title mt-3 mb-8"><?php esc_html_e( 'Hastaların Gerçek Yorumları', 'dr-alper-uslu' ); ?></h2>
-		<div class="trustpilot-widget" data-locale="tr-TR" data-template-id="53aa8912dec7e10d38f59f36" data-businessunit-id="641326d15a153ec4fec127ef" data-style-height="240px" data-style-width="100%" data-theme="light" data-stars="4,5">
-			<a href="https://www.trustpilot.com/review/dralperuslu.com" target="_blank" rel="noopener">Trustpilot</a>
+		<h2 class="section-title mt-3 mb-3"><?php esc_html_e( 'Hastaların Gerçek Yorumları', 'dr-alper-uslu' ); ?></h2>
+		<p class="text-ink-500 mb-8 max-w-xl"><?php esc_html_e( 'Bağımsız platformlardaki gerçek hasta değerlendirmelerini inceleyebilirsiniz.', 'dr-alper-uslu' ); ?></p>
+		<div class="grid sm:grid-cols-3 gap-5">
+			<a href="https://www.trustpilot.com/review/dralperuslu.com" target="_blank" rel="noopener" class="card card-hover p-6 text-center">
+				<div class="text-[#00b67a] text-xl tracking-tight mb-1">★★★★★</div>
+				<div class="font-display text-4xl font-bold text-ink-900">4,5<span class="text-xl text-ink-500">/5</span></div>
+				<div class="text-ink-500 text-sm mt-1">87 değerlendirme</div>
+				<div class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700">Trustpilot<?php echo dau_icon( 'arrow' ); // phpcs:ignore ?></div>
+			</a>
+			<a href="https://www.doktortakvimi.com/alper-burak-uslu/plastik-rekonstruktif-ve-estetik-cerrahi/istanbul" target="_blank" rel="noopener" class="card card-hover p-6 text-center">
+				<div class="text-amber-400 text-xl tracking-tight mb-1">★★★★★</div>
+				<div class="font-display text-4xl font-bold text-ink-900">5,0<span class="text-xl text-ink-500">/5</span></div>
+				<div class="text-ink-500 text-sm mt-1">Doktortakvimi</div>
+				<div class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700">Yorumları Oku<?php echo dau_icon( 'arrow' ); // phpcs:ignore ?></div>
+			</a>
+			<a href="https://www.realself.com/dr/alper-burak-uslu-istanbul-turkey" target="_blank" rel="noopener" class="card card-hover p-6 text-center flex flex-col justify-center">
+				<div class="font-display text-2xl font-bold text-ink-900">RealSelf</div>
+				<div class="text-ink-500 text-sm mt-2">Uluslararası hasta değerlendirmeleri ve öncesi-sonrası</div>
+				<div class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700">İncele<?php echo dau_icon( 'arrow' ); // phpcs:ignore ?></div>
+			</a>
 		</div>
-		<div class="flex flex-wrap items-center gap-3 mt-8">
+		<div class="mt-6">
 			<a href="https://www.google.com/search?q=Op.+Dr.+Alper+Burak+Uslu+yorumlar" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full ring-1 ring-line bg-white px-5 py-3 font-semibold text-ink-900 hover:bg-cream-50 transition"><?php echo dau_icon( 'google' ); // phpcs:ignore ?><?php esc_html_e( 'Google Yorumları', 'dr-alper-uslu' ); ?></a>
-			<a href="https://www.trustpilot.com/review/dralperuslu.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full ring-1 ring-line bg-white px-5 py-3 font-semibold text-ink-900 hover:bg-cream-50 transition"><span class="text-[#00b67a]">★</span>Trustpilot</a>
-			<a href="https://www.realself.com/dr/alper-burak-uslu-istanbul-turkey" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full ring-1 ring-line bg-white px-5 py-3 font-semibold text-ink-900 hover:bg-cream-50 transition">RealSelf</a>
 		</div>
 	</div></section>
 
@@ -240,7 +255,6 @@ function dauLpWa(e){
 	return false;
 }
 </script>
-<script src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
 <?php wp_footer(); ?>
 </body>
 </html>

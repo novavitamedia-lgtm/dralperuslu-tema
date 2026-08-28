@@ -3,6 +3,7 @@
  * Sayfa şablonu: Hakkımda — editorial (portre + istatistik + bio prose + kredibilite sidebar + CTA).
  * "Düz metin duvarı" yerine çerçeveli, taranabilir tasarım.
  *
+ * Template Name: Hakkımda
  * @package dr-alper-uslu
  */
 

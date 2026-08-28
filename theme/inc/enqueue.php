@@ -33,7 +33,7 @@ add_action( 'wp_enqueue_scripts', 'dau_enqueue_assets' );
  */
 function dau_head_preload() {
 	echo '<script>document.documentElement.classList.add("js")</script>' . "\n";
-	$fonts = array( 'jakarta-500-latin-ext.woff2', 'fraunces-700-latin-ext.woff2' );
+	$fonts = array( 'jakarta-500-latin-ext.woff2', 'playfair-700-latin.woff2' );
 	foreach ( $fonts as $f ) {
 		printf( '<link rel="preload" as="font" type="font/woff2" crossorigin href="%s">' . "\n",
 			esc_url( DAU_URI . '/assets/fonts/' . $f ) );

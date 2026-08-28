@@ -11,14 +11,24 @@
 if ( ! function_exists( 'dau_page_link' ) ) {
 	function dau_page_link( $slug ) {
 		$p = get_page_by_path( $slug );
-		return $p ? get_permalink( $p ) : home_url( '/' );
+		if ( ! $p ) {
+			return home_url( '/' );
+		}
+		$id = $p->ID;
+		// Polylang: mevcut dilin çevirisine yönlendir (EN/DE'de /en/about/ gibi).
+		if ( function_exists( 'pll_get_post' ) ) {
+			$tr = pll_get_post( $id );
+			if ( $tr ) {
+				$id = $tr;
+			}
+		}
+		return get_permalink( $id );
 	}
 }
 
 $dau_tree = dau_specialties_tree();
 $dau_lang = dau_lang_switcher();
-$dau_blog_page = get_page_by_path( 'blog' );
-$dau_blog = $dau_blog_page ? get_permalink( $dau_blog_page ) : home_url( '/blog/' );
+$dau_blog = get_page_by_path( 'blog' ) ? dau_page_link( 'blog' ) : home_url( '/blog/' );
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?> class="scroll-smooth">
 <head>

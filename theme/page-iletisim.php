@@ -3,6 +3,7 @@
  * Sayfa şablonu: İletişim — bilgi kartları + çalışan WhatsApp formu + stilize harita.
  * mail() sunucuda kapalı olduğundan form, alanları WhatsApp mesajına dönüştürür (wa.me).
  *
+ * Template Name: İletişim
  * @package dr-alper-uslu
  */
 
