@@ -141,6 +141,11 @@ $wanum  = preg_replace( '/\D/', '', dau_opt( 'whatsapp' ) );
 		<div class="trustpilot-widget" data-locale="tr-TR" data-template-id="53aa8912dec7e10d38f59f36" data-businessunit-id="641326d15a153ec4fec127ef" data-style-height="240px" data-style-width="100%" data-theme="light" data-stars="4,5">
 			<a href="https://www.trustpilot.com/review/dralperuslu.com" target="_blank" rel="noopener">Trustpilot</a>
 		</div>
+		<div class="flex flex-wrap items-center gap-3 mt-8">
+			<a href="https://www.google.com/search?q=Op.+Dr.+Alper+Burak+Uslu+yorumlar" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full ring-1 ring-line bg-white px-5 py-3 font-semibold text-ink-900 hover:bg-cream-50 transition"><?php echo dau_icon( 'google' ); // phpcs:ignore ?><?php esc_html_e( 'Google Yorumları', 'dr-alper-uslu' ); ?></a>
+			<a href="https://www.trustpilot.com/review/dralperuslu.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full ring-1 ring-line bg-white px-5 py-3 font-semibold text-ink-900 hover:bg-cream-50 transition"><span class="text-[#00b67a]">★</span>Trustpilot</a>
+			<a href="https://www.realself.com/dr/alper-burak-uslu-istanbul-turkey" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full ring-1 ring-line bg-white px-5 py-3 font-semibold text-ink-900 hover:bg-cream-50 transition">RealSelf</a>
+		</div>
 	</div></section>
 
 	<!-- Video & Instagram -->
