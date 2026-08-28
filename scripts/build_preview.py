@@ -219,6 +219,8 @@ def proc_image(proc, cat):
     return None  # benzersiz görsel yoksa tekrarlı stok koyma → şık gradient kart kullanılır
 
 DOCTOR_IMG = next((f for f in ["alper-burak-uslu.jpg", "alper-burak-uslu_.jpg", "alper-burak-uslu-1.webp"] if img_exists(f)), None)
+# hero videosu (Instagram'dan) — media/hero.mp4 varsa hero'da otomatik oynar
+HERO_VIDEO = next((f for f in ["hero.mp4", "hero-alper.mp4", "hero.webm"] if img_exists(f)), None)
 # candid/ameliyat karesi (steps/apart yan görselleri için)
 SURGERY_IMG = next((f for f in ["alper-burak-uslu_.jpg", "alper-burak-uslu_-1.jpg", "alper-burak-uslu_-2.jpg"] if img_exists(f) and f != DOCTOR_IMG), None)
 LOGO_IMG = "logo-alper-burak-uslu.jpg" if img_exists("logo-alper-burak-uslu.jpg") else None
@@ -496,8 +498,16 @@ def render_scrolltop(ctx):
 # ---------------------------------------------------------------- bölümler
 def sec_hero(ctx, about_intro):
     t = ctx.t
-    img = ('<img src="' + ctx.media(DOCTOR_IMG) + '" alt="Op. Dr. Alper Burak Uslu" width="560" height="680" fetchpriority="high" '
-           'class="w-full h-full object-cover">') if DOCTOR_IMG else ''
+    # hero medyası: video varsa embrace gibi otomatik oynayan sessiz döngü, yoksa portre
+    if HERO_VIDEO:
+        poster = (' poster="' + ctx.media('hero-poster.jpg') + '"') if img_exists('hero-poster.jpg') else ((' poster="' + ctx.media(DOCTOR_IMG) + '"') if DOCTOR_IMG else '')
+        img = ('<video autoplay muted loop playsinline preload="metadata"' + poster +
+               ' class="w-full h-full object-cover"><source src="' + ctx.media(HERO_VIDEO) + '" type="video/mp4"></video>')
+        aspect = "aspect-[16/10]"
+    else:
+        img = ('<img src="' + ctx.media(DOCTOR_IMG) + '" alt="Op. Dr. Alper Burak Uslu" width="560" height="680" fetchpriority="high" '
+               'class="w-full h-full object-cover">') if DOCTOR_IMG else ''
+        aspect = "aspect-[4/5]"
     # editorial: dev Playfair başlık + üstüne binen yuvarlak fotoğraf + coral buton
     swoosh = ('<svg class="absolute inset-0 w-full h-full opacity-[0.5] pointer-events-none" preserveAspectRatio="none" viewBox="0 0 1440 700" aria-hidden="true">'
               '<path d="M-50 520 Q400 380 760 470 T1500 360" fill="none" stroke="#E3E8E7" stroke-width="1.5"/>'
@@ -511,9 +521,9 @@ def sec_hero(ctx, about_intro):
       '<span class="kicker mb-6">' + esc(t["hero_role"]) + '</span>'
       '<h1 class="text-hero font-display font-black text-ink-900 mt-5 tracking-[-0.03em]">Op. Dr. Alper<br><span class="italic font-bold">Burak Uslu</span></h1>'
       '</div>'
-      # üstüne binen fotoğraf
+      # üstüne binen medya (video/foto)
       '<div class="lg:col-span-5 lg:-ml-8 relative z-0 reveal">'
-      '<div class="aspect-[4/5] max-w-md ml-auto rounded-[2rem] overflow-hidden ring-1 ring-line shadow-cardHover">' + img + '</div>'
+      '<div class="' + aspect + ' ' + ('max-w-xl' if HERO_VIDEO else 'max-w-md') + ' ml-auto rounded-[2rem] overflow-hidden ring-1 ring-line shadow-cardHover">' + img + '</div>'
       '</div></div>'
       # alt: subhead + buton (sağ hizalı, editorial — fotoğrafın altında, overlap yok)
       '<div class="lg:pl-[54%] mt-8 lg:mt-6 relative z-10 reveal">'
