@@ -275,10 +275,14 @@ def wa_link(text=""):
 
 # ---------------------------------------------------------------- SVG ikonlar
 IC = {
- "phone": '<svg viewBox="0 0 24 24" fill="none" class="w-4 h-4" aria-hidden="true"><path d="M2.5 5.5C2.5 4 3.7 3 5 3h1.6c.6 0 1.1.4 1.3 1l.9 3c.1.5 0 1-.4 1.3l-1.3 1a11 11 0 005 5l1-1.3c.3-.4.8-.5 1.3-.4l3 .9c.6.2 1 .7 1 1.3V18c0 1.3-1 2.5-2.5 2.5C10 20.5 3.5 14 2.5 5.5Z" stroke="currentColor" stroke-width="1.6"/></svg>',
+ # Premium ikon seti — Lucide dili (stroke 2, yuvarlak uç/köşe), shadcn/ui ile aynı görsel dil.
+ "phone": '<svg viewBox="0 0 24 24" fill="none" class="w-4 h-4" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
  "wa": '<svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15l-1 3.7 3.8-1A10 10 0 1012 2Zm5.3 13.9c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.6-.1-.4-.1-.9-.3-1.5-.6a9 9 0 01-3.9-3.9c-.3-.6-.5-1.1-.5-1.6 0-.5.5-1.2 1-1.5.2-.1.4-.1.5 0l.9 1.3c.1.2.1.4 0 .6l-.4.6c-.1.2-.1.3 0 .5.4.7 1.2 1.5 1.9 1.9.2.1.3.1.5 0l.6-.5c.2-.1.4-.1.6 0l1.3.9c.2.1.2.3.1.5Z"/></svg>',
- "arrow": '<svg viewBox="0 0 24 24" fill="none" class="w-4 h-4" aria-hidden="true"><path d="M5 12h14m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
- "chevron": '<svg viewBox="0 0 24 24" fill="none" class="w-4 h-4" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ "arrow": '<svg viewBox="0 0 24 24" fill="none" class="w-4 h-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ "chevron": '<svg viewBox="0 0 24 24" fill="none" class="w-4 h-4" aria-hidden="true"><path d="m6 9 6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ "globe": '<svg viewBox="0 0 24 24" fill="none" class="w-[15px] h-[15px]" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.7"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ "menu": '<svg viewBox="0 0 24 24" fill="none" class="w-6 h-6" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+ "close": '<svg viewBox="0 0 24 24" fill="none" class="w-6 h-6" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
  "star": '<svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.2l1.4-6.8L2.2 9.8l6.9-.7L12 2Z"/></svg>',
  "google": '<svg viewBox="0 0 24 24" class="w-4 h-4" aria-hidden="true"><path fill="#4285F4" d="M23 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.2a5.3 5.3 0 01-2.3 3.5v2.9h3.7C21.7 18.9 23 15.9 23 12.3Z"/><path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.8-2.9l-3.7-2.9c-1 .7-2.3 1.1-4.1 1.1-3.1 0-5.8-2.1-6.7-5H1.4v3C3.3 21.3 7.3 24 12 24Z"/><path fill="#FBBC05" d="M5.3 14.3a7.2 7.2 0 010-4.6v-3H1.4a12 12 0 000 10.6l3.9-3Z"/><path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.5 1.8l3.4-3.4C17.9 1.2 15.2 0 12 0 7.3 0 3.3 2.7 1.4 6.7l3.9 3c.9-2.9 3.6-5 6.7-5Z"/></svg>',
  "map": '<svg viewBox="0 0 24 24" fill="none" class="w-5 h-5" aria-hidden="true"><path d="M12 21s7-6 7-11a7 7 0 10-14 0c0 5 7 11 7 11Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.6"/></svg>',
@@ -289,6 +293,14 @@ IC = {
  "yt": '<svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5" aria-hidden="true"><path d="M22 12c0-2-.2-3.4-.4-4.2a2.6 2.6 0 00-1.8-1.8C18.4 5.7 12 5.7 12 5.7s-6.4 0-7.8.3A2.6 2.6 0 002.4 7.8C2.2 8.6 2 10 2 12s.2 3.4.4 4.2a2.6 2.6 0 001.8 1.8c1.4.3 7.8.3 7.8.3s6.4 0 7.8-.3a2.6 2.6 0 001.8-1.8c.2-.8.4-2.2.4-4.2ZM10 15V9l5 3-5 3Z"/></svg>',
 }
 SOCIAL_IC = {"facebook": IC["fb"], "instagram": IC["ig"], "youtube": IC["yt"]}
+
+# Mega-menü kategori ikonları (Lucide dili, stroke 1.7)
+CAT_ICON = {
+ "yuz": '<svg viewBox="0 0 24 24" fill="none" class="w-[18px] h-[18px]" aria-hidden="true"><circle cx="12" cy="12" r="9.2" stroke="currentColor" stroke-width="1.7"/><path d="M8.5 14.5s1.3 1.8 3.5 1.8 3.5-1.8 3.5-1.8M9 9.5h.01M15 9.5h.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ "vucut": '<svg viewBox="0 0 24 24" fill="none" class="w-[18px] h-[18px]" aria-hidden="true"><circle cx="12" cy="4.5" r="1.8" stroke="currentColor" stroke-width="1.7"/><path d="m8.5 21 3.5-6 3.5 6M6 8.5l6 2 6-2M12 10.5V15" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+ "gogus": '<svg viewBox="0 0 24 24" fill="none" class="w-[18px] h-[18px]" aria-hidden="true"><path d="M19 14c1.5-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.5 4.04 3 5.5l7 7 7-7Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>',
+ "ameliyatsiz": '<svg viewBox="0 0 24 24" fill="none" class="w-[18px] h-[18px]" aria-hidden="true"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>',
+}
 
 # ---------------------------------------------------------------- shell/head
 def render_head(ctx, title, desc, canonical, alternates, jsonld_list, preload_img=None):
@@ -329,7 +341,8 @@ def render_head(ctx, title, desc, canonical, alternates, jsonld_list, preload_im
     lines.append('<link rel="apple-touch-icon" href="' + ctx.asset("favicon.svg") + '">')
     # fontlar preload (kritik)
     lines.append('<link rel="preload" as="font" type="font/woff2" crossorigin href="' + ctx.asset("fonts/jakarta-500-latin-ext.woff2") + '">')
-    lines.append('<link rel="preload" as="font" type="font/woff2" crossorigin href="' + ctx.asset("fonts/fraunces-700-latin-ext.woff2") + '">')
+    lines.append('<link rel="preload" as="font" type="font/woff2" crossorigin href="' + ctx.asset("fonts/playfair-900-latin.woff2") + '">')
+    lines.append('<link rel="preload" as="font" type="font/woff2" crossorigin href="' + ctx.asset("fonts/playfair-700-latin.woff2") + '">')
     if preload_img:
         lines.append('<link rel="preload" as="image" href="' + ctx.media(preload_img) + '">')
     lines.append('<link rel="stylesheet" href="' + ctx.asset("main.css") + '">')
@@ -351,73 +364,91 @@ def logo_markup(ctx, on_dark=False):
 
 def render_header(ctx, nav, langswitch):
     t = ctx.t
-    # kategori dropdownları
-    cat_items = []
+
+    # --- Uzmanlıklar mega-dropdown (tek, geniş 4 kolonlu panel — embrace dili) ---
+    mega_cols = []
     for cat in CATS:
         procs = nav.get(cat, [])
         if not procs: continue
-        sub = []
-        for slug, title in procs:
-            sub.append('<a href="' + ctx.link("uzmanliklar/" + slug + ".html") + '" class="block px-4 py-2 text-sm text-ink-700 hover:bg-brand-50 hover:text-brand-700 rounded-lg">' + esc(title) + '</a>')
-        cat_items.append(
-          '<div class="relative" x-data="{ open: false }" @mouseenter="open=true" @mouseleave="open=false">'
-          '<a href="' + ctx.link("kategori/" + cat + ".html") + '" class="inline-flex items-center gap-1 px-3 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 whitespace-nowrap whitespace-nowrap" :aria-expanded="open">'
-          + esc(CAT_LABEL[ctx.lang][cat]) + IC["chevron"] + '</a>'
-          '<div x-show="open" x-transition.opacity x-cloak class="absolute left-0 top-full pt-2 w-64 z-40">'
-          '<div class="bg-white rounded-xl2 shadow-card ring-1 ring-line p-2 grid gap-0.5 max-h-[70vh] overflow-auto no-scrollbar">' + "".join(sub) + '</div></div></div>')
-    # dil switch
-    lang_links = []
-    for lg in LANGS:
-        url = langswitch.get(lg)
-        cls = "text-brand-700 font-semibold" if lg == ctx.lang else "text-ink-500 hover:text-brand-700"
-        if url:
-            lang_links.append('<a href="' + url + '" class="px-1.5 ' + cls + '">' + LANG_LABEL[lg] + '</a>')
-        else:
-            lang_links.append('<span class="px-1.5 ' + cls + '">' + LANG_LABEL[lg] + '</span>')
-    langsw = '<div class="flex items-center text-sm divide-x divide-line">' + "".join(lang_links) + '</div>'
+        links = "".join(
+            '<a href="' + ctx.link("uzmanliklar/" + slug + ".html") + '" class="block py-1.5 text-[0.85rem] text-ink-700 hover:text-brand-700 transition-colors">' + esc(title) + '</a>'
+            for slug, title in procs)
+        mega_cols.append(
+          '<div class="min-w-0">'
+          '<a href="' + ctx.link("kategori/" + cat + ".html") + '" class="group/cat flex items-center gap-2.5 mb-2.5 pb-2.5 border-b border-line">'
+          '<span class="grid place-content-center w-8 h-8 rounded-lg bg-brand-50 text-brand-600 shrink-0 transition-colors group-hover/cat:bg-brand-100">' + CAT_ICON.get(cat, '') + '</span>'
+          '<span class="font-display font-semibold text-[0.92rem] text-ink-900 leading-tight">' + esc(CAT_LABEL[ctx.lang][cat]) + '</span></a>'
+          + links + '</div>')
+    mega = (
+      '<div class="relative" x-data="{ open:false }" @mouseenter="open=true" @mouseleave="open=false" @focusin="open=true" @focusout="open=false">'
+      '<button type="button" class="inline-flex items-center gap-1 px-3.5 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 transition-colors" :aria-expanded="open" :class="open && \'text-brand-700\'">'
+      + esc(t["nav_procedures"]) + '<span class="transition-transform duration-200" :class="open && \'rotate-180\'">' + IC["chevron"] + '</span></button>'
+      '<div x-show="open" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" x-cloak class="absolute left-1/2 -translate-x-1/2 top-full pt-3 z-40 w-[min(92vw,860px)]">'
+      '<div class="bg-white rounded-2xl shadow-cardHover ring-1 ring-line p-6 grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-4">'
+      + "".join(mega_cols) + '</div></div></div>')
+
+    # --- Dil switcher (belirgin pill: globe + TR/EN/DE) ---
+    def build_langsw():
+        chips = []
+        for lg in LANGS:
+            url = langswitch.get(lg)
+            if lg == ctx.lang:
+                chips.append('<span class="px-2 py-0.5 rounded-full bg-ink-900 text-white">' + LANG_LABEL[lg] + '</span>')
+            elif url:
+                chips.append('<a href="' + url + '" class="px-2 py-0.5 rounded-full text-ink-700 hover:text-ink-900 hover:bg-cream-50 transition-colors">' + LANG_LABEL[lg] + '</a>')
+            else:
+                chips.append('<span class="px-2 py-0.5 rounded-full text-ink-500 opacity-40">' + LANG_LABEL[lg] + '</span>')
+        return ('<div class="flex items-center gap-0.5 rounded-full ring-1 ring-line bg-white/70 pl-2 pr-1 py-1 text-[0.78rem] font-semibold" aria-label="' + esc(t.get("lang_label", "Dil")) + '">'
+                '<span class="text-ink-500 mr-0.5">' + IC["globe"] + '</span>' + "".join(chips) + '</div>')
+    langsw = build_langsw()
+
+    # --- CTA (embrace koyu pill + coral daire-ok) ---
+    cta = ('<a href="' + wa_link() + '" target="_blank" rel="noopener" class="group/cta hidden sm:inline-flex items-center gap-2.5 rounded-full bg-ink-900 text-white pl-5 pr-1.5 py-1.5 text-[0.86rem] font-semibold hover:bg-ink-700 transition-colors">'
+           '<span>' + esc(t["cta_appt"]) + '</span>'
+           '<span class="grid place-content-center w-8 h-8 rounded-full bg-coral-500 text-white transition-colors group-hover/cta:bg-coral-600">' + IC["arrow"] + '</span></a>')
 
     desktop_nav = (
-      '<nav class="hidden lg:flex items-center gap-1" aria-label="Ana menü">'
-      '<a href="' + ctx.link("index.html") + '" class="px-3 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 whitespace-nowrap">' + esc(t["nav_home"]) + '</a>'
-      '<a href="' + ctx.link("hakkimda.html" if ctx.lang=="tr" else page_url(ctx.lang,"about")) + '" class="px-3 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 whitespace-nowrap">' + esc(t["nav_about"]) + '</a>'
-      + "".join(cat_items) +
-      '<a href="' + ctx.link(page_url(ctx.lang,"achievements")) + '" class="px-3 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 whitespace-nowrap">' + esc(t["nav_achievements"]) + '</a>'
-      '<a href="' + ctx.link(page_url(ctx.lang,"contact")) + '" class="px-3 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 whitespace-nowrap">' + esc(t["nav_contact"]) + '</a>'
+      '<nav class="hidden lg:flex items-center gap-0.5" aria-label="' + esc(t["menu"]) + '">'
+      '<a href="' + ctx.link("hakkimda.html" if ctx.lang=="tr" else page_url(ctx.lang,"about")) + '" class="px-3.5 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 transition-colors whitespace-nowrap">' + esc(t["nav_about"]) + '</a>'
+      + mega +
+      '<a href="' + ctx.link(page_url(ctx.lang,"achievements")) + '" class="px-3.5 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 transition-colors whitespace-nowrap">' + esc(t["nav_achievements"]) + '</a>'
+      '<a href="' + ctx.link(page_url(ctx.lang,"contact")) + '" class="px-3.5 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 transition-colors whitespace-nowrap">' + esc(t["nav_contact"]) + '</a>'
       '</nav>')
 
-    # mobil menü içeriği
+    # --- mobil menü içeriği (ikonlu akordeon kategoriler) ---
     mob_cats = []
     for cat in CATS:
         procs = nav.get(cat, [])
         if not procs: continue
-        links = "".join('<a href="' + ctx.link("uzmanliklar/" + slug + ".html") + '" class="block py-1.5 text-sm text-ink-500">' + esc(title) + '</a>' for slug, title in procs)
+        links = "".join('<a href="' + ctx.link("uzmanliklar/" + slug + ".html") + '" class="block py-1.5 text-[0.9rem] text-ink-500 hover:text-brand-700" @click="mobile=false">' + esc(title) + '</a>' for slug, title in procs)
         mob_cats.append(
           '<div x-data="{ o:false }" class="border-b border-line/70">'
-          '<button @click="o=!o" class="w-full flex items-center justify-between py-3 font-medium text-ink-900">' + esc(CAT_LABEL[ctx.lang][cat]) + IC["chevron"] + '</button>'
-          '<div x-show="o" x-collapse class="pb-3 pl-2">' + links + '</div></div>')
+          '<button @click="o=!o" class="w-full flex items-center justify-between py-3 font-medium text-ink-900">'
+          '<span class="flex items-center gap-2.5"><span class="text-brand-600">' + CAT_ICON.get(cat, '') + '</span>' + esc(CAT_LABEL[ctx.lang][cat]) + '</span>'
+          '<span class="transition-transform" :class="o && \'rotate-180\'">' + IC["chevron"] + '</span></button>'
+          '<div x-show="o" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" class="pb-3 pl-[2.75rem]">' + links + '</div></div>')
 
     header = (
       '<header data-header class="fixed top-0 inset-x-0 z-50 transition-all duration-300 [&.is-scrolled]:bg-white/95 [&.is-scrolled]:backdrop-blur [&.is-scrolled]:shadow-soft bg-white/80 backdrop-blur-sm" x-data="{ mobile:false }">'
       '<div class="container flex items-center justify-between gap-4" style="height:var(--nav-h)">'
-      + logo_markup(ctx) +
-      '<div class="flex items-center gap-3">'
+      + logo_markup(ctx)
       + desktop_nav +
+      '<div class="flex items-center gap-2.5">'
       '<div class="hidden md:block">' + langsw + '</div>'
-      '<a href="' + wa_link() + '" target="_blank" rel="noopener" class="hidden sm:inline-flex btn-primary !px-5 !py-2.5">' + IC["phone"] + '<span>' + esc(t["cta_appt"]) + '</span></a>'
-      '<button @click="mobile=true" class="lg:hidden p-2 text-ink-900" aria-label="' + esc(t["menu"]) + '"><svg viewBox="0 0 24 24" class="w-7 h-7" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>'
+      + cta +
+      '<button @click="mobile=true" class="lg:hidden p-1.5 -mr-1 text-ink-900" aria-label="' + esc(t["menu"]) + '">' + IC["menu"] + '</button>'
       '</div></div>'
       # mobil overlay
       '<div x-show="mobile" x-cloak x-transition.opacity class="fixed inset-0 z-50 bg-ink-900/40 lg:hidden" @click="mobile=false"></div>'
       '<div x-show="mobile" x-cloak x-transition:enter="transition ease-out duration-300" x-transition:enter-start="translate-x-full" x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="translate-x-full" class="fixed top-0 right-0 z-50 h-full w-[86%] max-w-sm bg-white shadow-2xl p-6 overflow-y-auto lg:hidden">'
-      '<div class="flex items-center justify-between mb-6"><span class="font-display font-bold text-ink-900">' + esc(t["menu"]) + '</span>'
-      '<button @click="mobile=false" class="p-2" aria-label="' + esc(t["close"]) + '"><svg viewBox="0 0 24 24" class="w-6 h-6" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>'
-      '<a href="' + ctx.link("index.html") + '" class="block py-3 font-medium text-ink-900 border-b border-line/70">' + esc(t["nav_home"]) + '</a>'
-      '<a href="' + ctx.link(page_url(ctx.lang,"about")) + '" class="block py-3 font-medium text-ink-900 border-b border-line/70">' + esc(t["nav_about"]) + '</a>'
+      '<div class="flex items-center justify-between mb-5"><span class="font-display font-bold text-ink-900 text-lg">' + esc(t["menu"]) + '</span>'
+      '<button @click="mobile=false" class="p-1.5" aria-label="' + esc(t["close"]) + '">' + IC["close"] + '</button></div>'
+      '<div class="mb-4">' + build_langsw() + '</div>'
+      '<a href="' + ctx.link("hakkimda.html" if ctx.lang=="tr" else page_url(ctx.lang,"about")) + '" class="block py-3 font-medium text-ink-900 border-b border-line/70" @click="mobile=false">' + esc(t["nav_about"]) + '</a>'
       + "".join(mob_cats) +
-      '<a href="' + ctx.link(page_url(ctx.lang,"achievements")) + '" class="block py-3 font-medium text-ink-900 border-b border-line/70">' + esc(t["nav_achievements"]) + '</a>'
-      '<a href="' + ctx.link(page_url(ctx.lang,"contact")) + '" class="block py-3 font-medium text-ink-900 border-b border-line/70">' + esc(t["nav_contact"]) + '</a>'
-      '<div class="mt-5">' + langsw + '</div>'
-      '<a href="' + wa_link() + '" target="_blank" rel="noopener" class="btn-primary w-full mt-5">' + esc(t["cta_appt"]) + '</a>'
+      '<a href="' + ctx.link(page_url(ctx.lang,"achievements")) + '" class="block py-3 font-medium text-ink-900 border-b border-line/70" @click="mobile=false">' + esc(t["nav_achievements"]) + '</a>'
+      '<a href="' + ctx.link(page_url(ctx.lang,"contact")) + '" class="block py-3 font-medium text-ink-900 border-b border-line/70" @click="mobile=false">' + esc(t["nav_contact"]) + '</a>'
+      '<a href="' + wa_link() + '" target="_blank" rel="noopener" class="btn-primary w-full mt-6 justify-center">' + esc(t["cta_appt"]) + '</a>'
       '</div>'
       '</header>')
     return header
@@ -887,7 +918,7 @@ def build_procedure(ctx, proc, cat, data, langswitch):
             items += ('<div class="border-b border-line last:border-0" x-data="{ o:' + ('true' if i == 0 else 'false') + ' }">'
               '<button @click="o=!o" class="w-full flex items-center justify-between gap-4 py-4 text-left font-medium text-ink-900 hover:text-brand-700" :aria-expanded="o">'
               '<span>' + esc(f["q"]) + '</span><span class="text-brand-600 transition-transform shrink-0" :class="o && \'rotate-180\'">' + IC["chevron"] + '</span></button>'
-              '<div x-show="o" x-collapse><div class="pb-5 text-ink-700 prose-clinic max-w-none">' + content_to_html(f["a"]) + '</div></div></div>')
+              '<div x-show="o" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0"><div class="pb-5 text-ink-700 prose-clinic max-w-none">' + content_to_html(f["a"]) + '</div></div></div>')
         faq_html = ('<div class="mt-12"><h2 class="font-display text-h2 font-bold text-ink-900 mb-4">' + esc(t["faq_title"]) + '</h2>'
                     '<div class="card p-4 sm:p-6">' + items + '</div></div>')
     # ilgili işlemler (aynı kategori)
@@ -1222,7 +1253,11 @@ def main():
     shutil.copytree(os.path.join(CONTENT, "media"), os.path.join(dst_assets, "media"))
     css_src = os.path.join(ROOT, "theme", "assets", "dist", "main.css")
     if os.path.exists(css_src):
-        shutil.copy(css_src, os.path.join(dst_assets, "main.css"))
+        # Tema yapısında main.css `assets/dist/` içinde olduğundan @font-face `../fonts/` kullanır.
+        # Preview'de main.css `assets/` köküne düzleştiği için yolu `fonts/` yap (yoksa 404 → Playfair yüklenmez).
+        css_txt = open(css_src, encoding="utf-8").read().replace('url(../fonts/', 'url(fonts/').replace('url("../fonts/', 'url("fonts/').replace("url('../fonts/", "url('fonts/")
+        with open(os.path.join(dst_assets, "main.css"), "w", encoding="utf-8") as _f:
+            _f.write(css_txt)
     shutil.copy(os.path.join(ROOT, "theme", "assets", "src", "main.js"), os.path.join(dst_assets, "main.js"))
     shutil.copy(os.path.join(ROOT, "theme", "assets", "favicon.svg"), os.path.join(dst_assets, "favicon.svg"))
 
