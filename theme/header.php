@@ -17,6 +17,8 @@ if ( ! function_exists( 'dau_page_link' ) ) {
 
 $dau_tree = dau_specialties_tree();
 $dau_lang = dau_lang_switcher();
+$dau_blog_page = get_page_by_path( 'blog' );
+$dau_blog = $dau_blog_page ? get_permalink( $dau_blog_page ) : home_url( '/blog/' );
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?> class="scroll-smooth">
 <head>
@@ -77,6 +79,7 @@ $dau_lang = dau_lang_switcher();
 			<?php endif; ?>
 
 			<a href="<?php echo esc_url( dau_page_link( 'basarilar' ) ); ?>" class="px-3.5 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 transition-colors whitespace-nowrap"><?php esc_html_e( 'Başarılar', 'dr-alper-uslu' ); ?></a>
+			<a href="<?php echo esc_url( $dau_blog ); ?>" class="px-3.5 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 transition-colors whitespace-nowrap"><?php esc_html_e( 'Blog', 'dr-alper-uslu' ); ?></a>
 			<a href="<?php echo esc_url( dau_page_link( 'iletisim' ) ); ?>" class="px-3.5 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 transition-colors whitespace-nowrap"><?php esc_html_e( 'İletişim', 'dr-alper-uslu' ); ?></a>
 		</nav>
 
@@ -113,6 +116,7 @@ $dau_lang = dau_lang_switcher();
 			</div>
 		<?php endforeach; ?>
 		<a href="<?php echo esc_url( dau_page_link( 'basarilar' ) ); ?>" class="block py-3 font-medium text-ink-900 border-b border-line/70" @click="mobile=false"><?php esc_html_e( 'Başarılar', 'dr-alper-uslu' ); ?></a>
+		<a href="<?php echo esc_url( $dau_blog ); ?>" class="block py-3 font-medium text-ink-900 border-b border-line/70" @click="mobile=false"><?php esc_html_e( 'Blog', 'dr-alper-uslu' ); ?></a>
 		<a href="<?php echo esc_url( dau_page_link( 'iletisim' ) ); ?>" class="block py-3 font-medium text-ink-900 border-b border-line/70" @click="mobile=false"><?php esc_html_e( 'İletişim', 'dr-alper-uslu' ); ?></a>
 		<a href="<?php echo esc_url( dau_wa_link() ); ?>" target="_blank" rel="noopener" class="btn-primary w-full mt-6 justify-center"><?php esc_html_e( 'Randevu Al', 'dr-alper-uslu' ); ?></a>
 	</div>

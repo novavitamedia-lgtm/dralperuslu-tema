@@ -260,9 +260,9 @@ def type_path(ptype):
 def page_url(lang, ptype):
     # her dilde gerçek slug'lı dosya (SEO devamlılığı gösterimi)
     slugmap = {
-        "tr": {"about": "hakkimda.html", "contact": "iletisim.html", "legal": "yasal-uyari.html", "achievements": "basarilar.html"},
-        "en": {"about": "about.html", "contact": "contact.html", "legal": "legal.html", "achievements": "achievements.html"},
-        "de": {"about": "ueber-mich.html", "contact": "kontakt.html", "legal": "impressum.html", "achievements": "erfolge.html"},
+        "tr": {"about": "hakkimda.html", "contact": "iletisim.html", "legal": "yasal-uyari.html", "achievements": "basarilar.html", "blog": "blog.html"},
+        "en": {"about": "about.html", "contact": "contact.html", "legal": "legal.html", "achievements": "achievements.html", "blog": "blog.html"},
+        "de": {"about": "ueber-mich.html", "contact": "kontakt.html", "legal": "impressum.html", "achievements": "erfolge.html", "blog": "blog.html"},
     }
     if ptype == "home": return "index.html"
     if ptype == "procedures": return "uzmanliklar/index.html"
@@ -412,6 +412,7 @@ def render_header(ctx, nav, langswitch):
       '<a href="' + ctx.link("hakkimda.html" if ctx.lang=="tr" else page_url(ctx.lang,"about")) + '" class="px-3.5 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 transition-colors whitespace-nowrap">' + esc(t["nav_about"]) + '</a>'
       + mega +
       '<a href="' + ctx.link(page_url(ctx.lang,"achievements")) + '" class="px-3.5 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 transition-colors whitespace-nowrap">' + esc(t["nav_achievements"]) + '</a>'
+      '<a href="' + ctx.link(page_url(ctx.lang,"blog")) + '" class="px-3.5 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 transition-colors whitespace-nowrap">Blog</a>'
       '<a href="' + ctx.link(page_url(ctx.lang,"contact")) + '" class="px-3.5 py-2 text-[0.92rem] font-medium text-ink-700 hover:text-brand-700 transition-colors whitespace-nowrap">' + esc(t["nav_contact"]) + '</a>'
       '</nav>')
 
@@ -447,6 +448,7 @@ def render_header(ctx, nav, langswitch):
       '<a href="' + ctx.link("hakkimda.html" if ctx.lang=="tr" else page_url(ctx.lang,"about")) + '" class="block py-3 font-medium text-ink-900 border-b border-line/70" @click="mobile=false">' + esc(t["nav_about"]) + '</a>'
       + "".join(mob_cats) +
       '<a href="' + ctx.link(page_url(ctx.lang,"achievements")) + '" class="block py-3 font-medium text-ink-900 border-b border-line/70" @click="mobile=false">' + esc(t["nav_achievements"]) + '</a>'
+      '<a href="' + ctx.link(page_url(ctx.lang,"blog")) + '" class="block py-3 font-medium text-ink-900 border-b border-line/70" @click="mobile=false">Blog</a>'
       '<a href="' + ctx.link(page_url(ctx.lang,"contact")) + '" class="block py-3 font-medium text-ink-900 border-b border-line/70" @click="mobile=false">' + esc(t["nav_contact"]) + '</a>'
       '<a href="' + wa_link() + '" target="_blank" rel="noopener" class="btn-primary w-full mt-6 justify-center">' + esc(t["cta_appt"]) + '</a>'
       '</div>'
@@ -1142,6 +1144,25 @@ def build_achievements(ctx, item, langswitch):
     ls = {lg: langswitch["achievements"].get(lg) for lg in LANGS}
     return page_shell(ctx, (item["title"] if item else t["nav_achievements"]) + " · Op. Dr. Alper Burak Uslu", t["gallery_title"], page_url(ctx.lang, "achievements"), langswitch["achievements"], [], body, nav, ls)
 
+def build_blog(ctx, langswitch):
+    nav = NAV[ctx.lang]; t = ctx.t
+    lbl = {"tr": ("Blog", "Estetik cerrahi, iyileşme süreçleri ve bakım üzerine bilgilendirici yazılar.", "İçerikler Yakında", "Estetik cerrahi, iyileşme süreçleri ve bakım üzerine bilgilendirici yazılar çok yakında burada olacak.", "Ana Sayfaya Dön"),
+           "en": ("Blog", "Informative articles on aesthetic surgery, recovery and care.", "Content Coming Soon", "Informative articles on aesthetic surgery, recovery and care will be here very soon.", "Back to Home"),
+           "de": ("Blog", "Informative Artikel über ästhetische Chirurgie, Heilung und Pflege.", "Inhalte in Kürze", "Informative Artikel über ästhetische Chirurgie, Heilung und Pflege sind bald hier verfügbar.", "Zur Startseite")}[ctx.lang]
+    trail = [(t["nav_home"], ctx.link("index.html")), (lbl[0], None)]
+    doc_icon = '<svg viewBox="0 0 24 24" fill="none" class="w-8 h-8" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h8l6 6v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v6h6M8 13h8M8 17h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    body = ('<section class="mesh-teal"><div class="container py-12 md:py-16">' + breadcrumb(ctx, trail)
+            + '<h1 class="text-hero !text-[clamp(2rem,4vw,3.2rem)] font-bold text-ink-900 mt-4">' + esc(lbl[0]) + '</h1>'
+            '<p class="text-lead text-ink-700 mt-3 max-w-xl">' + esc(lbl[1]) + '</p></div></section>'
+            '<section class="section bg-white"><div class="container"><div class="max-w-lg mx-auto text-center py-12 reveal">'
+            '<div class="w-16 h-16 mx-auto rounded-2xl bg-brand-50 text-brand-600 grid place-content-center mb-6">' + doc_icon + '</div>'
+            '<h2 class="font-display text-h2 font-semibold text-ink-900">' + esc(lbl[2]) + '</h2>'
+            '<p class="text-ink-500 mt-3 leading-relaxed">' + esc(lbl[3]) + '</p>'
+            '<a href="' + ctx.link("index.html") + '" class="btn-primary mt-7 justify-center inline-flex">' + esc(lbl[4]) + IC["arrow"] + '</a>'
+            '</div></div></section>')
+    ls = {lg: langswitch["blog"].get(lg) for lg in LANGS}
+    return page_shell(ctx, lbl[0] + " · Op. Dr. Alper Burak Uslu", lbl[1], page_url(ctx.lang, "blog"), langswitch["blog"], [], body, nav, ls)
+
 # ---------------------------------------------------------------- montaj
 def assemble(lang):
     L = INV["languages"][lang]
@@ -1156,7 +1177,7 @@ def assemble(lang):
 
 def build_langswitch(ctx):
     d = {}
-    for pt in ["home", "about", "contact", "legal", "achievements", "procedures"]:
+    for pt in ["home", "about", "contact", "legal", "achievements", "procedures", "blog"]:
         d[pt] = {}
         for lg in LANGS:
             d[pt][lg] = None if lg == ctx.lang else ctx.other(lg, page_url(lg, pt))
@@ -1219,6 +1240,9 @@ def main():
         if data["achievements"]:
             ctx = Ctx(lang, 0, "achievements"); ls = build_langswitch(ctx)
             write(os.path.join(PREVIEW, lang, page_url(lang, "achievements")), build_achievements(ctx, data["achievements"], ls)); n += 1
+        # blog (şimdilik "içerikler yakında" — eski sitede blog yazısı yok)
+        ctx = Ctx(lang, 0, "blog"); ls = build_langswitch(ctx)
+        write(os.path.join(PREVIEW, lang, page_url(lang, "blog")), build_blog(ctx, ls)); n += 1
         # procedures index
         ctx = Ctx(lang, 1, "procedures"); ls = build_langswitch(ctx)
         write(os.path.join(PREVIEW, lang, "uzmanliklar", "index.html"), build_procedures_index(ctx, data, ls)); n += 1
