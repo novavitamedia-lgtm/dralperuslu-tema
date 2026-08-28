@@ -86,3 +86,16 @@ function dau_seed_categories() {
 	}
 }
 add_action( 'after_switch_theme', 'dau_seed_categories' );
+
+/**
+ * Polylang: `uzmanlik` CPT ve `uzmanlik-kategori` taksonomisini çevrilebilir yap.
+ * Böylece işlem URL'leri de dil önekli olur ve dil filtresi doğru çalışır.
+ */
+add_filter( 'pll_get_post_types', function ( $post_types, $is_settings ) {
+	$post_types['uzmanlik'] = 'uzmanlik';
+	return $post_types;
+}, 10, 2 );
+add_filter( 'pll_get_taxonomies', function ( $taxonomies, $is_settings ) {
+	$taxonomies['uzmanlik-kategori'] = 'uzmanlik-kategori';
+	return $taxonomies;
+}, 10, 2 );
