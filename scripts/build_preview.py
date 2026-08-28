@@ -337,8 +337,8 @@ def render_head(ctx, title, desc, canonical, alternates, jsonld_list, preload_im
         lines.append('<meta property="og:image" content="' + BASE_URL + '/assets/media/' + _og + '">')
     lines.append('<meta name="twitter:card" content="summary_large_image">')
     lines.append('<meta name="theme-color" content="#12857D">')
-    lines.append('<link rel="icon" type="image/svg+xml" href="' + ctx.asset("favicon.svg") + '">')
-    lines.append('<link rel="apple-touch-icon" href="' + ctx.asset("favicon.svg") + '">')
+    lines.append('<link rel="icon" type="image/png" sizes="512x512" href="' + ctx.media("favicon-512.png") + '">')
+    lines.append('<link rel="apple-touch-icon" href="' + ctx.media("favicon-180.png") + '">')
     # fontlar preload (kritik)
     lines.append('<link rel="preload" as="font" type="font/woff2" crossorigin href="' + ctx.asset("fonts/jakarta-500-latin-ext.woff2") + '">')
     lines.append('<link rel="preload" as="font" type="font/woff2" crossorigin href="' + ctx.asset("fonts/playfair-900-latin.woff2") + '">')
@@ -356,10 +356,13 @@ def render_head(ctx, title, desc, canonical, alternates, jsonld_list, preload_im
     return "\n".join(lines)
 
 def logo_markup(ctx, on_dark=False):
-    color = "text-white" if on_dark else "text-ink-900"
-    sub = "text-white/70" if on_dark else "text-ink-500"
-    inner = ('<span class="font-display text-[1.02rem] sm:text-[1.12rem] font-bold leading-tight whitespace-nowrap ' + color + '">Op. Dr. Alper Burak Uslu</span>'
-             '<span class="block text-[0.6rem] sm:text-[0.66rem] uppercase tracking-[0.16em] ' + sub + ' mt-1 whitespace-nowrap">' + esc(ctx.t["hero_role"]) + '</span>')
+    if not on_dark:
+        # Açık zemin (header): doktorun gerçek logosu (görsel)
+        return ('<a href="' + ctx.link("index.html") + '" class="flex items-center" aria-label="Op. Dr. Alper Burak Uslu">'
+                '<img src="' + ctx.media("logo-alper-burak-uslu.jpg") + '" alt="Op. Dr. Alper Burak Uslu" width="557" height="70" class="h-9 sm:h-11 w-auto"></a>')
+    # Koyu zemin (footer): metin kilit (logo koyu-üstüne-beyaz olduğu için)
+    inner = ('<span class="font-display text-[1.02rem] sm:text-[1.12rem] font-bold leading-tight whitespace-nowrap text-white">Op. Dr. Alper Burak Uslu</span>'
+             '<span class="block text-[0.6rem] sm:text-[0.66rem] uppercase tracking-[0.16em] text-white/70 mt-1 whitespace-nowrap">' + esc(ctx.t["hero_role"]) + '</span>')
     return '<a href="' + ctx.link("index.html") + '" class="flex flex-col justify-center">' + inner + '</a>'
 
 def render_header(ctx, nav, langswitch):

@@ -25,7 +25,8 @@ $dau_blog = $dau_blog_page ? get_permalink( $dau_blog_page ) : home_url( '/blog/
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="https://gmpg.org/xfn/11">
-	<link rel="icon" type="image/svg+xml" href="<?php echo esc_url( DAU_URI . '/assets/favicon.svg' ); ?>">
+	<link rel="icon" type="image/png" sizes="512x512" href="<?php echo esc_url( DAU_URI . '/assets/img/favicon-512.png' ); ?>">
+	<link rel="apple-touch-icon" href="<?php echo esc_url( DAU_URI . '/assets/img/favicon-180.png' ); ?>">
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class( 'min-h-screen flex flex-col' ); ?>>
@@ -36,18 +37,9 @@ $dau_blog = $dau_blog_page ? get_permalink( $dau_blog_page ) : home_url( '/blog/
 
 <header data-header class="fixed top-0 inset-x-0 z-50 transition-all duration-300 [&.is-scrolled]:bg-white/95 [&.is-scrolled]:backdrop-blur [&.is-scrolled]:shadow-soft bg-white/80 backdrop-blur-sm" x-data="{ mobile:false }">
 	<div class="container flex items-center justify-between gap-4" style="height:var(--nav-h)">
-		<?php
-		if ( has_custom_logo() ) {
-			the_custom_logo();
-		} else {
-			printf(
-				'<a href="%s" class="flex flex-col justify-center"><span class="font-display text-[1.02rem] sm:text-[1.12rem] font-bold leading-tight whitespace-nowrap text-ink-900">%s</span><span class="block text-[0.6rem] sm:text-[0.66rem] uppercase tracking-[0.16em] text-ink-500 mt-1 whitespace-nowrap">%s</span></a>',
-				esc_url( home_url( '/' ) ),
-				esc_html( get_bloginfo( 'name' ) ),
-				esc_html__( 'Plastik, Rekonstrüktif ve Estetik Cerrahi', 'dr-alper-uslu' )
-			);
-		}
-		?>
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center" aria-label="Op. Dr. Alper Burak Uslu">
+			<img src="<?php echo esc_url( DAU_URI . '/assets/img/logo.jpg' ); ?>" alt="Op. Dr. Alper Burak Uslu" width="557" height="70" class="h-9 sm:h-11 w-auto">
+		</a>
 
 		<!-- Masaüstü nav: Hakkımda · Uzmanlıklar(mega) · Başarılar · İletişim -->
 		<nav class="hidden lg:flex items-center gap-0.5" aria-label="<?php esc_attr_e( 'Ana menü', 'dr-alper-uslu' ); ?>">

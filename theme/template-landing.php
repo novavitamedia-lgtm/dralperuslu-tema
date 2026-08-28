@@ -35,7 +35,8 @@ $wanum  = preg_replace( '/\D/', '', dau_opt( 'whatsapp' ) );
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="robots" content="noindex,nofollow">
-	<link rel="icon" type="image/svg+xml" href="<?php echo esc_url( DAU_URI . '/assets/favicon.svg' ); ?>">
+	<link rel="icon" type="image/png" sizes="512x512" href="<?php echo esc_url( DAU_URI . '/assets/img/favicon-512.png' ); ?>">
+	<link rel="apple-touch-icon" href="<?php echo esc_url( DAU_URI . '/assets/img/favicon-180.png' ); ?>">
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class( 'min-h-screen flex flex-col bg-white' ); ?>>
@@ -45,10 +46,9 @@ $wanum  = preg_replace( '/\D/', '', dau_opt( 'whatsapp' ) );
 <!-- Minimal header: logo + tek CTA -->
 <header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-line">
 	<div class="container flex items-center justify-between gap-4 py-3">
-		<span class="flex flex-col justify-center">
-			<span class="font-display text-[1.02rem] sm:text-[1.12rem] font-bold leading-tight text-ink-900">Op. Dr. Alper Burak Uslu</span>
-			<span class="block text-[0.6rem] sm:text-[0.66rem] uppercase tracking-[0.16em] text-ink-500 mt-0.5"><?php echo esc_html( $lp['category'] ); ?></span>
-		</span>
+		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="flex items-center" aria-label="Op. Dr. Alper Burak Uslu">
+			<img src="<?php echo esc_url( DAU_URI . '/assets/img/logo.jpg' ); ?>" alt="Op. Dr. Alper Burak Uslu" width="557" height="70" class="h-9 sm:h-10 w-auto">
+		</a>
 		<a href="<?php echo esc_url( $wa ); ?>" target="_blank" rel="noopener" class="group/cta inline-flex items-center gap-2.5 rounded-full bg-ink-900 text-white pl-5 pr-1.5 py-1.5 text-[0.86rem] font-semibold hover:bg-ink-700 transition-colors">
 			<span><?php esc_html_e( 'Randevu Al', 'dr-alper-uslu' ); ?></span>
 			<span class="grid place-content-center w-8 h-8 rounded-full bg-coral-500 text-white group-hover/cta:bg-coral-600 transition-colors"><?php echo dau_icon( 'arrow' ); // phpcs:ignore ?></span>
@@ -69,7 +69,12 @@ $wanum  = preg_replace( '/\D/', '', dau_opt( 'whatsapp' ) );
 					<a href="<?php echo esc_url( $wa ); ?>" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-full bg-[#0E7A3A] text-white px-6 py-3.5 font-semibold hover:brightness-110 transition"><?php echo dau_icon( 'wa' ); // phpcs:ignore ?><?php esc_html_e( 'WhatsApp ile Yazın', 'dr-alper-uslu' ); ?></a>
 					<a href="<?php echo esc_attr( $tel ); ?>" class="inline-flex items-center justify-center gap-2 rounded-full ring-1 ring-line bg-white text-ink-900 px-6 py-3.5 font-semibold hover:bg-cream-50 transition"><?php echo dau_icon( 'phone' ); // phpcs:ignore ?><?php esc_html_e( 'Hemen Ara', 'dr-alper-uslu' ); ?></a>
 				</div>
-				<div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-7 text-sm text-ink-500">
+				<a href="https://www.trustpilot.com/review/dralperuslu.com" target="_blank" rel="noopener" class="inline-flex items-center gap-2 mt-7 rounded-full bg-white ring-1 ring-line px-4 py-2 hover:bg-cream-50 transition">
+					<span class="text-[#00b67a] text-sm tracking-tight">★★★★★</span>
+					<span class="text-sm font-semibold text-ink-900">4,5</span>
+					<span class="text-sm text-ink-500"><?php esc_html_e( 'Trustpilot\'ta 87 değerlendirme', 'dr-alper-uslu' ); ?></span>
+				</a>
+				<div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-5 text-sm text-ink-500">
 					<?php foreach ( $certs as $c ) : ?><span class="inline-flex items-center gap-1.5"><span class="text-brand-600"><?php echo dau_icon( 'badge' ); // phpcs:ignore ?></span><?php echo esc_html( $c ); ?></span><?php endforeach; ?>
 				</div>
 			</div>
@@ -128,6 +133,34 @@ $wanum  = preg_replace( '/\D/', '', dau_opt( 'whatsapp' ) );
 			<a href="<?php echo esc_url( $wa ); ?>" target="_blank" rel="noopener" class="btn-primary mt-7"><?php esc_html_e( 'Randevu Al', 'dr-alper-uslu' ); ?></a>
 		</div>
 	</div></section>
+
+	<!-- Gerçek yorumlar (Trustpilot) -->
+	<section class="section bg-cream-50"><div class="container">
+		<span class="kicker mb-3"><?php esc_html_e( 'Değerlendirmeler', 'dr-alper-uslu' ); ?></span>
+		<h2 class="section-title mt-3 mb-8"><?php esc_html_e( 'Hastaların Gerçek Yorumları', 'dr-alper-uslu' ); ?></h2>
+		<div class="trustpilot-widget" data-locale="tr-TR" data-template-id="53aa8912dec7e10d38f59f36" data-businessunit-id="641326d15a153ec4fec127ef" data-style-height="240px" data-style-width="100%" data-theme="light" data-stars="4,5">
+			<a href="https://www.trustpilot.com/review/dralperuslu.com" target="_blank" rel="noopener">Trustpilot</a>
+		</div>
+	</div></section>
+
+	<!-- Video & Instagram -->
+	<?php if ( ! empty( $lp['videos'] ) ) : ?>
+	<section class="section bg-white"><div class="container">
+		<span class="kicker mb-3"><?php esc_html_e( 'Klinikten', 'dr-alper-uslu' ); ?></span>
+		<h2 class="section-title mt-3 mb-8"><?php esc_html_e( 'Videolar & Sosyal Medya', 'dr-alper-uslu' ); ?></h2>
+		<div class="grid md:grid-cols-2 gap-6">
+			<?php foreach ( $lp['videos'] as $vid ) : ?>
+			<div class="aspect-video rounded-xl2 overflow-hidden ring-1 ring-line shadow-card bg-ink-900">
+				<iframe src="https://www.youtube-nocookie.com/embed/<?php echo esc_attr( $vid ); ?>" title="Op. Dr. Alper Burak Uslu" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+			</div>
+			<?php endforeach; ?>
+		</div>
+		<div class="mt-8 flex flex-wrap items-center gap-3">
+			<a href="https://www.instagram.com/dralperburakuslu/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full ring-1 ring-line bg-white px-5 py-3 font-semibold text-ink-900 hover:bg-cream-50 transition"><?php echo dau_icon( 'ig' ); // phpcs:ignore ?>@dralperburakuslu</a>
+			<a href="https://www.youtube.com/@dr.alperburakuslu" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full ring-1 ring-line bg-white px-5 py-3 font-semibold text-ink-900 hover:bg-cream-50 transition"><?php echo dau_icon( 'yt' ); // phpcs:ignore ?>YouTube</a>
+		</div>
+	</div></section>
+	<?php endif; ?>
 
 	<!-- SSS -->
 	<?php if ( $lp['faq'] ) : ?>
@@ -202,6 +235,7 @@ function dauLpWa(e){
 	return false;
 }
 </script>
+<script src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
 <?php wp_footer(); ?>
 </body>
 </html>

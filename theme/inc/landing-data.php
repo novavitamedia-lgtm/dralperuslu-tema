@@ -14,6 +14,7 @@ function dau_landing_data() {
 			'h1'       => 'Doğal ve Kişiye Özel<br>Meme Büyütme',
 			'sub'      => 'Anatominize uygun implant seçimi ve doğal görünen sonuçlarla kendinizi daha rahat hissedin. Planlama muayenede birlikte yapılır.',
 			'wa_text'  => 'Merhaba, meme büyütme hakkında bilgi almak istiyorum.',
+			'videos'   => array( 'of7G8g-ntak', '8GfEdaPMgbU' ),
 			'benefits' => array(
 				array( 'Doğal Görünüm', 'Vücut oranlarınıza uygun, abartıdan uzak ve doğal duran sonuçlar.' ),
 				array( 'Kişiye Özel İmplant', 'Anatominize ve beklentilerinize göre implant tipi, şekli ve boyutu belirlenir.' ),
@@ -33,6 +34,7 @@ function dau_landing_data() {
 			'h1'       => 'Dinlenmiş ve Doğal<br>Bir Yüz İfadesi',
 			'sub'      => 'Yaşlanmayla gevşeyen dokuları, ifadenizi bozmadan yeniden şekillendirir. Amaç bambaşka biri değil, daha dinç bir siz.',
 			'wa_text'  => 'Merhaba, yüz germe (facelift) hakkında bilgi almak istiyorum.',
+			'videos'   => array( '8d3AZTKqTpo', '8GfEdaPMgbU' ),
 			'benefits' => array(
 				array( 'Doğal İfade', 'Gergin veya yapay bir görünüm değil, dinlenmiş ve doğal bir ifade hedeflenir.' ),
 				array( 'Kişiye Özel Planlama', 'Yüz analiziniz yapılır; sadece ihtiyaç duyulan bölgelere odaklanılır.' ),
@@ -52,6 +54,7 @@ function dau_landing_data() {
 			'h1'       => 'Doğum Sonrası<br>Yeniden Kendiniz',
 			'sub'      => 'Gebelik ve doğum sonrası değişen bölgeleri tek planda ele alan, kişiye özel bir toparlanma yaklaşımı. İçerik ihtiyacınıza göre belirlenir.',
 			'wa_text'  => 'Merhaba, mommy makeover hakkında bilgi almak istiyorum.',
+			'videos'   => array( '1P5Hhub08JA', '8GfEdaPMgbU' ),
 			'benefits' => array(
 				array( 'Bütüncül Planlama', 'Karın, göğüs ve gerektiğinde vücut şekillendirme tek plan altında değerlendirilir.' ),
 				array( 'Kişiye Özel', 'Her annenin ihtiyacı farklıdır; kombinasyon size göre belirlenir.' ),
