@@ -1144,24 +1144,102 @@ def build_achievements(ctx, item, langswitch):
     ls = {lg: langswitch["achievements"].get(lg) for lg in LANGS}
     return page_shell(ctx, (item["title"] if item else t["nav_achievements"]) + " · Op. Dr. Alper Burak Uslu", t["gallery_title"], page_url(ctx.lang, "achievements"), langswitch["achievements"], [], body, nav, ls)
 
+# Blog yazıları (canlıdaki gerçek içerikle aynı; gövde content/blog/<lang>.html)
+BLOG_POSTS = {
+    "tr": {"slug": "estetik-ameliyat-oncesi-hazirlik", "title": "Estetik Ameliyat Öncesi Hazırlık: Adım Adım Rehber",
+           "excerpt": "Estetik ameliyat öncesi hazırlık nasıl yapılır? Sigara, ilaçlar, beslenme ve gerçekçi beklenti için cerrah önerileri ve pratik bir kontrol listesi.",
+           "date": "28 Ağustos 2026", "cat": "Rehber", "read": "Devamını Oku"},
+    "en": {"slug": "aesthetic-surgery-preparation", "title": "Preparing for Aesthetic Surgery: A Step by Step Guide",
+           "excerpt": "How to prepare for aesthetic surgery: smoking, medications, nutrition and realistic expectations, plus a practical pre-surgery checklist.",
+           "date": "August 28, 2026", "cat": "Guide", "read": "Read More"},
+    "de": {"slug": "vorbereitung-aesthetische-operation", "title": "Vorbereitung auf die ästhetische Operation: Schritt für Schritt",
+           "excerpt": "Vorbereitung auf die ästhetische Operation: Rauchen, Medikamente, Ernährung und realistische Erwartungen, mit praktischer Checkliste.",
+           "date": "28. August 2026", "cat": "Ratgeber", "read": "Weiterlesen"},
+}
+DOC_ICON = '<svg viewBox="0 0 24 24" fill="none" class="w-8 h-8" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h8l6 6v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v6h6M8 13h8M8 17h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+
+def blog_body(ctx):
+    """Makale gövdesini yükle + internal linkleri preview'a uyarla (single post depth=1)."""
+    import re as _re
+    path = os.path.join(ROOT, "content", "blog", ctx.lang + ".html")
+    if not os.path.exists(path):
+        return ""
+    html = open(path, encoding="utf-8").read()
+    about = "../" + page_url(ctx.lang, "about")
+    contact = "../" + page_url(ctx.lang, "contact")
+    procs = "../uzmanliklar/index.html"
+    html = html.replace('href="/hakkimda/"', 'href="' + about + '"')
+    html = html.replace('href="/iletisim/"', 'href="' + contact + '"')
+    html = _re.sub(r'href="/uzmanliklar/[^"]*"', 'href="' + procs + '"', html)
+    return html
+
 def build_blog(ctx, langswitch):
     nav = NAV[ctx.lang]; t = ctx.t
-    lbl = {"tr": ("Blog", "Estetik cerrahi, iyileşme süreçleri ve bakım üzerine bilgilendirici yazılar.", "İçerikler Yakında", "Estetik cerrahi, iyileşme süreçleri ve bakım üzerine bilgilendirici yazılar çok yakında burada olacak.", "Ana Sayfaya Dön"),
-           "en": ("Blog", "Informative articles on aesthetic surgery, recovery and care.", "Content Coming Soon", "Informative articles on aesthetic surgery, recovery and care will be here very soon.", "Back to Home"),
-           "de": ("Blog", "Informative Artikel über ästhetische Chirurgie, Heilung und Pflege.", "Inhalte in Kürze", "Informative Artikel über ästhetische Chirurgie, Heilung und Pflege sind bald hier verfügbar.", "Zur Startseite")}[ctx.lang]
+    lbl = {"tr": ("Blog", "Estetik cerrahi, iyileşme süreçleri ve bakım üzerine bilgilendirici yazılar."),
+           "en": ("Blog", "Informative articles on aesthetic surgery, recovery and care."),
+           "de": ("Blog", "Informative Artikel über ästhetische Chirurgie, Heilung und Pflege.")}[ctx.lang]
     trail = [(t["nav_home"], ctx.link("index.html")), (lbl[0], None)]
-    doc_icon = '<svg viewBox="0 0 24 24" fill="none" class="w-8 h-8" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h8l6 6v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M14 3v6h6M8 13h8M8 17h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    post = BLOG_POSTS.get(ctx.lang)
+    card = ""
+    if post:
+        purl = ctx.link("blog/" + post["slug"] + ".html")
+        card = ('<a href="' + purl + '" class="group card card-hover overflow-hidden block reveal">'
+                '<div class="aspect-[16/10] bg-gradient-to-br from-brand-500 to-brand-700 grid place-content-center text-white/90">' + DOC_ICON + '</div>'
+                '<div class="p-5">'
+                '<div class="text-[0.7rem] uppercase tracking-wider text-brand-600 font-semibold">' + esc(post["cat"]) + ' · ' + esc(post["date"]) + '</div>'
+                '<h2 class="font-display text-h3 font-semibold text-ink-900 mt-1 group-hover:text-brand-700 transition">' + esc(post["title"]) + '</h2>'
+                '<p class="text-sm text-ink-500 mt-2 line-clamp-3">' + esc(post["excerpt"]) + '</p>'
+                '<span class="inline-flex items-center gap-1 text-sm text-brand-600 font-medium mt-3">' + esc(post["read"]) + IC["arrow"] + '</span>'
+                '</div></a>')
     body = ('<section class="mesh-teal"><div class="container py-12 md:py-16">' + breadcrumb(ctx, trail)
             + '<h1 class="text-hero !text-[clamp(2rem,4vw,3.2rem)] font-bold text-ink-900 mt-4">' + esc(lbl[0]) + '</h1>'
             '<p class="text-lead text-ink-700 mt-3 max-w-xl">' + esc(lbl[1]) + '</p></div></section>'
-            '<section class="section bg-white"><div class="container"><div class="max-w-lg mx-auto text-center py-12 reveal">'
-            '<div class="w-16 h-16 mx-auto rounded-2xl bg-brand-50 text-brand-600 grid place-content-center mb-6">' + doc_icon + '</div>'
-            '<h2 class="font-display text-h2 font-semibold text-ink-900">' + esc(lbl[2]) + '</h2>'
-            '<p class="text-ink-500 mt-3 leading-relaxed">' + esc(lbl[3]) + '</p>'
-            '<a href="' + ctx.link("index.html") + '" class="btn-primary mt-7 justify-center inline-flex">' + esc(lbl[4]) + IC["arrow"] + '</a>'
-            '</div></div></section>')
+            '<section class="section bg-white"><div class="container"><div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">' + card + '</div></div></section>')
     ls = {lg: langswitch["blog"].get(lg) for lg in LANGS}
     return page_shell(ctx, lbl[0] + " · Op. Dr. Alper Burak Uslu", lbl[1], page_url(ctx.lang, "blog"), langswitch["blog"], [], body, nav, ls)
+
+def build_blogpost(ctx, langswitch):
+    nav = NAV[ctx.lang]; t = ctx.t
+    post = BLOG_POSTS[ctx.lang]
+    body_html = blog_body(ctx)
+    L = {"tr": {"author": "Yazar", "summary": "Kısa Özet", "toc": "İçindekiler", "appt": "Randevu Talebi",
+                "appt_sub": "Sorularınızı yanıtlayalım, size uygun planı birlikte belirleyelim.", "cats": "Kategoriler", "about": "Hakkımda",
+                "bio": "Op. Dr. Alper Burak Uslu, plastik, rekonstrüktif ve estetik cerrahi uzmanıdır. ISAPS, ASPS, EBOPRAS ve TPRECD üyesidir; yüz, vücut ve göğüs estetiğinde doğal ve kişiye özel sonuçları önceler."},
+         "en": {"author": "Author", "summary": "Summary", "toc": "Contents", "appt": "Appointment",
+                "appt_sub": "Let us answer your questions and plan the option that suits you.", "cats": "Categories", "about": "About",
+                "bio": "Op. Dr. Alper Burak Uslu is a specialist in plastic, reconstructive and aesthetic surgery. A member of ISAPS, ASPS, EBOPRAS and TPRECD, he prioritises natural, individually tailored results."},
+         "de": {"author": "Autor", "summary": "Kurzfassung", "toc": "Inhalt", "appt": "Termin",
+                "appt_sub": "Wir beantworten Ihre Fragen und planen die für Sie passende Option.", "cats": "Kategorien", "about": "Über mich",
+                "bio": "Op. Dr. Alper Burak Uslu ist Facharzt für plastische, rekonstruktive und ästhetische Chirurgie. Mitglied von ISAPS, ASPS, EBOPRAS und TPRECD; er legt Wert auf natürliche, individuell abgestimmte Ergebnisse."}}[ctx.lang]
+    trail = [(t["nav_home"], ctx.link("index.html")), ("Blog", ctx.link("blog.html")), (post["title"], None)]
+
+    summary = ('<div class="rounded-2xl bg-brand-50/60 ring-1 ring-brand-100 p-5 mb-8"><div class="text-[0.7rem] uppercase tracking-wider text-brand-700 font-semibold mb-2">' + esc(L["summary"]) + '</div><p class="text-ink-700 leading-relaxed m-0">' + esc(post["excerpt"]) + '</p></div>')
+    toc = ('<div data-toc x-data="{ open:true }" class="rounded-2xl ring-1 ring-line p-5 mb-8 hidden"><button @click="open=!open" class="w-full flex items-center justify-between font-display font-semibold text-ink-900"><span>' + esc(L["toc"]) + '</span><span class="transition-transform text-brand-600" :class="!open && \'rotate-180\'">' + IC["chevron"] + '</span></button><nav data-toc-list x-show="open" x-transition class="mt-3 space-y-1.5 text-sm"></nav></div>')
+    author_box = ('<div class="mt-10 rounded-2xl bg-cream-50 ring-1 ring-line p-6 flex flex-col sm:flex-row gap-5">'
+                  '<div class="w-20 h-20 rounded-full bg-brand-600 text-white grid place-content-center font-display text-2xl font-bold ring-2 ring-white shadow shrink-0">A</div>'
+                  '<div class="min-w-0"><div class="text-[0.7rem] uppercase tracking-wider text-brand-600 font-semibold">' + esc(L["author"]) + '</div>'
+                  '<div class="font-display text-h3 font-bold text-ink-900 mt-0.5">Op. Dr. Alper Burak Uslu</div>'
+                  '<p class="text-sm text-ink-500">Plastik, Rekonstrüktif ve Estetik Cerrahi · M.D, FEBOPRAS</p>'
+                  '<p class="text-ink-700 mt-3 text-[0.95rem] leading-relaxed">' + esc(L["bio"]) + '</p>'
+                  '<a href="../' + page_url(ctx.lang, "about") + '" class="inline-flex items-center gap-1 text-brand-700 font-semibold text-sm mt-3 hover:text-brand-800">' + esc(L["about"]) + IC["arrow"] + '</a></div></div>')
+    sidebar = ('<aside class="lg:col-span-1"><div class="sticky top-28 space-y-6">'
+               '<div class="card p-6 bg-ink-900 text-white"><div class="font-display text-h3 font-semibold mb-1">' + esc(L["appt"]) + '</div><p class="text-white/70 text-sm mb-4">' + esc(L["appt_sub"]) + '</p>'
+               '<a href="' + wa_link() + '" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 rounded-full bg-[#0E7A3A] text-white py-3 font-semibold text-sm mb-2">' + IC["wa"] + 'WhatsApp</a>'
+               '<a href="tel:' + SITE["phone_tel"] + '" class="flex items-center justify-center gap-2 rounded-full bg-white/10 ring-1 ring-white/20 text-white py-3 font-semibold text-sm">' + IC["phone"] + esc(SITE["phone_display"]) + '</a></div>'
+               '<div class="card p-6"><div class="font-display text-h3 font-semibold text-ink-900 mb-4">' + esc(L["cats"]) + '</div>'
+               '<a href="' + ctx.link("blog.html") + '" class="flex items-center justify-between text-sm text-ink-700 hover:text-brand-700"><span>' + esc(post["cat"]) + '</span><span class="text-xs text-ink-500 bg-cream-50 rounded-full px-2 py-0.5">1</span></a></div>'
+               '</div></aside>')
+
+    toc_js = ('<script>(function(){var art=document.querySelector("[data-article]"),box=document.querySelector("[data-toc]"),list=document.querySelector("[data-toc-list]");if(!art||!box||!list)return;var hs=art.querySelectorAll("h2");if(hs.length<3)return;hs.forEach(function(h,i){var id="b"+i;h.id=id;var a=document.createElement("a");a.href="#"+id;a.textContent=h.textContent;a.className="block text-ink-600 hover:text-brand-700 border-l-2 border-line hover:border-brand-500 pl-3 py-0.5";list.appendChild(a)});box.classList.remove("hidden")})();</script>')
+
+    body = ('<section class="mesh-teal"><div class="container py-10 md:py-14">' + breadcrumb(ctx, trail)
+            + '<div class="text-[0.7rem] uppercase tracking-wider text-brand-600 font-semibold mt-4 mb-3">' + esc(post["cat"]) + ' · ' + esc(post["date"]) + '</div>'
+            '<h1 class="font-display font-black text-ink-900 text-[clamp(1.9rem,4vw,3rem)] leading-[1.08] tracking-[-0.02em] max-w-3xl">' + esc(post["title"]) + '</h1></div></section>'
+            '<section class="section bg-white"><div class="container grid lg:grid-cols-3 gap-10 lg:gap-14 items-start">'
+            '<div class="lg:col-span-2 min-w-0 reveal">' + summary + toc + '<article data-article class="prose-clinic max-w-none">' + body_html + '</article>' + author_box + '</div>'
+            + sidebar + '</div></section>' + toc_js)
+    ls = {lg: langswitch["blogpost"].get(lg) for lg in LANGS}
+    return page_shell(ctx, post["title"] + " · Op. Dr. Alper Burak Uslu", post["excerpt"], "blog/" + post["slug"] + ".html", langswitch["blogpost"], [], body, nav, ls)
 
 # ---------------------------------------------------------------- montaj
 def assemble(lang):
@@ -1181,6 +1259,9 @@ def build_langswitch(ctx):
         d[pt] = {}
         for lg in LANGS:
             d[pt][lg] = None if lg == ctx.lang else ctx.other(lg, page_url(lg, pt))
+    d["blogpost"] = {}
+    for lg in LANGS:
+        d["blogpost"][lg] = None if lg == ctx.lang else ctx.other(lg, "blog/" + BLOG_POSTS[lg]["slug"] + ".html")
     return d
 
 def write(path, content):
@@ -1240,9 +1321,12 @@ def main():
         if data["achievements"]:
             ctx = Ctx(lang, 0, "achievements"); ls = build_langswitch(ctx)
             write(os.path.join(PREVIEW, lang, page_url(lang, "achievements")), build_achievements(ctx, data["achievements"], ls)); n += 1
-        # blog (şimdilik "içerikler yakında" — eski sitede blog yazısı yok)
+        # blog listesi + tekil yazı (3 dilde çevrildi)
         ctx = Ctx(lang, 0, "blog"); ls = build_langswitch(ctx)
         write(os.path.join(PREVIEW, lang, page_url(lang, "blog")), build_blog(ctx, ls)); n += 1
+        if lang in BLOG_POSTS:
+            pctx = Ctx(lang, 1, "blog"); pls = build_langswitch(pctx)
+            write(os.path.join(PREVIEW, lang, "blog", BLOG_POSTS[lang]["slug"] + ".html"), build_blogpost(pctx, pls)); n += 1
         # procedures index
         ctx = Ctx(lang, 1, "procedures"); ls = build_langswitch(ctx)
         write(os.path.join(PREVIEW, lang, "uzmanliklar", "index.html"), build_procedures_index(ctx, data, ls)); n += 1

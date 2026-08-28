@@ -57,6 +57,16 @@ function dau_tel() {
 }
 
 /**
+ * Tahmini okuma süresi (dakika).
+ */
+function dau_reading_time( $content ) {
+	$words = str_word_count( wp_strip_all_tags( $content ) );
+	$min   = max( 1, (int) ceil( $words / 200 ) );
+	/* translators: %d: dakika */
+	return sprintf( __( '%d dk okuma', 'dr-alper-uslu' ), $min );
+}
+
+/**
  * Sorumluluk reddi metni.
  */
 function dau_legal_note() {
