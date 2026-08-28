@@ -67,6 +67,29 @@ function dau_reading_time( $content ) {
 }
 
 /**
+ * Tarihi aktif dile göre biçimlendir (WP core dil paketi gerektirmeden).
+ * @param int|null $post_id Yazı ID.
+ * @param bool $modified true ise güncellenme tarihi.
+ */
+function dau_format_date( $post_id = null, $modified = false ) {
+	$post_id = $post_id ? $post_id : get_the_ID();
+	$ts = $modified ? (int) get_post_modified_time( 'U', true, $post_id ) : (int) get_post_time( 'U', true, $post_id );
+	$lang = function_exists( 'pll_current_language' ) && pll_current_language() ? pll_current_language() : 'tr';
+	$months = array(
+		'tr' => array( 'Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık' ),
+		'en' => array( 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ),
+		'de' => array( 'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember' ),
+	);
+	$m = isset( $months[ $lang ] ) ? $months[ $lang ] : $months['tr'];
+	$d = (int) wp_date( 'j', $ts );
+	$mo = $m[ (int) wp_date( 'n', $ts ) - 1 ];
+	$y = wp_date( 'Y', $ts );
+	if ( 'en' === $lang ) { return "$mo $d, $y"; }
+	if ( 'de' === $lang ) { return "$d. $mo $y"; }
+	return "$d $mo $y";
+}
+
+/**
  * Sorumluluk reddi metni.
  */
 function dau_legal_note() {

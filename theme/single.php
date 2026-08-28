@@ -29,10 +29,13 @@ while ( have_posts() ) :
 		</nav>
 		<?php if ( $cat_html ) : ?><div class="mt-5 text-[0.7rem] uppercase tracking-wider text-brand-600 font-semibold"><?php echo $cat_html; // phpcs:ignore ?></div><?php endif; ?>
 		<h1 class="font-display font-black text-ink-900 text-[clamp(1.9rem,4vw,3rem)] leading-[1.08] tracking-[-0.02em] mt-3 max-w-3xl"><?php the_title(); ?></h1>
-		<div class="flex items-center gap-3 text-sm text-ink-500 mt-4">
-			<span><?php echo esc_html( get_the_date() ); ?></span><span aria-hidden="true">·</span>
+		<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-ink-500 mt-4">
+			<span><?php echo esc_html( dau_format_date() ); ?></span><span aria-hidden="true">·</span>
 			<span><?php echo esc_html( dau_reading_time( get_the_content() ) ); ?></span><span aria-hidden="true">·</span>
 			<span><?php the_author(); ?></span>
+			<?php if ( get_post_modified_time( 'U', true ) - get_post_time( 'U', true ) > DAY_IN_SECONDS ) : ?>
+				<span aria-hidden="true">·</span><span class="text-ink-500/80"><?php printf( esc_html__( 'Güncellenme: %s', 'dr-alper-uslu' ), esc_html( dau_format_date( null, true ) ) ); ?></span>
+			<?php endif; ?>
 		</div>
 	</div></section>
 
@@ -87,8 +90,9 @@ while ( have_posts() ) :
 			<!-- Yazar kutusu (EEAT) -->
 			<div class="mt-8 rounded-2xl bg-cream-50 ring-1 ring-line p-6 flex flex-col sm:flex-row gap-5">
 				<div class="shrink-0">
-					<?php if ( has_custom_logo() && false ) : endif; ?>
-					<div class="w-20 h-20 rounded-full bg-brand-600 text-white grid place-content-center font-display text-2xl font-bold ring-2 ring-white shadow">A</div>
+					<div class="w-20 h-20 rounded-full overflow-hidden ring-2 ring-white shadow bg-brand-600">
+						<img src="<?php echo esc_url( DAU_URI . '/assets/img/dr-alper.jpg' ); ?>" alt="<?php esc_attr_e( 'Op. Dr. Alper Burak Uslu', 'dr-alper-uslu' ); ?>" width="80" height="80" loading="lazy" class="w-full h-full object-cover object-[34%_20%]">
+					</div>
 				</div>
 				<div class="min-w-0">
 					<div class="text-[0.7rem] uppercase tracking-wider text-brand-600 font-semibold"><?php esc_html_e( 'Yazar', 'dr-alper-uslu' ); ?></div>

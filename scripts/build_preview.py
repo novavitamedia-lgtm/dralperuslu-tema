@@ -1230,7 +1230,7 @@ def build_blogpost(ctx, langswitch):
     summary = ('<div class="rounded-2xl bg-brand-50/60 ring-1 ring-brand-100 p-5 mb-8"><div class="text-[0.7rem] uppercase tracking-wider text-brand-700 font-semibold mb-2">' + esc(L["summary"]) + '</div><p class="text-ink-700 leading-relaxed m-0">' + esc(post["excerpt"]) + '</p></div>')
     toc = ('<div data-toc x-data="{ open:true }" class="rounded-2xl ring-1 ring-line p-5 mb-8 hidden"><button @click="open=!open" class="w-full flex items-center justify-between font-display font-semibold text-ink-900"><span>' + esc(L["toc"]) + '</span><span class="transition-transform text-brand-600" :class="!open && \'rotate-180\'">' + IC["chevron"] + '</span></button><nav data-toc-list x-show="open" x-transition class="mt-3 space-y-1.5 text-sm"></nav></div>')
     author_box = ('<div class="mt-10 rounded-2xl bg-cream-50 ring-1 ring-line p-6 flex flex-col sm:flex-row gap-5">'
-                  '<div class="w-20 h-20 rounded-full bg-brand-600 text-white grid place-content-center font-display text-2xl font-bold ring-2 ring-white shadow shrink-0">A</div>'
+                  '<div class="w-20 h-20 rounded-full overflow-hidden ring-2 ring-white shadow shrink-0 bg-brand-600"><img src="' + ctx.media("alper-burak-uslu.jpg") + '" alt="Op. Dr. Alper Burak Uslu" class="w-full h-full object-cover object-[34%_20%]"></div>'
                   '<div class="min-w-0"><div class="text-[0.7rem] uppercase tracking-wider text-brand-600 font-semibold">' + esc(L["author"]) + '</div>'
                   '<div class="font-display text-h3 font-bold text-ink-900 mt-0.5">Op. Dr. Alper Burak Uslu</div>'
                   '<p class="text-sm text-ink-500">Plastik, Rekonstrüktif ve Estetik Cerrahi · M.D, FEBOPRAS</p>'

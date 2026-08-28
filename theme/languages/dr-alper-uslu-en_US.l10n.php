@@ -95,5 +95,8 @@ return array(
     'Uluslararası üyelikler, sertifikalar ve bilimsel faaliyetler.' => 'International memberships, certificates and scientific activities.',
     'Sayfa bulunamadı' => 'Page not found',
     'Aradığınız sayfa taşınmış veya kaldırılmış olabilir.' => 'The page you are looking for may have been moved or removed.',
+    'Güncellenme: %s' => 'Updated: %s',
+    '%d dk okuma' => '%d min read',
+    'Op. Dr. Alper Burak Uslu' => 'Op. Dr. Alper Burak Uslu',
   ),
 );
