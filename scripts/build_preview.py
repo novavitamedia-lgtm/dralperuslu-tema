@@ -219,6 +219,8 @@ def proc_image(proc, cat):
     return None  # benzersiz görsel yoksa tekrarlı stok koyma → şık gradient kart kullanılır
 
 DOCTOR_IMG = next((f for f in ["alper-burak-uslu.jpg", "alper-burak-uslu_.jpg", "alper-burak-uslu-1.webp"] if img_exists(f)), None)
+# candid/ameliyat karesi (steps/apart yan görselleri için)
+SURGERY_IMG = next((f for f in ["alper-burak-uslu_.jpg", "alper-burak-uslu_-1.jpg", "alper-burak-uslu_-2.jpg"] if img_exists(f) and f != DOCTOR_IMG), None)
 LOGO_IMG = "logo-alper-burak-uslu.jpg" if img_exists("logo-alper-burak-uslu.jpg") else None
 
 def classify_page(slug):
@@ -612,50 +614,60 @@ def sec_services(ctx, nav):
 def sec_steps(ctx):
     t = ctx.t
     steps = [("01", t["step1_t"], t["step1_d"]), ("02", t["step2_t"], t["step2_d"]), ("03", t["step3_t"], t["step3_d"])]
-    items = "".join(
-      '<div class="reveal relative">'
-      '<div class="font-display text-6xl font-bold text-brand-100">' + n + '</div>'
-      '<h3 class="font-display text-h3 font-semibold text-ink-900 mt-2">' + esc(tt) + '</h3>'
-      '<p class="text-ink-500 mt-2 text-[0.95rem]">' + esc(dd) + '</p></div>'
+    # embrace "What To Expect": numaralı satırlar (teal daire-ok) solda + görsel sağda
+    rows = "".join(
+      '<div class="reveal flex items-start gap-5 py-5 border-b border-line last:border-0">'
+      '<span class="font-display italic text-brand-600 text-2xl font-bold w-10 shrink-0">' + n + '</span>'
+      '<div class="flex-1"><h3 class="font-display text-[1.35rem] font-bold text-ink-900">' + esc(tt) + '</h3>'
+      '<p class="text-ink-500 mt-1.5 text-[0.95rem] leading-relaxed">' + esc(dd) + '</p></div>'
+      '<span class="circle-arrow mt-1">' + IC["arrow"] + '</span></div>'
       for n, tt, dd in steps)
+    img = ('<div class="aspect-[4/5] rounded-[2rem] overflow-hidden ring-1 ring-line shadow-card">'
+           '<img src="' + ctx.media(SURGERY_IMG) + '" alt="' + esc(t["steps_title"]) + '" width="560" height="700" loading="lazy" class="w-full h-full object-cover"></div>') if SURGERY_IMG else ''
     return (
-      '<section class="section bg-cream-50"><div class="container">'
-      '<div class="text-center max-w-2xl mx-auto mb-12 reveal"><span class="kicker justify-center mb-3">' + esc(t["steps_kicker"]) + '</span><h2 class="section-title mt-3">' + esc(t["steps_title"]) + '</h2></div>'
-      '<div class="grid md:grid-cols-3 gap-10">' + items + '</div>'
+      '<section class="section bg-cream-50 overflow-hidden"><div class="container grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">'
+      '<div class="reveal order-2 lg:order-1">'
+      '<span class="kicker mb-4">' + esc(t["steps_kicker"]) + '</span>'
+      '<h2 class="section-title mt-3 mb-6">' + esc(t["steps_title"]) + '</h2>'
+      '<div>' + rows + '</div></div>'
+      '<div class="reveal order-1 lg:order-2">' + img + '</div>'
       '</div></section>')
 
 def sec_doctor(ctx):
     t = ctx.t
-    img = ('<img src="' + ctx.media(DOCTOR_IMG) + '" alt="Op. Dr. Alper Burak Uslu" width="440" height="520" loading="lazy" class="rounded-xl2 object-cover w-full ring-1 ring-white/20">') if DOCTOR_IMG else ''
+    # embrace "Meet Our...": açık editorial, büyük portre + isim + coral buton
+    img = ('<div class="aspect-[4/5] rounded-[2rem] overflow-hidden ring-1 ring-line shadow-cardHover">'
+           '<img src="' + ctx.media(DOCTOR_IMG) + '" alt="Op. Dr. Alper Burak Uslu" width="520" height="650" loading="lazy" class="w-full h-full object-cover"></div>') if DOCTOR_IMG else ''
+    stats = "".join('<div><div class="font-display font-bold text-brand-600 text-3xl">' + n + s + '</div><div class="text-ink-500 text-sm mt-1">' + esc(t[k]) + '</div></div>' for n, s, k in COUNTERS[:3])
     return (
-      '<section class="py-20 md:py-28 bg-brand-700 text-white relative overflow-hidden">'
-      '<div class="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-brand-500/30 blur-3xl" aria-hidden="true"></div>'
-      '<div class="container grid lg:grid-cols-5 gap-10 items-center relative">'
-      '<div class="lg:col-span-2 reveal">' + img + '</div>'
-      '<div class="lg:col-span-3 reveal">'
-      '<span class="kicker !text-brand-300 mb-4">' + esc(t["doctor_kicker"]) + '</span>'
-      '<h2 class="font-display text-h2 font-bold mt-3">Op. Dr. Alper Burak Uslu</h2>'
-      '<p class="text-white/70 text-lg mt-1">' + esc(t["hero_role"]) + ' · M.D, FEBOPRAS</p>'
-      '<div class="grid sm:grid-cols-3 gap-6 mt-8">'
-      + "".join('<div><div class="font-display text-3xl font-bold text-white"><span>' + n + s + '</span></div><div class="text-white/60 text-sm mt-1">' + esc(t[k]) + '</div></div>' for n, s, k in COUNTERS[:3]) +
-      '</div>'
-      '<a href="' + ctx.link(page_url(ctx.lang,"about")) + '" class="btn-light mt-8">' + esc(t["doctor_cta"]) + '</a>'
+      '<section class="section bg-white overflow-hidden"><div class="container grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">'
+      '<div class="reveal max-w-md">' + img + '</div>'
+      '<div class="reveal">'
+      '<span class="kicker mb-4">' + esc(t["doctor_kicker"]) + '</span>'
+      '<h2 class="section-title mt-3">Op. Dr. Alper<br><span class="italic">Burak Uslu</span></h2>'
+      '<p class="text-ink-500 text-lg mt-3">' + esc(t["hero_role"]) + ' · M.D, FEBOPRAS</p>'
+      '<div class="grid grid-cols-3 gap-6 mt-8 py-6 border-y border-line">' + stats + '</div>'
+      '<a href="' + ctx.link(page_url(ctx.lang,"about")) + '" class="btn-primary mt-8">' + esc(t["doctor_cta"]) + '</a>'
       '</div></div></section>')
 
 def sec_apart(ctx):
     t = ctx.t
+    # embrace "What Sets Us Apart": sol metin+buton, sağ rozet ızgarası
     badges = "".join(
-      '<div class="reveal card p-6 text-center card-hover">'
-      '<div class="w-14 h-14 mx-auto grid place-content-center rounded-full bg-brand-50 text-brand-600 mb-4">' + IC["badge"] + '</div>'
+      '<div class="reveal card p-5 text-center">'
+      '<div class="w-12 h-12 mx-auto grid place-content-center rounded-full bg-brand-50 text-brand-600 mb-3">' + IC["badge"] + '</div>'
       '<div class="font-display font-bold text-ink-900 text-lg">' + esc(code) + '</div>'
-      '<div class="text-xs text-ink-500 mt-2 leading-snug">' + esc(name) + '</div></div>'
+      '<div class="text-[0.7rem] text-ink-500 mt-1.5 leading-snug">' + esc(name) + '</div></div>'
       for code, name in SITE["certs"])
     return (
-      '<section class="section bg-white"><div class="container">'
-      '<div class="text-center max-w-2xl mx-auto mb-12 reveal"><span class="kicker justify-center mb-3">' + esc(t["apart_kicker"]) + '</span>'
+      '<section class="section bg-cream-50 overflow-hidden"><div class="container grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">'
+      '<div class="reveal">'
+      '<span class="kicker mb-4">' + esc(t["apart_kicker"]) + '</span>'
       '<h2 class="section-title mt-3">' + esc(t["apart_title"]) + '</h2>'
-      '<p class="text-ink-500 mt-4">' + esc(t["apart_desc"]) + '</p></div>'
-      '<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">' + badges + '</div>'
+      '<p class="text-ink-500 mt-4 text-lg leading-relaxed">' + esc(t["apart_desc"]) + '</p>'
+      '<a href="' + wa_link() + '" target="_blank" rel="noopener" class="btn-primary mt-7">' + esc(t["cta_appt"]) + '</a>'
+      '</div>'
+      '<div class="grid grid-cols-2 sm:grid-cols-3 gap-4 reveal">' + badges + '</div>'
       '</div></section>')
 
 def sec_gallery(ctx, images, title=None):

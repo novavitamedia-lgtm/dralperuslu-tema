@@ -1,40 +1,40 @@
 <?php
 /**
- * Bölüm: Full-bleed hero (ACF: baslik, alt_baslik, arka_gorsel/portre, ctalar).
+ * Bölüm: Editorial hero (embraceyoursmile dili) — dev Playfair başlık + üstüne binen portre + coral daire-ok CTA.
+ * ACF: baslik, alt_baslik, portre. Yoksa varsayılan.
  *
  * @package dr-alper-uslu
  */
 
-$g      = function_exists( 'get_sub_field' ) && get_row_layout() ? 'get_sub_field' : 'get_field';
-$sub    = ( function_exists( 'get_sub_field' ) && did_action( 'acf/init' ) && get_row_layout() ) ? true : false;
-$title  = $sub ? get_sub_field( 'baslik' ) : '';
-$lead   = $sub ? get_sub_field( 'alt_baslik' ) : '';
-$portre = $sub ? get_sub_field( 'portre' ) : 0;
-
-if ( ! $title ) {
-	$title = get_bloginfo( 'name' );
-}
-if ( ! $lead ) {
-	$lead = __( 'Estetik cerrahide bilimsel yaklaşım, doğal sonuçlar ve kişiye özel planlama.', 'dr-alper-uslu' );
-}
+$title  = dau_sub( 'baslik' ) ?: get_bloginfo( 'name' );
+$lead   = dau_sub( 'alt_baslik' ) ?: __( 'Estetik cerrahide bilimsel yaklaşım, doğal sonuçlar ve kişiye özel planlama.', 'dr-alper-uslu' );
+$portre = dau_sub( 'portre' );
+$portre = $portre ? ( is_array( $portre ) ? $portre['ID'] : $portre ) : 0;
+$name_html = '<h1 class="text-hero font-display font-black text-ink-900 mt-5 tracking-[-0.03em]">Op. Dr. Alper<br><span class="italic font-bold">Burak Uslu</span></h1>';
 ?>
-<section class="mesh-teal relative overflow-hidden">
-	<div class="absolute top-24 -right-24 w-96 h-96 rounded-full bg-brand-400/10 blur-3xl animate-floaty" aria-hidden="true"></div>
-	<div class="container grid lg:grid-cols-2 gap-12 items-center py-14 md:py-24">
-		<div class="reveal">
-			<span class="kicker mb-5"><?php esc_html_e( 'Plastik, Rekonstrüktif ve Estetik Cerrahi', 'dr-alper-uslu' ); ?></span>
-			<h1 class="text-hero font-bold text-ink-900 mt-4"><?php echo esc_html( $title ); ?></h1>
-			<p class="text-lead text-ink-700 mt-6 max-w-xl"><?php echo esc_html( $lead ); ?></p>
-			<div class="flex flex-wrap gap-3 mt-8">
-				<a href="<?php echo esc_url( dau_wa_link() ); ?>" target="_blank" rel="noopener" class="btn-primary"><?php esc_html_e( 'Randevu Al', 'dr-alper-uslu' ); ?><?php echo dau_icon( 'arrow' ); // phpcs:ignore ?></a>
-				<a href="<?php echo esc_url( get_post_type_archive_link( 'uzmanlik' ) ); ?>" class="btn-ghost"><?php esc_html_e( 'Tüm Uzmanlıklar', 'dr-alper-uslu' ); ?></a>
+<section class="relative overflow-hidden bg-white">
+	<svg class="absolute inset-0 w-full h-full opacity-[0.5] pointer-events-none" preserveAspectRatio="none" viewBox="0 0 1440 700" aria-hidden="true">
+		<path d="M-50 520 Q400 380 760 470 T1500 360" fill="none" stroke="#E3E8E7" stroke-width="1.5"/>
+		<path d="M-50 600 Q450 470 820 560 T1500 450" fill="none" stroke="#E3E8E7" stroke-width="1"/>
+	</svg>
+	<div class="container relative pt-8 pb-14 md:pt-14 md:pb-24">
+		<div class="grid lg:grid-cols-12 gap-6 lg:gap-4 items-center">
+			<div class="lg:col-span-7 relative z-10 reveal">
+				<span class="kicker mb-6"><?php esc_html_e( 'Plastik, Rekonstrüktif ve Estetik Cerrahi', 'dr-alper-uslu' ); ?></span>
+				<?php echo $name_html; // phpcs:ignore ?>
+			</div>
+			<div class="lg:col-span-5 lg:-ml-8 relative z-0 reveal">
+				<div class="aspect-[4/5] max-w-md ml-auto rounded-[2rem] overflow-hidden ring-1 ring-line shadow-cardHover">
+					<?php echo $portre ? dau_image( $portre, 'dau-hero', 'w-full h-full object-cover', true ) : ''; // phpcs:ignore ?>
+				</div>
 			</div>
 		</div>
-		<?php if ( $portre ) : ?>
-			<div class="relative reveal">
-				<div class="absolute -inset-4 bg-brand-500/10 rounded-[2rem] blur-2xl"></div>
-				<?php echo dau_image( $portre, 'dau-hero', 'relative w-full max-w-md mx-auto rounded-[2rem] object-cover shadow-cardHover ring-1 ring-white/60', true ); // phpcs:ignore ?>
+		<div class="lg:pl-[54%] mt-8 lg:mt-6 relative z-10 reveal">
+			<p class="font-display italic text-[1.5rem] md:text-[1.9rem] text-ink-900 leading-[1.25] max-w-lg"><?php echo esc_html( $lead ); ?></p>
+			<div class="flex flex-wrap items-center gap-4 mt-7">
+				<a href="<?php echo esc_url( dau_wa_link() ); ?>" target="_blank" rel="noopener" class="btn-primary"><?php esc_html_e( 'Randevu Al', 'dr-alper-uslu' ); ?></a>
+				<a href="<?php echo esc_url( get_post_type_archive_link( 'uzmanlik' ) ); ?>" class="text-ink-900 font-semibold underline decoration-brand-500 decoration-2 underline-offset-4 hover:text-brand-700"><?php esc_html_e( 'Tüm Uzmanlıklar', 'dr-alper-uslu' ); ?></a>
 			</div>
-		<?php endif; ?>
+		</div>
 	</div>
 </section>
