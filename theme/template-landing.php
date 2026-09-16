@@ -18,6 +18,19 @@ $lp   = isset( $data[ $slug ] ) ? $data[ $slug ] : null;
 if ( ! $lp ) {
 	$lp = array( 'category' => '', 'title' => get_the_title(), 'h1' => get_the_title(), 'sub' => '', 'wa_text' => '', 'benefits' => array(), 'faq' => array() );
 }
+// IG hasta videoları — konuya göre eşle (uploads/lp-videos/ altında .mp4 + .jpg poster).
+$dau_ig_map = array(
+	'meme-buyutme-lp'           => array( 'breast', 'testimonial' ),
+	'breast-augmentation-lp'    => array( 'breast', 'testimonial' ),
+	'brustvergroesserung-lp'    => array( 'breast', 'testimonial' ),
+	'facelift-lp'               => array( 'facelift', 'testimonial' ),
+	'facelift-surgery-lp'       => array( 'facelift', 'testimonial' ),
+	'facelifting-lp'            => array( 'facelift', 'testimonial' ),
+	'mommy-makeover-lp'         => array( 'mommy', 'testimonial' ),
+	'mommy-makeover-surgery-lp' => array( 'mommy', 'testimonial' ),
+	'mommy-makeover-op-lp'      => array( 'mommy', 'testimonial' ),
+);
+$lp['ig_videos'] = isset( $dau_ig_map[ $slug ] ) ? $dau_ig_map[ $slug ] : array();
 $wa     = dau_wa_link( $lp['wa_text'] );
 $tel    = dau_tel();
 $phone  = dau_opt( 'telefon' );
@@ -164,17 +177,32 @@ $wanum  = preg_replace( '/\D/', '', dau_opt( 'whatsapp' ) );
 	</div></section>
 
 	<!-- Video & Instagram -->
-	<?php if ( ! empty( $lp['videos'] ) ) : ?>
+	<?php
+	$dau_vbase = trailingslashit( wp_get_upload_dir()['baseurl'] ) . 'lp-videos/';
+	if ( ! empty( $lp['ig_videos'] ) || ! empty( $lp['videos'] ) ) : ?>
 	<section class="section bg-white"><div class="container">
 		<span class="kicker mb-3"><?php esc_html_e( 'Klinikten', 'dr-alper-uslu' ); ?></span>
 		<h2 class="section-title mt-3 mb-8"><?php esc_html_e( 'Videolar & Sosyal Medya', 'dr-alper-uslu' ); ?></h2>
-		<div class="grid md:grid-cols-2 gap-6">
+		<?php if ( ! empty( $lp['ig_videos'] ) ) : ?>
+		<div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-5 max-w-3xl">
+			<?php foreach ( $lp['ig_videos'] as $iv ) : ?>
+			<div class="relative rounded-xl2 overflow-hidden ring-1 ring-line shadow-card bg-ink-900 aspect-[9/16]">
+				<video class="w-full h-full object-cover" controls playsinline preload="metadata" poster="<?php echo esc_url( $dau_vbase . $iv . '.jpg' ); ?>">
+					<source src="<?php echo esc_url( $dau_vbase . $iv . '.mp4' ); ?>" type="video/mp4">
+				</video>
+			</div>
+			<?php endforeach; ?>
+		</div>
+		<?php endif; ?>
+		<?php if ( ! empty( $lp['videos'] ) ) : ?>
+		<div class="grid md:grid-cols-2 gap-6<?php echo empty( $lp['ig_videos'] ) ? '' : ' mt-6'; ?>">
 			<?php foreach ( $lp['videos'] as $vid ) : ?>
 			<div class="aspect-video rounded-xl2 overflow-hidden ring-1 ring-line shadow-card bg-ink-900">
 				<iframe src="https://www.youtube-nocookie.com/embed/<?php echo esc_attr( $vid ); ?>" title="Op. Dr. Alper Burak Uslu" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
 			</div>
 			<?php endforeach; ?>
 		</div>
+		<?php endif; ?>
 		<div class="mt-8 flex flex-wrap items-center gap-3">
 			<a href="https://www.instagram.com/dralperburakuslu/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full ring-1 ring-line bg-white px-5 py-3 font-semibold text-ink-900 hover:bg-cream-50 transition"><?php echo dau_icon( 'ig' ); // phpcs:ignore ?>@dralperburakuslu</a>
 			<a href="https://www.youtube.com/@dr.alperburakuslu" target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded-full ring-1 ring-line bg-white px-5 py-3 font-semibold text-ink-900 hover:bg-cream-50 transition"><?php echo dau_icon( 'yt' ); // phpcs:ignore ?>YouTube</a>
