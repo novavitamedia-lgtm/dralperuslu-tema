@@ -93,7 +93,7 @@ $wanum  = preg_replace( '/\D/', '', dau_opt( 'whatsapp' ) );
 			</div>
 			<div class="lg:col-span-5">
 				<div class="aspect-[4/5] max-w-sm ml-auto rounded-[2rem] overflow-hidden ring-1 ring-line shadow-cardHover bg-white">
-					<img src="<?php echo esc_url( DAU_URI . '/assets/img/dr-alper.jpg' ); ?>" alt="Op. Dr. Alper Burak Uslu" class="w-full h-full object-cover object-[34%_15%]">
+					<img src="<?php echo esc_url( DAU_URI . '/assets/img/dr-alper-portre.jpg' ); ?>" alt="Op. Dr. Alper Burak Uslu" class="w-full h-full object-cover object-top">
 				</div>
 			</div>
 		</div>
@@ -135,7 +135,7 @@ $wanum  = preg_replace( '/\D/', '', dau_opt( 'whatsapp' ) );
 	<section class="section bg-white"><div class="container grid lg:grid-cols-2 gap-12 items-center">
 		<div class="max-w-sm">
 			<div class="aspect-[4/5] rounded-[2rem] overflow-hidden ring-1 ring-line shadow-cardHover">
-				<img src="<?php echo esc_url( DAU_URI . '/assets/img/dr-alper.jpg' ); ?>" alt="Op. Dr. Alper Burak Uslu" class="w-full h-full object-cover object-[34%_15%]">
+				<img src="<?php echo esc_url( DAU_URI . '/assets/img/dr-alper-portre.jpg' ); ?>" alt="Op. Dr. Alper Burak Uslu" class="w-full h-full object-cover object-top">
 			</div>
 		</div>
 		<div>
