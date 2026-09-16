@@ -143,19 +143,19 @@ $wanum  = preg_replace( '/\D/', '', dau_opt( 'whatsapp' ) );
 			<a href="https://www.trustpilot.com/review/dralperuslu.com" target="_blank" rel="noopener" class="card card-hover p-6 text-center">
 				<div class="text-[#00b67a] text-xl tracking-tight mb-1">★★★★★</div>
 				<div class="font-display text-4xl font-bold text-ink-900">4,5<span class="text-xl text-ink-500">/5</span></div>
-				<div class="text-ink-500 text-sm mt-1">87 değerlendirme</div>
+				<div class="text-ink-500 text-sm mt-1"><?php esc_html_e( '87 değerlendirme', 'dr-alper-uslu' ); ?></div>
 				<div class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700">Trustpilot<?php echo dau_icon( 'arrow' ); // phpcs:ignore ?></div>
 			</a>
 			<a href="https://www.doktortakvimi.com/alper-burak-uslu/plastik-rekonstruktif-ve-estetik-cerrahi/istanbul" target="_blank" rel="noopener" class="card card-hover p-6 text-center">
 				<div class="text-amber-400 text-xl tracking-tight mb-1">★★★★★</div>
 				<div class="font-display text-4xl font-bold text-ink-900">5,0<span class="text-xl text-ink-500">/5</span></div>
 				<div class="text-ink-500 text-sm mt-1">Doktortakvimi</div>
-				<div class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700">Yorumları Oku<?php echo dau_icon( 'arrow' ); // phpcs:ignore ?></div>
+				<div class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700"><?php esc_html_e( 'Yorumları Oku', 'dr-alper-uslu' ); ?><?php echo dau_icon( 'arrow' ); // phpcs:ignore ?></div>
 			</a>
 			<a href="https://www.realself.com/dr/alper-burak-uslu-istanbul-turkey" target="_blank" rel="noopener" class="card card-hover p-6 text-center flex flex-col justify-center">
 				<div class="font-display text-2xl font-bold text-ink-900">RealSelf</div>
-				<div class="text-ink-500 text-sm mt-2">Uluslararası hasta değerlendirmeleri ve öncesi-sonrası</div>
-				<div class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700">İncele<?php echo dau_icon( 'arrow' ); // phpcs:ignore ?></div>
+				<div class="text-ink-500 text-sm mt-2"><?php esc_html_e( 'Uluslararası hasta değerlendirmeleri ve öncesi-sonrası', 'dr-alper-uslu' ); ?></div>
+				<div class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700"><?php esc_html_e( 'İncele', 'dr-alper-uslu' ); ?><?php echo dau_icon( 'arrow' ); // phpcs:ignore ?></div>
 			</a>
 		</div>
 		<div class="mt-6">

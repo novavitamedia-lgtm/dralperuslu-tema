@@ -105,6 +105,33 @@ T = {
  "Estetik cerrahi, iyileşme süreçleri ve bakım üzerine bilgilendirici yazılar çok yakında burada olacak.": ("Informative articles on aesthetic surgery, recovery and care will be here very soon.", "Informative Artikel über ästhetische Chirurgie, Heilung und Pflege sind bald hier verfügbar."),
  "Sayfa bulunamadı": ("Page not found", "Seite nicht gefunden"),
  "Aradığınız sayfa taşınmış veya kaldırılmış olabilir.": ("The page you are looking for may have been moved or removed.", "Die gesuchte Seite wurde möglicherweise verschoben oder entfernt."),
+ # Reklam Landing Page (template-landing.php)
+ "Neden": ("Why", "Warum"),
+ "Neden %s?": ("Why %s?", "Warum %s?"),
+ "Ücretsiz Ön Görüşme": ("Free Consultation", "Kostenlose Beratung"),
+ "Ücretsiz Ön Görüşme İçin İlk Adımı Atın": ("Take the First Step for a Free Consultation", "Machen Sie den ersten Schritt für eine kostenlose Beratung"),
+ "Kişiye Özel Planlama": ("Personalised Planning", "Individuelle Planung"),
+ "Operasyon": ("Surgery", "Operation"),
+ "İyileşme & Takip": ("Recovery & Follow-up", "Heilung & Nachsorge"),
+ "Beklentileriniz dinlenir, uygunluk ve seçenekler açıkça anlatılır.": ("We listen to your expectations and clearly explain your suitability and the options.", "Wir hören Ihre Erwartungen und erklären Eignung und Optionen klar."),
+ "Anatominize ve hedefinize uygun, gerçekçi bir plan hazırlanır.": ("A realistic plan is prepared to suit your anatomy and goal.", "Ein realistischer Plan wird passend zu Ihrer Anatomie und Ihrem Ziel erstellt."),
+ "İşlem, güncel ve güvenli tekniklerle uzman eşliğinde uygulanır.": ("The procedure is performed by a specialist using current, safe techniques.", "Der Eingriff wird von einem Facharzt mit modernen, sicheren Techniken durchgeführt."),
+ "Düzenli kontrollerle iyileşme süreciniz boyunca yanınızdayız.": ("We are with you throughout your recovery with regular check-ups.", "Wir begleiten Sie mit regelmäßigen Kontrollen während Ihrer Heilung."),
+ "WhatsApp ile Yazın": ("Message on WhatsApp", "Auf WhatsApp schreiben"),
+ "Trustpilot'ta 87 değerlendirme": ("87 reviews on Trustpilot", "87 Bewertungen auf Trustpilot"),
+ "87 değerlendirme": ("87 reviews", "87 Bewertungen"),
+ "Yorumları Oku": ("Read Reviews", "Bewertungen lesen"),
+ "İncele": ("Explore", "Ansehen"),
+ "Uluslararası hasta değerlendirmeleri ve öncesi-sonrası": ("International patient reviews and before/after", "Internationale Patientenbewertungen und Vorher-nachher"),
+ "Değerlendirmeler": ("Reviews", "Bewertungen"),
+ "Hastaların Gerçek Yorumları": ("Real Patient Reviews", "Echte Patientenbewertungen"),
+ "Bağımsız platformlardaki gerçek hasta değerlendirmelerini inceleyebilirsiniz.": ("You can read genuine patient reviews on independent platforms.", "Sie können echte Patientenbewertungen auf unabhängigen Plattformen einsehen."),
+ "Google Yorumları": ("Google Reviews", "Google-Bewertungen"),
+ "Klinikten": ("From the Clinic", "Aus der Klinik"),
+ "Videolar & Sosyal Medya": ("Videos & Social Media", "Videos & soziale Medien"),
+ "Merak Edilenler": ("FAQ", "Häufige Fragen"),
+ "%s hakkında sorularınızı yanıtlayalım, size en uygun yaklaşımı birlikte belirleyelim.": ("Let us answer your questions about %s and decide together on the approach best suited to you.", "Wir beantworten Ihre Fragen zu %s und finden gemeinsam den besten Ansatz für Sie."),
+ "Uluslararası ve ulusal plastik cerrahi kuruluşlarının aktif üyesi. Yüz, vücut ve göğüs estetiğinde doğal ve kişiye özel sonuçları önceler.": ("An active member of international and national plastic surgery associations. Prioritises natural, individually tailored results in facial, body and breast aesthetics.", "Aktives Mitglied internationaler und nationaler Gesellschaften für plastische Chirurgie. Legt Wert auf natürliche, individuelle Ergebnisse in der Gesichts-, Körper- und Brustästhetik."),
 }
 
 def compile_mo(idx):  # idx 0=EN, 1=DE
@@ -131,9 +158,31 @@ def compile_mo(idx):  # idx 0=EN, 1=DE
     header = struct.pack("<Iiiiiii", 0x950412de, 0, n, o_off, t_off, 0, 0)
     return header + key_tbl + val_tbl + keys_data + vals_data
 
+def php_q(s):  # PHP tek-tırnak string kaçışı
+    return s.replace("\\", "\\\\").replace("'", "\\'")
+
+def write_l10n(idx, path):
+    loc = "en_US" if idx == 0 else "de_DE"
+    lines = ["<?php", "return array(", "  'domain' => 'dr-alper-uslu',",
+             "  'plural-forms' => 'nplurals=2; plural=(n != 1);',",
+             "  'language' => '" + loc + "',", "  'messages' => array("]
+    for k, v in T.items():
+        if v[idx]:
+            lines.append("    '" + php_q(k) + "' => '" + php_q(v[idx]) + "',")
+    lines += ["  ),", ");", ""]
+    with open(path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+
 os.makedirs("mo", exist_ok=True)
+# theme/languages hedefi: scripts/ dizininden bir üst + theme/languages
+here = os.path.dirname(os.path.abspath(__file__))
+langdir = os.path.normpath(os.path.join(here, "..", "theme", "languages"))
 for idx, loc in [(0, "en_US"), (1, "de_DE")]:
     with open(f"mo/dr-alper-uslu-{loc}.mo", "wb") as f:
         f.write(compile_mo(idx))
-    print(f"dr-alper-uslu-{loc}.mo: {sum(1 for v in T.values() if v[idx])} string")
+    # .mo hem mo/ hem theme/languages/'a
+    with open(os.path.join(langdir, f"dr-alper-uslu-{loc}.mo"), "wb") as f:
+        f.write(compile_mo(idx))
+    write_l10n(idx, os.path.join(langdir, f"dr-alper-uslu-{loc}.l10n.php"))
+    print(f"dr-alper-uslu-{loc}: {sum(1 for v in T.values() if v[idx])} string (.mo + .l10n.php)")
 print("toplam TR anahtar:", len(T))
